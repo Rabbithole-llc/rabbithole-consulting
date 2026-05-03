@@ -1,45 +1,56 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        }
-      ]
-    },
-    {
-      "source": "/og-image.png",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400"
-        }
-      ]
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "rewrites": [
+          {
+                  "source": "/bh-demo",
+                  "destination": "https://web-production-33b90.up.railway.app"
+          },
+          {
+                  "source": "/bh-demo/:path*",
+                  "destination": "https://web-production-33b90.up.railway.app/:path*"
+          }
+    ],
+    "headers": [
+          {
+                  "source": "/(.*)",
+                  "headers": [
+                            { "key": "X-Content-Type-Options", "value": "nosniff" },
+                            { "key": "X-Frame-Options", "value": "DENY" },
+                            { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+                  ]
+          },
+          {
+                  "source": "/og-image.png",
+                  "headers": [
+                            { "key": "Cache-Control", "value": "public, max-age=86400" }
+                  ]
+          },
+          {
+                  "source": "/bh-demo",
+                  "headers": [
+                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+                  ]
+          },
+          {
+                  "source": "/bh-demo/:path*",
+                  "headers": [
+                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+                  ]
+          }
+    ],
+    "redirects": [
+          {
+                  "source": "/www",
+                  "destination": "https://rabbithole.consulting",
+                  "statusCode": 301
+          }
+    ],
+    "functions": {
+          "api/subscribe.js": {
+                  "memory": 256,
+                  "maxDuration": 10
+          }
     }
-  ],
-  "redirects": [
-    {
-      "source": "/www",
-      "destination": "https://rabbithole.consulting",
-      "statusCode": 301
-    }
-  ],
-  "functions": {
-    "api/subscribe.js": {
-      "memory": 256,
-      "maxDuration": 10
-    }
-  }
 }
