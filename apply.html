@@ -618,6 +618,8 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <div class="field-error">Please tell us your role.</div>
     </div>
 
+    <p class="submit-error" id="submitError" role="alert" hidden style="color:#c92a2a;margin:12px 0 0;font-size:.95rem"></p>
+
     <div class="btn-row">
       <button type="button" class="btn btn-ghost" onclick="prev()">← Back</button>
       <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitApp()">Submit Application<span class="arr">→</span></button>
@@ -787,11 +789,33 @@ function forceSubmit(){
   finalizeSubmit();
 }
 
-function finalizeSubmit(){
-  // For now: log + show success. Wire to a real backend (Formspree, Tally,
-  // or your own endpoint) by POSTing `data` JSON here.
-  console.log('Rabbithole application:', data);
-  show(6);
+async function finalizeSubmit(){
+  const submitBtn = document.getElementById('submitBtn');
+  const errEl = document.getElementById('submitError');
+  if(errEl){ errEl.textContent = ''; errEl.hidden = true; }
+  if(submitBtn){ submitBtn.disabled = true; submitBtn.dataset.busy = '1'; }
+
+  try {
+    const res = await fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    const payload = await res.json().catch(() => ({}));
+    if(!res.ok || !payload.ok){
+      throw new Error(payload.error || 'Could not save your application. Please try again.');
+    }
+    show(6);
+  } catch (err) {
+    if(errEl){
+      errEl.textContent = (err && err.message) || 'Something went wrong. Please try again.';
+      errEl.hidden = false;
+    } else {
+      alert((err && err.message) || 'Something went wrong. Please try again.');
+    }
+  } finally {
+    if(submitBtn){ submitBtn.disabled = false; delete submitBtn.dataset.busy; }
+  }
 }
 </script>
 
