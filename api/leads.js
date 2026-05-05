@@ -82,6 +82,156 @@ function sourceUrlFrom(req) {
   return `https://${host}${url}`.slice(0, MAX_FIELD_LEN);
 }
 
+const NOTIFICATION_FROM = "Rabbithole <team@mail.rabbithole.consulting>";
+const NOTIFICATION_DEFAULT_TO = "goodgameconsultingllc@gmail.com";
+const ADMIN_LEAD_BASE_URL = "https://rabbithole-ops.vercel.app/admin/leads";
+
+function escapeHtml(s) {
+  if (s == null) return "";
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function safeSubject(s) {
+  return String(s == null ? "" : s).replace(/[\r\n\t]+/g, " ").slice(0, 200);
+}
+
+function parseRecipients(raw) {
+  return String(raw || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function renderLeadEmail(lead, leadId) {
+  const adminUrl = leadId ? `${ADMIN_LEAD_BASE_URL}/${encodeURIComponent(leadId)}` : null;
+  const subject = safeSubject(`🟢 New Rabbithole lead: ${lead.biz_name || "(unnamed)"} (${lead.biz_industry || "—"})`);
+
+  const row = (label, value) =>
+    `<tr><td style="padding:6px 12px 6px 0;color:#666;vertical-align:top;white-space:nowrap">${escapeHtml(label)}</td>` +
+    `<td style="padding:6px 0;color:#111;word-break:break-word">${value == null || value === "" ? "<span style='color:#aaa'>—</span>" : escapeHtml(value)}</td></tr>`;
+
+  const bantRow = (label, value) =>
+    `<tr><td style="padding:6px 12px 6px 0;color:#444;vertical-align:top;white-space:nowrap;font-weight:600">${escapeHtml(label)}</td>` +
+    `<td style="padding:6px 0;color:#111;font-weight:600">${value == null || value === "" ? "<span style='color:#aaa;font-weight:400'>—</span>" : escapeHtml(value)}</td></tr>`;
+
+  const fullName = [lead.first_name, lead.last_name].filter(Boolean).join(" ");
+
+  const html = `<!doctype html>
+<html>
+<body style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#111;background:#f6f6f6;margin:0;padding:24px">
+<div style="max-width:640px;margin:0 auto;background:#fff;border-radius:8px;padding:28px 32px;border:1px solid #eee">
+  <h2 style="margin:0 0 4px;font-size:20px">New Rabbithole lead</h2>
+  <p style="margin:0 0 20px;color:#666;font-size:14px">${escapeHtml(lead.biz_name || "(unnamed business)")} · ${escapeHtml(lead.biz_industry || "—")}</p>
+
+  <h3 style="margin:18px 0 8px;font-size:14px;text-transform:uppercase;color:#888;letter-spacing:.04em">Primary contact</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:14px">
+    ${row("Name", fullName)}
+    ${row("Role", lead.role)}
+    ${row("Email", lead.email)}
+    ${row("Phone", lead.phone)}
+  </table>
+
+  <h3 style="margin:24px 0 8px;font-size:14px;text-transform:uppercase;color:#888;letter-spacing:.04em">Business</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:14px">
+    ${row("Name", lead.biz_name)}
+    ${row("Industry", lead.biz_industry)}
+    ${row("Location", lead.biz_location)}
+    ${row("Website", lead.biz_website)}
+    ${row("Team size", lead.team_size)}
+    ${row("Revenue", lead.revenue)}
+  </table>
+
+  <h3 style="margin:24px 0 8px;font-size:14px;text-transform:uppercase;color:#c44a00;letter-spacing:.04em">BANT</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:14px;background:#fff8f0;border:1px solid #f3d7b5;border-radius:6px;padding:8px 12px">
+    ${bantRow("Authority", lead.authority)}
+    ${bantRow("Timing", lead.timing)}
+    ${bantRow("Budget", lead.budget)}
+  </table>
+
+  <h3 style="margin:24px 0 8px;font-size:14px;text-transform:uppercase;color:#888;letter-spacing:.04em">Bottleneck</h3>
+  <p style="margin:0;padding:12px 14px;background:#fafafa;border:1px solid #eee;border-radius:6px;white-space:pre-wrap;font-size:14px;line-height:1.5">${escapeHtml(lead.bottleneck) || "<span style='color:#aaa'>—</span>"}</p>
+
+  ${lead.tried ? `
+  <h3 style="margin:24px 0 8px;font-size:14px;text-transform:uppercase;color:#888;letter-spacing:.04em">Tried already</h3>
+  <p style="margin:0;padding:12px 14px;background:#fafafa;border:1px solid #eee;border-radius:6px;white-space:pre-wrap;font-size:14px;line-height:1.5">${escapeHtml(lead.tried)}</p>
+  ` : ""}
+
+  ${adminUrl ? `<p style="margin:28px 0 0"><a href="${escapeHtml(adminUrl)}" style="display:inline-block;padding:10px 18px;background:#111;color:#fff;text-decoration:none;border-radius:6px;font-size:14px;font-weight:600">Open in Rabbithole Ops →</a></p>` : ""}
+  ${lead.source_url ? `<p style="margin:18px 0 0;font-size:12px;color:#999">Source: ${escapeHtml(lead.source_url)}</p>` : ""}
+</div>
+</body>
+</html>`;
+
+  const lines = [
+    `New Rabbithole lead: ${lead.biz_name || "(unnamed)"} (${lead.biz_industry || "—"})`,
+    "",
+    "PRIMARY CONTACT",
+    `  Name:     ${fullName || "—"}`,
+    `  Role:     ${lead.role || "—"}`,
+    `  Email:    ${lead.email || "—"}`,
+    `  Phone:    ${lead.phone || "—"}`,
+    "",
+    "BUSINESS",
+    `  Name:     ${lead.biz_name || "—"}`,
+    `  Industry: ${lead.biz_industry || "—"}`,
+    `  Location: ${lead.biz_location || "—"}`,
+    `  Website:  ${lead.biz_website || "—"}`,
+    `  Team:     ${lead.team_size || "—"}`,
+    `  Revenue:  ${lead.revenue || "—"}`,
+    "",
+    "BANT",
+    `  Authority: ${lead.authority || "—"}`,
+    `  Timing:    ${lead.timing || "—"}`,
+    `  Budget:    ${lead.budget || "—"}`,
+    "",
+    "BOTTLENECK",
+    lead.bottleneck ? `  ${lead.bottleneck.replace(/\r?\n/g, "\n  ")}` : "  —",
+  ];
+  if (lead.tried) {
+    lines.push("", "TRIED ALREADY", `  ${lead.tried.replace(/\r?\n/g, "\n  ")}`);
+  }
+  if (adminUrl) lines.push("", `Admin: ${adminUrl}`);
+  if (lead.source_url) lines.push("", `Source: ${lead.source_url}`);
+  const text = lines.join("\n");
+
+  return { subject, html, text };
+}
+
+async function notifyNewLead(lead, leadId) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error("leads notify: RESEND_API_KEY not set, skipping notification");
+    return;
+  }
+  const to = parseRecipients(process.env.NOTIFICATION_TO_EMAILS || NOTIFICATION_DEFAULT_TO);
+  if (!to.length) {
+    console.error("leads notify: NOTIFICATION_TO_EMAILS resolved to empty list, skipping");
+    return;
+  }
+
+  const { Resend } = require("resend");
+  const resend = new Resend(apiKey);
+  const { subject, html, text } = renderLeadEmail(lead, leadId);
+
+  const result = await resend.emails.send({
+    from: NOTIFICATION_FROM,
+    to,
+    subject,
+    html,
+    text,
+    reply_to: lead.email || undefined,
+  });
+
+  if (result && result.error) {
+    throw new Error(result.error.message || "Resend returned error");
+  }
+}
+
 module.exports = async function handler(req, res) {
   setCors(req, res);
 
@@ -140,9 +290,22 @@ module.exports = async function handler(req, res) {
       return res.status(500).json({ ok: false, error: "Could not save your application. Please try again." });
     }
 
-    return res.status(200).json({ ok: true, lead_id: data?.id ?? null });
+    const leadId = data?.id ?? null;
+
+    try {
+      await notifyNewLead(insertRow, leadId);
+    } catch (notifyErr) {
+      console.error(
+        "leads notify error:",
+        notifyErr && notifyErr.message ? notifyErr.message : notifyErr
+      );
+    }
+
+    return res.status(200).json({ ok: true, lead_id: leadId });
   } catch (err) {
     console.error("leads handler error:", err && err.message ? err.message : err);
     return res.status(500).json({ ok: false, error: "Could not save your application. Please try again." });
   }
 };
+
+module.exports.renderLeadEmail = renderLeadEmail;
