@@ -1,11 +1,13 @@
 # Wiring `/apply` → Supabase
 
-This branch (`feat/wire-apply-form-to-supabase`) lands the durable backend half: a
-Vercel Function at `api/leads.js`, the Supabase JS client dependency, and CORS
-locked to the production origins. The client wiring (replacing `finalizeSubmit()`
-in `/apply`) is documented below — the form HTML is not in this Git repo at the
-time of writing, so it must be patched wherever the apply page source lives
-(see "Deployment-source caveat").
+This branch (`feat/wire-apply-form-to-supabase`) lands the full
+end-to-end wiring: the `/apply` page (`apply.html` + `assets/chat-widget.{js,css}`)
+recovered from the live deployment, a Vercel Function at `api/leads.js` that
+inserts into Supabase, the `@supabase/supabase-js` dependency, CORS locked to
+the production origins, and the `finalizeSubmit()` handler patched to POST
+to `/api/leads` with proper error handling. Merging this branch is safe —
+`/apply` redeploys from Git without disappearing, and submissions persist
+once the env vars and Supabase table below are in place.
 
 ## 1. Set Vercel env vars
 
@@ -60,63 +62,19 @@ The service-role key bypasses RLS, so RLS policies on this table do not affect
 the function. Keep RLS enabled with no anon policy so the table is unreachable
 from the browser.
 
-## 3. Replace `finalizeSubmit()` in `/apply`
+## 3. `finalizeSubmit()` is wired (already in this branch)
 
-The current live handler is:
+`apply.html` ships in this branch with `finalizeSubmit()` already POSTing to
+`/api/leads`. The placeholder `console.log` is gone. On success the user sees
+step 6 (Calendly link). On failure they see the server's error inline in the
+`#submitError` slot above the submit button, the button re-enables, and the
+form data is preserved so they can retry. Both `submitApp()` (qualified) and
+`forceSubmit()` ("Apply Anyway") call into the same handler.
 
-```js
-function finalizeSubmit(){
-  // For now: log + show success. Wire to a real backend (Formspree, Tally,
-  // or your own endpoint) by POSTing `data` JSON here.
-  console.log('Rabbithole application:', data);
-  show(6);
-}
-```
-
-Drop in the block below. It posts to `/api/leads`, advances to step 6 on
-success, surfaces an inline error on failure, keeps the form data intact so
-the user can retry, and disables the submit button while in-flight.
-
-```js
-async function finalizeSubmit(){
-  const submitBtn = document.querySelector('[data-submit]');
-  const errEl = document.querySelector('[data-submit-error]');
-  if (errEl) { errEl.textContent = ''; errEl.hidden = true; }
-  if (submitBtn) { submitBtn.disabled = true; submitBtn.dataset.busy = '1'; }
-
-  try {
-    const res = await fetch('/api/leads', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    const payload = await res.json().catch(() => ({}));
-    if (!res.ok || !payload.ok) {
-      throw new Error(payload.error || 'Could not save your application. Please try again.');
-    }
-    show(6);
-  } catch (err) {
-    if (errEl) {
-      errEl.textContent = err.message || 'Something went wrong. Please try again.';
-      errEl.hidden = false;
-    } else {
-      alert(err.message || 'Something went wrong. Please try again.');
-    }
-  } finally {
-    if (submitBtn) { submitBtn.disabled = false; delete submitBtn.dataset.busy; }
-  }
-}
-```
-
-You will also need an inline error slot somewhere near the submit button on
-step 5 (or wherever final submit lives). Minimal markup:
-
-```html
-<p class="submit-error" data-submit-error hidden role="alert"></p>
-```
-
-If the existing submit button does not already carry a `data-submit`
-attribute, add one (or change the selector above to whatever the button uses).
+If you ever need to lift the snippet into a different page, the wired
+function and its companion error slot are at `apply.html` lines ~621 and
+~790. The button uses `id="submitBtn"`, the error slot uses
+`id="submitError"`.
 
 ## 4. Local smoke test
 
@@ -162,33 +120,25 @@ curl -i -X POST http://localhost:3000/api/leads \
 # expect: 400 { "ok": false, "error": "Missing required fields." }
 ```
 
-## 5. Deployment-source caveat (READ THIS)
+## 5. Deployment-source history (resolved)
 
-When this work was done, the live `https://www.rabbithole.consulting/apply`
-page was already serving in production but was **not present in this Git
-repository on `main`**. The most recent GitHub push was `3293d00` on
-2026-05-03, but the live `/apply` was deployed 2026-05-04 19:42:15 (UTC-4)
-under deployment id `dpl_EkSWnCWdQq5oVG15zAZmwXJpEApB`. That deployment's
-build output only included `api/subscribe.js` — no `/apply` source file came
-through Git.
+Earlier, the live `https://www.rabbithole.consulting/apply` page was serving
+in production from a Vercel deployment whose source had never been committed
+to this Git repo — it had been pushed via direct `vercel deploy` from a
+local working copy. That meant the next Git-sourced production deploy
+would have *removed* `/apply` from the live site.
 
-Implications:
+Resolved in commit `dbc2103`: `apply.html`, `assets/chat-widget.js`, and
+`assets/chat-widget.css` were recovered byte-for-byte from the live
+deployment via curl and committed here. Git is now the source of truth.
+The next production deploy from `main` will include `/apply` and will not
+regress the page.
 
-- The `apply.html` source lives somewhere outside this repo (likely a local
-  folder that someone ran `vercel deploy --prod` against, or a branch that
-  was never pushed).
-- If the next production deploy comes from this Git repo, it will publish
-  `api/leads.js` but **will not include `/apply`** — meaning the form will
-  disappear from the live site until the apply source is also committed
-  here.
-- Recommended fix: track down `apply.html` + `assets/chat-widget.js`, commit
-  them to this repo on a sibling branch, merge that first, and only then
-  apply the `finalizeSubmit()` patch and merge this branch. Otherwise you
-  break /apply while wiring it.
-- Vercel project / team for env-var setup:
-  - team: `rabbitholes-projects-2d4b7f9f` (Rabbithole's projects)
-  - project: `rabbithole-consulting`
-  - prod alias: `https://www.rabbithole.consulting`
+Vercel project / team for env-var setup:
+
+- team: `rabbitholes-projects-2d4b7f9f` (Rabbithole's projects)
+- project: `rabbithole-consulting`
+- prod alias: `https://www.rabbithole.consulting`
 
 ## 6. Privacy notes
 
