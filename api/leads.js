@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 const { createClient } = require("@supabase/supabase-js");
+const { sendTelegramMessage, renderLeadTelegramMessage } = require("./_lib/telegram");
 
 const ALLOWED_ORIGINS = new Set([
   "https://www.rabbithole.consulting",
@@ -298,6 +299,22 @@ module.exports = async function handler(req, res) {
       console.error(
         "leads notify error:",
         notifyErr && notifyErr.message ? notifyErr.message : notifyErr
+      );
+    }
+
+    try {
+      const tgRes = await sendTelegramMessage({
+        token: process.env.TELEGRAM_BOT_TOKEN,
+        chatId: process.env.TELEGRAM_LEADS_CHAT_ID,
+        text: renderLeadTelegramMessage(insertRow, leadId),
+      });
+      if (!tgRes.ok) {
+        console.error("leads telegram error:", tgRes.error);
+      }
+    } catch (tgErr) {
+      console.error(
+        "leads telegram error:",
+        tgErr && tgErr.message ? tgErr.message : tgErr
       );
     }
 
