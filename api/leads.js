@@ -286,6 +286,26 @@ module.exports = async function handler(req, res) {
       .select("id")
       .single();
 
+    // Postgres unique_violation on the leads_lower_email_unique index
+    // (audit-repo migration 0024). Treat as success: look up the existing
+    // lead and return its id without re-sending Resend / Telegram.
+    if (error && error.code === "23505") {
+      const { data: existing, error: lookupErr } = await supabase
+        .from("leads")
+        .select("id")
+        .ilike("email", cleaned.email)
+        .limit(1)
+        .maybeSingle();
+      if (lookupErr || !existing) {
+        console.error(
+          "leads dedup lookup failed after 23505:",
+          lookupErr ? lookupErr.message : "no row returned",
+        );
+        return res.status(500).json({ ok: false, error: "Could not save your application. Please try again." });
+      }
+      return res.status(200).json({ ok: true, deduped: true, lead_id: existing.id });
+    }
+
     if (error) {
       console.error("leads insert error:", error.message);
       return res.status(500).json({ ok: false, error: "Could not save your application. Please try again." });
