@@ -234,6 +234,14 @@ nav.bar.scrolled{
   padding:5px 11px;border-radius:5px;
   background:rgba(0,0,0,.55);backdrop-filter:blur(8px);color:#fff;
 }
+.video video{
+  position:relative;z-index:1;
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+}
+.video:has(video){cursor:default}
+.video:has(video)::before,
+.video:has(video)::after{display:none}
 
 /* CTA */
 .cta-primary{
@@ -709,6 +717,12 @@ section{
   font-size:.92rem;color:var(--ink);
   letter-spacing:-.005em;text-align:center;line-height:1.2;
 }
+.founder-photo{overflow:hidden}
+.founder-photo img{
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+}
+.founder-photo:has(img){border:0;background:transparent}
 .founder-text{padding-top:4px}
 .founder-name{
   font-family:'Inter Tight',sans-serif;font-weight:800;
@@ -1162,8 +1176,7 @@ footer .brand-lockup{display:inline-flex;margin-bottom:16px}
 
     <div class="video">
       <div class="v-badge">2 min · Why Rabbithole</div>
-      <div class="v-label">RABBITHOLE</div>
-      <div class="v-play"><div class="v-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+      <video src="/assets/landing-hero.mp4" controls playsinline preload="metadata" aria-label="Why Rabbithole — 2 minute overview"></video>
     </div>
 
     <a href="/apply" class="cta-primary">
@@ -1505,8 +1518,7 @@ footer .brand-lockup{display:inline-flex;margin-bottom:16px}
 
       <div class="founder-card fade">
         <div class="founder-photo">
-          <span class="photo-tag">Photo</span>
-          <span class="photo-name">Juan&nbsp;Perez</span>
+          <img src="/assets/juan-perez.jpg" alt="Juan Perez" loading="lazy" />
         </div>
         <div class="founder-text">
           <div class="founder-name">Juan Perez</div>
