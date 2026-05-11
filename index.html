@@ -688,6 +688,10 @@ section{
   gap:18px;
   max-width:1080px;
 }
+.founders-grid:has(.founder-card:only-child){
+  grid-template-columns:minmax(0,540px);
+  justify-content:center;
+}
 .founder-card{
   display:grid;
   grid-template-columns:200px 1fr;
@@ -1505,18 +1509,6 @@ footer .brand-lockup{display:inline-flex;margin-bottom:16px}
     </div>
 
     <div class="founders-grid">
-
-      <div class="founder-card fade">
-        <div class="founder-photo">
-          <span class="photo-tag">Photo</span>
-          <span class="photo-name">Austin&nbsp;White</span>
-        </div>
-        <div class="founder-text">
-          <div class="founder-name">Austin White</div>
-          <div class="founder-role">Co-founder</div>
-          <p class="founder-bio">[Placeholder bio. Replace with Austin's story. Two or three sentences. First person.]</p>
-        </div>
-      </div>
 
       <div class="founder-card fade">
         <div class="founder-photo">
