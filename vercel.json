@@ -10,6 +10,14 @@
           {
                   "source": "/bh-demo/:path*",
                   "destination": "https://web-production-33b90.up.railway.app/:path*"
+          },
+          {
+                  "source": "/clinic-demo",
+                  "destination": "https://clinic-demo-production.up.railway.app"
+          },
+          {
+                  "source": "/clinic-demo/:path*",
+                  "destination": "https://clinic-demo-production.up.railway.app/:path*"
           }
     ],
     "headers": [
@@ -35,6 +43,18 @@
           },
           {
                   "source": "/bh-demo/:path*",
+                  "headers": [
+                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+                  ]
+          },
+          {
+                  "source": "/clinic-demo",
+                  "headers": [
+                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+                  ]
+          },
+          {
+                  "source": "/clinic-demo/:path*",
                   "headers": [
                             { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
                   ]
