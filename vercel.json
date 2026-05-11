@@ -10,6 +10,22 @@
           {
                   "source": "/bh-demo/:path*",
                   "destination": "https://web-production-33b90.up.railway.app/:path*"
+          },
+          {
+                  "source": "/medspa-demo",
+                  "destination": "https://RAILWAY_URL_TBD_MEDSPA_DEMO.up.railway.app"
+          },
+          {
+                  "source": "/medspa-demo/:path*",
+                  "destination": "https://RAILWAY_URL_TBD_MEDSPA_DEMO.up.railway.app/:path*"
+          },
+          {
+                  "source": "/restaurants-demo",
+                  "destination": "https://RAILWAY_URL_TBD_RESTAURANTS_DEMO.up.railway.app"
+          },
+          {
+                  "source": "/restaurants-demo/:path*",
+                  "destination": "https://RAILWAY_URL_TBD_RESTAURANTS_DEMO.up.railway.app/:path*"
           }
     ],
     "headers": [
@@ -35,6 +51,30 @@
           },
           {
                   "source": "/bh-demo/:path*",
+                  "headers": [
+                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+                  ]
+          },
+          {
+                  "source": "/medspa-demo",
+                  "headers": [
+                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+                  ]
+          },
+          {
+                  "source": "/medspa-demo/:path*",
+                  "headers": [
+                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+                  ]
+          },
+          {
+                  "source": "/restaurants-demo",
+                  "headers": [
+                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+                  ]
+          },
+          {
+                  "source": "/restaurants-demo/:path*",
                   "headers": [
                             { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
                   ]
