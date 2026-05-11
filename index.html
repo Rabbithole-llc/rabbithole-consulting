@@ -237,9 +237,10 @@ nav.bar.scrolled{
 .video video{
   position:relative;z-index:1;
   width:100%;height:100%;
-  object-fit:cover;display:block;
+  object-fit:contain;display:block;
+  background:#0a0e1c;
 }
-.video:has(video){cursor:default}
+.video:has(video){cursor:default;max-height:none}
 .video:has(video)::before,
 .video:has(video)::after{display:none}
 
@@ -720,7 +721,8 @@ section{
 .founder-photo{overflow:hidden}
 .founder-photo img{
   width:100%;height:100%;
-  object-fit:cover;display:block;
+  object-fit:cover;object-position:center 25%;
+  display:block;
 }
 .founder-photo:has(img){border:0;background:transparent}
 .founder-text{padding-top:4px}
@@ -1176,7 +1178,7 @@ footer .brand-lockup{display:inline-flex;margin-bottom:16px}
 
     <div class="video">
       <div class="v-badge">2 min · Why Rabbithole</div>
-      <video src="/assets/landing-hero.mp4" controls playsinline preload="metadata" aria-label="Why Rabbithole — 2 minute overview"></video>
+      <video src="/assets/landing-hero.mp4#t=0.1" controls playsinline preload="metadata" aria-label="Why Rabbithole — 2 minute overview"></video>
     </div>
 
     <a href="/apply" class="cta-primary">
