@@ -3,78 +3,128 @@
     "cleanUrls": true,
     "trailingSlash": false,
     "rewrites": [
-          {
-                  "source": "/bh-demo",
-                  "destination": "https://web-production-33b90.up.railway.app"
-          },
-          {
-                  "source": "/bh-demo/:path*",
-                  "destination": "https://web-production-33b90.up.railway.app/:path*"
-          },
-          {
-                  "source": "/clinic-demo",
-                  "destination": "https://clinic-demo-production.up.railway.app"
-          },
-          {
-                  "source": "/clinic-demo/:path*",
-                  "destination": "https://clinic-demo-production.up.railway.app/:path*"
-          }
+        {
+            "source": "/bh-demo",
+            "destination": "https://web-production-33b90.up.railway.app"
+        },
+        {
+            "source": "/bh-demo/:path*",
+            "destination": "https://web-production-33b90.up.railway.app/:path*"
+        },
+        {
+            "source": "/clinic-demo",
+            "destination": "https://clinic-demo-production.up.railway.app"
+        },
+        {
+            "source": "/clinic-demo/:path*",
+            "destination": "https://clinic-demo-production.up.railway.app/:path*"
+        },
+        {
+            "source": "/restaurants-demo",
+            "destination": "https://web-production-1b1b.up.railway.app"
+        },
+        {
+            "source": "/restaurants-demo/:path*",
+            "destination": "https://web-production-1b1b.up.railway.app/:path*"
+        }
     ],
     "headers": [
-          {
-                  "source": "/(.*)",
-                  "headers": [
-                            { "key": "X-Content-Type-Options", "value": "nosniff" },
-                            { "key": "X-Frame-Options", "value": "DENY" },
-                            { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
-                  ]
-          },
-          {
-                  "source": "/og-image.png",
-                  "headers": [
-                            { "key": "Cache-Control", "value": "public, max-age=86400" }
-                  ]
-          },
-          {
-                  "source": "/bh-demo",
-                  "headers": [
-                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
-                  ]
-          },
-          {
-                  "source": "/bh-demo/:path*",
-                  "headers": [
-                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
-                  ]
-          },
-          {
-                  "source": "/clinic-demo",
-                  "headers": [
-                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
-                  ]
-          },
-          {
-                  "source": "/clinic-demo/:path*",
-                  "headers": [
-                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
-                  ]
-          }
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
+                    "key": "X-Frame-Options",
+                    "value": "DENY"
+                },
+                {
+                    "key": "Referrer-Policy",
+                    "value": "strict-origin-when-cross-origin"
+                }
+            ]
+        },
+        {
+            "source": "/og-image.png",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=86400"
+                }
+            ]
+        },
+        {
+            "source": "/bh-demo",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        },
+        {
+            "source": "/bh-demo/:path*",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        },
+        {
+            "source": "/clinic-demo",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        },
+        {
+            "source": "/clinic-demo/:path*",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        },
+        {
+            "source": "/restaurants-demo",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        },
+        {
+            "source": "/restaurants-demo/:path*",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        }
     ],
     "redirects": [
-          {
-                  "source": "/www",
-                  "destination": "https://rabbithole.consulting",
-                  "statusCode": 301
-          }
+        {
+            "source": "/www",
+            "destination": "https://rabbithole.consulting",
+            "statusCode": 301
+        }
     ],
     "functions": {
-          "api/subscribe.js": {
-                  "memory": 256,
-                  "maxDuration": 10
-          },
-          "api/leads.js": {
-                  "memory": 256,
-                  "maxDuration": 10
-          }
+        "api/subscribe.js": {
+            "memory": 256,
+            "maxDuration": 10
+        },
+        "api/leads.js": {
+            "memory": 256,
+            "maxDuration": 10
+        }
     }
 }
