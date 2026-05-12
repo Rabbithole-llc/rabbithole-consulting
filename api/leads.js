@@ -1,6 +1,16 @@
 const crypto = require("crypto");
 const { createClient } = require("@supabase/supabase-js");
 const { sendTelegramMessage, renderLeadTelegramMessage } = require("./_lib/telegram");
+const { PostHog } = require("posthog-node");
+
+function getPostHog() {
+  return new PostHog(process.env.POSTHOG_API_KEY, {
+    host: process.env.POSTHOG_HOST,
+    flushAt: 1,
+    flushInterval: 0,
+    enableExceptionAutocapture: true,
+  });
+}
 
 const ALLOWED_ORIGINS = new Set([
   "https://www.rabbithole.consulting",
@@ -293,6 +303,43 @@ module.exports = async function handler(req, res) {
 
     const leadId = data?.id ?? null;
 
+    const posthog = getPostHog();
+    try {
+      const fullName = [insertRow.first_name, insertRow.last_name].filter(Boolean).join(" ");
+      posthog.identify({
+        distinctId: insertRow.email,
+        properties: {
+          $set: {
+            email: insertRow.email,
+            name: fullName || undefined,
+            role: insertRow.role || undefined,
+            phone: insertRow.phone || undefined,
+          },
+        },
+      });
+      await posthog.captureImmediate({
+        distinctId: insertRow.email,
+        event: "lead submitted",
+        properties: {
+          lead_id: leadId,
+          biz_name: insertRow.biz_name,
+          biz_industry: insertRow.biz_industry,
+          biz_location: insertRow.biz_location,
+          biz_website: insertRow.biz_website,
+          team_size: insertRow.team_size,
+          revenue: insertRow.revenue,
+          authority: insertRow.authority,
+          timing: insertRow.timing,
+          budget: insertRow.budget,
+          source_url: insertRow.source_url,
+        },
+      });
+    } catch (phErr) {
+      console.error("leads posthog error:", phErr && phErr.message ? phErr.message : phErr);
+    } finally {
+      await posthog.shutdown();
+    }
+
     try {
       await notifyNewLead(insertRow, leadId);
     } catch (notifyErr) {
@@ -321,6 +368,9 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true, lead_id: leadId });
   } catch (err) {
     console.error("leads handler error:", err && err.message ? err.message : err);
+    const posthog = getPostHog();
+    posthog.captureException(err);
+    await posthog.shutdown();
     return res.status(500).json({ ok: false, error: "Could not save your application. Please try again." });
   }
 };

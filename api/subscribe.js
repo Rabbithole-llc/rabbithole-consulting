@@ -1,4 +1,14 @@
 const { Client } = require("@notionhq/client");
+const { PostHog } = require("posthog-node");
+
+function getPostHog() {
+  return new PostHog(process.env.POSTHOG_API_KEY, {
+    host: process.env.POSTHOG_HOST,
+    flushAt: 1,
+    flushInterval: 0,
+    enableExceptionAutocapture: true,
+  });
+}
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const DATABASE_ID = process.env.NOTION_NEWSLETTER_DB_ID;
@@ -54,9 +64,34 @@ module.exports = async function handler(req, res) {
       },
     });
 
+    const posthog = getPostHog();
+    try {
+      const normalizedEmail = email.toLowerCase().trim();
+      posthog.identify({
+        distinctId: normalizedEmail,
+        properties: {
+          $set: { email: normalizedEmail },
+        },
+      });
+      await posthog.captureImmediate({
+        distinctId: normalizedEmail,
+        event: "newsletter subscribed",
+        properties: {
+          source: "website",
+        },
+      });
+    } catch (phErr) {
+      console.error("subscribe posthog error:", phErr && phErr.message ? phErr.message : phErr);
+    } finally {
+      await posthog.shutdown();
+    }
+
     return res.status(200).json({ message: "You're in! Stay tuned for AI insights." });
   } catch (err) {
     console.error("Newsletter subscribe error:", err.message);
+    const posthog = getPostHog();
+    posthog.captureException(err);
+    await posthog.shutdown();
     return res.status(500).json({ error: "Something went wrong. Please try again later." });
   }
 };
