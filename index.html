@@ -591,16 +591,6 @@ section{
 .founders-card .f-sig .role{
   font-family:'Inter',sans-serif;font-size:.86rem;color:var(--muted);
 }
-.founders-card .placeholder-note{
-  margin-top:24px;
-  padding:14px 18px;
-  background:var(--inkblue-soft);
-  border:1px dashed var(--line-2);
-  border-radius:8px;
-  font-family:'Inter',sans-serif;font-size:.82rem;
-  color:var(--muted);
-}
-.founders-card .placeholder-note b{color:var(--ink)}
 @media(max-width:720px){.founders-card{padding:36px 28px}}
 
 /* ============== OFFER ============== */
@@ -729,6 +719,9 @@ section{
   display:block;
 }
 .founder-photo:has(img){border:0;background:transparent}
+.founder-photo img[alt="Austin White"]{
+  filter:brightness(1.06) contrast(1.04) saturate(1.12);
+}
 .founder-text{padding-top:4px}
 .founder-name{
   font-family:'Inter Tight',sans-serif;font-weight:800;
@@ -1046,9 +1039,6 @@ footer .brand-lockup{display:inline-flex;margin-bottom:16px}
   .founders-card .f-sig{margin-top:16px;padding-top:14px}
   .founders-card .f-sig .name{font-size:.86rem}
   .founders-card .f-sig .role{font-size:.74rem}
-  .founders-card .placeholder-note{
-    font-size:.7rem;padding:9px 11px;margin-top:14px;line-height:1.4;
-  }
 
   /* ---- offer ---- */
   .offer{padding:34px 16px}
@@ -1182,7 +1172,7 @@ footer .brand-lockup{display:inline-flex;margin-bottom:16px}
 
     <div class="video">
       <div class="v-badge">2 min · Why Rabbithole</div>
-      <video src="/assets/landing-hero.mp4#t=0.1" controls playsinline preload="metadata" aria-label="Why Rabbithole — 2 minute overview"></video>
+      <video src="/assets/landing-hero.mp4" poster="/assets/landing-hero-cover.jpg" controls playsinline preload="metadata" aria-label="Why Rabbithole — 2 minute overview"></video>
     </div>
 
     <a href="/apply" class="cta-primary">
@@ -1460,7 +1450,6 @@ footer .brand-lockup{display:inline-flex;margin-bottom:16px}
         <div class="name">The Rabbithole Team</div>
         <div class="role">San&nbsp;Juan, Puerto&nbsp;Rico</div>
       </div>
-      <div class="placeholder-note"><b>Placeholder:</b> swap this for your real founder note when ready. Keep it personal. First person, your story, why you built it. This is where the page sounds most like a human.</div>
     </div>
   </div>
 </section>
@@ -1497,8 +1486,7 @@ footer .brand-lockup{display:inline-flex;margin-bottom:16px}
 </section>
 
 <!-- =============================================================
-     ABOUT US — founder cards with photo + bio placeholders.
-     Swap photo placeholder divs for <img> tags when ready.
+     ABOUT US — founder cards.
      ============================================================= -->
 <section class="about" id="about">
   <div class="wrap">
@@ -1509,6 +1497,17 @@ footer .brand-lockup{display:inline-flex;margin-bottom:16px}
     </div>
 
     <div class="founders-grid">
+
+      <div class="founder-card fade">
+        <div class="founder-photo">
+          <img src="/assets/austin-white.png" alt="Austin White" loading="lazy" />
+        </div>
+        <div class="founder-text">
+          <div class="founder-name">Austin White</div>
+          <div class="founder-role">Co-founder</div>
+          <p class="founder-bio">I've built multiple businesses from the ground up and always stayed on the edge of what's next. Running them as a solo operator taught me the hard truth: if you can't walk away from your business, you don't own it. The only fix was to build the custom infrastructure ourselves.</p>
+        </div>
+      </div>
 
       <div class="founder-card fade">
         <div class="founder-photo">
