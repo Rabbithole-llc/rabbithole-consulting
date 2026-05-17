@@ -26,6 +26,14 @@
         {
             "source": "/restaurants-demo/:path*",
             "destination": "https://web-production-1b1b.up.railway.app/:path*"
+        },
+        {
+            "source": "/salon-demo",
+            "destination": "https://web-production-a4f42.up.railway.app"
+        },
+        {
+            "source": "/salon-demo/:path*",
+            "destination": "https://web-production-a4f42.up.railway.app/:path*"
         }
     ],
     "headers": [
@@ -102,6 +110,24 @@
         },
         {
             "source": "/restaurants-demo/:path*",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        },
+        {
+            "source": "/salon-demo",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        },
+        {
+            "source": "/salon-demo/:path*",
             "headers": [
                 {
                     "key": "X-Frame-Options",
