@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <!-- Anchor all relative URLs to /maestro/ so the page works at the bare /maestro path under cleanUrls -->
+  <base href="/maestro/">
+  <title>Maestro · by Rabbithole</title>
+  <link rel="icon" type="image/png" href="assets/icons/rabbithole-logo-white-tight.png">
+  <link rel="apple-touch-icon" href="assets/icons/rabbithole-logo-white-tight.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+    body {
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    /* Force every element in the gate card to use border-box so widths are predictable */
+    .gate, .gate * { box-sizing: border-box; }
+    .gate {
+      width: 100%;
+      max-width: 380px;
+      padding: 36px 32px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(15,12,8,0.06);
+      text-align: center;
+    }
+    .gate-mark {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: #0a0a0a;
+      display: grid; place-items: center;
+      margin: 0 auto 16px;
+      overflow: hidden;
+    }
+    .gate-mark img { width: 36px; height: 36px; object-fit: contain; display: block; }
+    .gate-title { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .gate-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
+    .gate-input {
+      width: 100%;
+      padding: 11px 14px;
+      font-size: 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .gate-input:focus { border-color: var(--accent); background: var(--surface); }
+    .gate-error {
+      font-size: 12px;
+      color: var(--danger);
+      height: 0;
+      margin: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.18s ease, height 0.18s ease, margin-top 0.18s ease;
+    }
+    .gate-error.show {
+      opacity: 1;
+      height: 16px;
+      margin-top: 8px;
+    }
+    .gate-btn {
+      width: 100%;
+      margin-top: 14px;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-weight: 500;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.08s;
+    }
+    .gate-btn:hover { background: #9a7a3f; }
+    .gate-btn:active { transform: scale(0.98); }
+    .gate-footer {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+    .gate-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--border-strong);
+    }
+    .gate-footer a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  </style>
+</head>
+<body>
+  <form class="gate" id="gateForm" autocomplete="off">
+    <div class="gate-mark">
+      <img src="assets/icons/rabbithole-logo-white-tight.png" alt="Rabbithole">
+    </div>
+    <div class="gate-title">Maestro</div>
+    <div class="gate-sub">Private preview. Enter the access password to continue.</div>
+    <input
+      class="gate-input"
+      id="pw"
+      type="password"
+      placeholder="Access password"
+      autocomplete="off"
+      spellcheck="false"
+      autofocus
+      required>
+    <div class="gate-error" id="err">Incorrect password.</div>
+    <button class="gate-btn" type="submit">Enter</button>
+    <div class="gate-footer">
+      <a href="https://rabbithole.consulting" target="_blank" rel="noopener">Rabbithole Consulting</a>
+    </div>
+  </form>
+
+  <script>
+    // Change this to update the access password. Keep it short and memorable for verbal sharing.
+    // Stored lowercase so the comparison is case-insensitive for typing convenience.
+    const ACCESS_PASSWORD = 'condado2026';
+    const AUTH_KEY = 'maestroAuth';
+    const AUTH_VALUE = 'unlocked-v2';
+
+    // Already unlocked? Skip the gate.
+    try {
+      if (localStorage.getItem(AUTH_KEY) === AUTH_VALUE) {
+        window.location.replace('dashboard.html');
+      }
+    } catch (e) {}
+
+    const form = document.getElementById('gateForm');
+    const input = document.getElementById('pw');
+    const err = document.getElementById('err');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = (input.value || '').trim().toLowerCase();
+      if (val === ACCESS_PASSWORD) {
+        try { localStorage.setItem(AUTH_KEY, AUTH_VALUE); } catch (e) {}
+        window.location.href = 'dashboard.html';
+      } else {
+        err.classList.add('show');
+        input.value = '';
+        input.focus();
+        setTimeout(() => err.classList.remove('show'), 2200);
+      }
+    });
+  </script>
+</body>
+</html>

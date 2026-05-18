@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics — Maestro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    .chart-bg {
+      height: 220px;
+      background:
+        linear-gradient(90deg, transparent 0%, transparent calc(100% / 7 - 1px), var(--border) calc(100% / 7), transparent calc(100% / 7)) repeat-x,
+        linear-gradient(180deg, transparent 0%, transparent 24%, var(--border) 25%, transparent 26%, transparent 49%, var(--border) 50%, transparent 51%, transparent 74%, var(--border) 75%, transparent 76%) no-repeat;
+      background-size: 14.28% 100%, 100% 100%;
+      position: relative;
+    }
+  </style>
+</head>
+<body data-page="analytics">
+  <main class="page-content">
+    <div class="page" style="max-width: 1400px;">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Analytics</div>
+          <div class="page-subtitle">All channels · last 30 days · refreshed 4 min ago · feeds back as learnings — every surface gets smarter</div>
+        </div>
+        <div class="flex gap-2">
+          <select class="input" style="width:140px;">
+            <option>Last 30 days</option>
+            <option>Last 7 days</option>
+            <option>Last 90 days</option>
+          </select>
+          <button class="btn btn-secondary">Export</button>
+          <button class="btn btn-primary">Weekly digest</button>
+        </div>
+      </div>
+
+      <!-- KPI row -->
+      <div class="grid grid-cols-5 gap-4 mb-6">
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Bookings (attrib.)</div>
+            <div class="metric-value">42</div>
+            <div class="metric-delta up">↑ 38% MoM</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Revenue (attrib.)</div>
+            <div class="metric-value">$28.6K</div>
+            <div class="metric-delta up">↑ 31%</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Organic reach</div>
+            <div class="metric-value">142K</div>
+            <div class="metric-delta up">↑ 47%</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Ad spend</div>
+            <div class="metric-value">$4,820</div>
+            <div class="metric-delta" style="color: var(--text-muted);">4.2× ROAS</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Hours saved</div>
+            <div class="metric-value">38h</div>
+            <div class="metric-delta up">vs. agency baseline</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Channel attribution chart -->
+      <div class="card mb-6">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="card-title">Revenue attribution by channel</div>
+            <div class="card-sub">$28.6K driven by Maestro across organic, search, AI search, and paid · 30 days</div>
+          </div>
+          <div class="flex gap-2">
+            <button class="btn btn-ghost" style="font-size:12px;">Bookings</button>
+            <button class="btn btn-secondary" style="font-size:12px;">Revenue</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-6 gap-4 items-end" style="height: 240px;">
+          <div class="flex flex-col items-center" style="height:100%;">
+            <div style="flex:1; display:flex; align-items:flex-end; width:100%;">
+              <div style="height: 90%; width: 100%; background: linear-gradient(180deg, #E1306C 0%, #F77737 60%, #FCAF45 100%); border-radius: 6px 6px 0 0; box-shadow: 0 1px 0 rgba(0,0,0,0.04) inset;"></div>
+            </div>
+            <div class="flex items-center gap-1.5 mt-2">
+              <img src="assets/icons/instagram.svg" alt="Instagram" style="width:14px; height:14px; object-fit:contain;">
+              <div class="text-xs font-medium">Instagram</div>
+            </div>
+            <div class="text-xs" style="color: var(--text-dim);">$8.4K · 29%</div>
+          </div>
+          <div class="flex flex-col items-center" style="height:100%;">
+            <div style="flex:1; display:flex; align-items:flex-end; width:100%;">
+              <div style="height: 70%; width: 100%; background: linear-gradient(180deg, #25F4EE 0%, #1c1c1c 55%, #FE2C55 100%); border-radius: 6px 6px 0 0;"></div>
+            </div>
+            <div class="flex items-center gap-1.5 mt-2">
+              <img src="assets/icons/tiktok.svg" alt="TikTok" style="width:14px; height:14px; object-fit:contain;">
+              <div class="text-xs font-medium">TikTok</div>
+            </div>
+            <div class="text-xs" style="color: var(--text-dim);">$6.2K · 22%</div>
+          </div>
+          <div class="flex flex-col items-center" style="height:100%;">
+            <div style="flex:1; display:flex; align-items:flex-end; width:100%;">
+              <div style="height: 78%; width: 100%; background: linear-gradient(180deg, #4285F4 0%, #34A853 50%, #FBBC04 80%, #EA4335 100%); border-radius: 6px 6px 0 0;"></div>
+            </div>
+            <div class="flex items-center gap-1.5 mt-2">
+              <img src="assets/icons/google-ads.svg" alt="Paid Ads" style="width:14px; height:14px; object-fit:contain;">
+              <div class="text-xs font-medium">Paid Ads</div>
+            </div>
+            <div class="text-xs" style="color: var(--text-dim);">$6.8K · 24%</div>
+          </div>
+          <div class="flex flex-col items-center" style="height:100%;">
+            <div style="flex:1; display:flex; align-items:flex-end; width:100%;">
+              <div style="height: 50%; width: 100%; background: linear-gradient(180deg, #0A66C2 0%, #084d92 100%); border-radius: 6px 6px 0 0;"></div>
+            </div>
+            <div class="flex items-center gap-1.5 mt-2">
+              <img src="assets/icons/linkedin.svg" alt="LinkedIn" style="width:14px; height:14px; object-fit:contain;">
+              <div class="text-xs font-medium">LinkedIn</div>
+            </div>
+            <div class="text-xs" style="color: var(--text-dim);">$3.9K · 14%</div>
+          </div>
+          <div class="flex flex-col items-center" style="height:100%;">
+            <div style="flex:1; display:flex; align-items:flex-end; width:100%;">
+              <div style="height: 32%; width: 100%; background: linear-gradient(180deg, #1877F2 0%, #145dbf 100%); border-radius: 6px 6px 0 0;"></div>
+            </div>
+            <div class="flex items-center gap-1.5 mt-2">
+              <img src="assets/icons/facebook.svg" alt="Facebook" style="width:14px; height:14px; object-fit:contain;">
+              <div class="text-xs font-medium">Facebook</div>
+            </div>
+            <div class="text-xs" style="color: var(--text-dim);">$2.4K · 8%</div>
+          </div>
+          <div class="flex flex-col items-center" style="height:100%;">
+            <div style="flex:1; display:flex; align-items:flex-end; width:100%;">
+              <div style="height: 12%; width: 100%; background: linear-gradient(180deg, var(--accent) 0%, #8a6839 100%); border-radius: 6px 6px 0 0;"></div>
+            </div>
+            <div class="flex items-center gap-1.5 mt-2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text-muted);"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
+              <div class="text-xs font-medium">Other</div>
+            </div>
+            <div class="text-xs" style="color: var(--text-dim);">$890 · 3%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4">
+        <!-- Top performing posts -->
+        <div class="card col-span-2">
+          <div class="card-title">Top performing posts</div>
+          <div class="card-sub">By engagement-to-conversion · 30 days</div>
+          <div class="space-y-3 mt-4">
+            <div class="flex items-center gap-3 p-3 rounded" style="background: var(--surface-2);">
+              <div class="media-block" style="width:56px; height:56px; background-image:url('assets/photos/magdalena-crafted-for-curious.jpg'); background-size:cover; background-position:center;"></div>
+              <div class="flex-1">
+                <div class="text-sm font-medium">Crafted for the Curious</div>
+                <div class="text-xs" style="color: var(--text-dim);">Instagram · May 8 · 4.8K likes · 412 saves</div>
+              </div>
+              <div class="text-right">
+                <div class="text-sm font-medium" style="color: var(--success);">+ 6 bookings</div>
+                <div class="text-xs" style="color: var(--text-dim);">$3,840 attributed</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded" style="background: var(--surface-2);">
+              <div class="media-block" style="width:56px; height:56px; background-image:url('assets/photos/magdalena-junior-suite.jpg'); background-size:cover; background-position:center;"></div>
+              <div class="flex-1">
+                <div class="text-sm font-medium">Rooftop at sunset</div>
+                <div class="text-xs" style="color: var(--text-dim);">TikTok · May 5 · 18K views · 1.2K saves</div>
+              </div>
+              <div class="text-right">
+                <div class="text-sm font-medium" style="color: var(--success);">+ 4 bookings</div>
+                <div class="text-xs" style="color: var(--text-dim);">$2,720 attributed</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded" style="background: var(--surface-2);">
+              <div class="media-block" style="width:56px; height:56px; background-image:url('assets/photos/magdalena-bedroom-tray.jpg'); background-size:cover; background-position:center;"></div>
+              <div class="flex-1">
+                <div class="text-sm font-medium">Morning, unhurried · The Studio</div>
+                <div class="text-xs" style="color: var(--text-dim);">Instagram · May 4 · 3.6K likes · 384 saves</div>
+              </div>
+              <div class="text-right">
+                <div class="text-sm font-medium" style="color: var(--success);">+ 3 bookings</div>
+                <div class="text-xs" style="color: var(--text-dim);">$1,920 attributed</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded" style="background: var(--surface-2);">
+              <div class="media-block" style="width:56px; height:56px; background-image:url('assets/photos/magdalena-lobby.jpg'); background-size:cover; background-position:center;"></div>
+              <div class="flex-1">
+                <div class="text-sm font-medium">Arrival is part of the experience</div>
+                <div class="text-xs" style="color: var(--text-dim);">LinkedIn · May 11 · 1.8K reactions · 84 shares</div>
+              </div>
+              <div class="text-right">
+                <div class="text-sm font-medium" style="color: var(--success);">+ 2 group inquiries</div>
+                <div class="text-xs" style="color: var(--text-dim);">$8,400 pipeline</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Learnings -->
+        <div class="card">
+          <div class="card-title">Learnings (last 7 days)</div>
+          <div class="card-sub">Sent back into the system — every surface gets smarter</div>
+          <div class="space-y-3 mt-3 text-sm">
+            <div class="p-3 rounded" style="background: var(--surface-2);">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="badge badge-success">Strategy</span>
+              </div>
+              <div style="color: var(--text-muted);">"Atmosphere" posts (no people, single sensory detail) outperform "guest" posts 2.4× on IG. Increase atmosphere ratio from 30% → 50%.</div>
+            </div>
+            <div class="p-3 rounded" style="background: var(--surface-2);">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="badge badge-info">Copy</span>
+              </div>
+              <div style="color: var(--text-muted);">First sentences with concrete time-of-day ("6 AM," "5:47 AM") convert better than generic time references. Add to the brand voice style guide.</div>
+            </div>
+            <div class="p-3 rounded" style="background: var(--surface-2);">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="badge badge-warn">Image</span>
+              </div>
+              <div style="color: var(--text-muted);">Posts featuring the Rooftop Lounge drive 38% higher save rate. Boost "rooftop golden hour" prompt weight in visual style.</div>
+            </div>
+            <div class="p-3 rounded" style="background: var(--surface-2);">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="badge badge-danger">Ads</span>
+              </div>
+              <div style="color: var(--text-muted);">"Romantic Getaway" lookalike audience fatigued at day 12. Rebuild audience from past-90-day bookings only.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weekly digest preview -->
+      <div class="card mt-6">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <div class="card-title">Weekly digest · preview</div>
+            <div class="card-sub">Auto-sent to Austin + Juan every Monday 8 AM · also as exec-ready PDF</div>
+          </div>
+          <div class="flex gap-2">
+            <button class="btn btn-secondary">View full digest</button>
+            <button class="btn btn-secondary">Send now</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <p class="text-sm leading-relaxed" style="color: var(--text-muted);">
+              <span class="font-medium" style="color: var(--text);">This week:</span> 8 posts published across 4 channels. Engagement up 31% MoM, mostly driven by the "Crafted for the Curious" post on Instagram (4.8K likes, 412 saves, 6 attributable bookings). The Morning, unhurried atmosphere series continues to outperform — 2.4× the engagement of guest-focused content. <br><br>
+              <span class="font-medium" style="color: var(--text);">Ads:</span> Junior Suite conversion campaign scaled by $200/day after holding ROAS above 6×. "Romantic Getaway" paused — CPA up 22% across 4 days. New variants in queue for next week. <br><br>
+              <span class="font-medium" style="color: var(--text);">Calendar:</span> Next week's calendar generated · 14 briefs across 4 channels · ready for review.<br><br>
+              <span class="font-medium" style="color: var(--text);">Brand voice:</span> Average voice-match score holding at 0.91 across all copy generated this week.
+            </p>
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-wider mb-2" style="color: var(--text-dim);">What we'd do next week</div>
+            <ul class="text-sm space-y-2" style="color: var(--text-muted);">
+              <li>· Lean further into atmosphere posts (Strategy will skew 50% atmosphere this coming week)</li>
+              <li>· Push three atmosphere-leaning briefs into Wednesday and Friday slots</li>
+              <li>· Rebuild Meta retargeting audience from past 90 days only</li>
+              <li>· Generate carousel format variants for Junior Suite — saves outperforming singles</li>
+              <li>· Refresh LinkedIn voice corpus from past 30d of approved posts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="assets/state.js"></script>
+  <script src="assets/interactions.js"></script>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

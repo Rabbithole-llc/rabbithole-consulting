@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health — Maestro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    .health-score {
+      background: linear-gradient(135deg, #1c1917 0%, #2d251f 100%);
+      color: #f5f0e6;
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .health-score-ring {
+      width: 110px; height: 110px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .health-score-ring svg { transform: rotate(-90deg); }
+    .health-score-num {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .health-score-num .row {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 2px;
+      letter-spacing: -0.02em;
+    }
+    .health-score-num .num    { font-size: 32px; font-weight: 600; line-height: 1; }
+    .health-score-num .suffix { font-size: 12px; color: rgba(245,240,230,0.55); font-weight: 400; line-height: 1; }
+    .health-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .health-section-head {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface-2);
+    }
+    .health-row {
+      display: grid;
+      grid-template-columns: 32px 1fr auto auto;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .health-row:last-child { border-bottom: none; }
+    .health-row .icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: grid; place-items: center;
+      background: var(--surface-2);
+      color: var(--text-muted);
+    }
+    .health-row .body {
+      min-width: 0;
+    }
+    .health-row .body .name { font-size: 14px; font-weight: 500; color: var(--text); }
+    .health-row .body .desc { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+    .health-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 500;
+      padding: 4px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .health-badge .dot { width: 7px; height: 7px; border-radius: 50%; }
+    .health-badge.ok    { background: rgba(4,120,87,0.10); color: var(--success); }
+    .health-badge.ok .dot { background: var(--success); }
+    .health-badge.warn  { background: rgba(184,146,79,0.12); color: var(--accent); }
+    .health-badge.warn .dot { background: var(--accent); }
+    .health-badge.bad   { background: rgba(190,18,60,0.10); color: var(--danger); }
+    .health-badge.bad .dot { background: var(--danger); }
+  </style>
+</head>
+<body data-page="health">
+  <main class="page-content">
+    <div class="page" style="max-width: 1100px;">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Health</div>
+          <div class="page-subtitle">Marketing infrastructure check · 8 of 11 systems healthy · last scan 4 min ago</div>
+        </div>
+        <div class="flex gap-2">
+          <button class="btn btn-secondary">Run scan</button>
+          <button class="btn btn-primary">Fix 3 missing →</button>
+        </div>
+      </div>
+
+      <!-- Overall score -->
+      <div class="health-score">
+        <div class="health-score-ring">
+          <svg width="110" height="110" viewBox="0 0 110 110">
+            <circle cx="55" cy="55" r="48" fill="none" stroke="rgba(245,240,230,0.08)" stroke-width="8"/>
+            <circle cx="55" cy="55" r="48" fill="none" stroke="#c5a572" stroke-width="8"
+                    stroke-linecap="round"
+                    stroke-dasharray="301.6" stroke-dashoffset="82.9"/>
+          </svg>
+          <div class="health-score-num"><div class="row"><span class="num">72</span><span class="suffix">/100</span></div></div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #c5a572; margin-bottom: 4px;">Maestro · Health Score</div>
+          <div style="font-size: 16px; color: rgba(245,240,230,0.85); margin-bottom: 8px;">Solid foundation — three fixes will get you to "best in class" for Condado boutique hotels.</div>
+          <div style="display:flex; gap: 18px; font-size: 12px; color: rgba(245,240,230,0.6);">
+            <div><span style="color: #34d399; font-weight: 600;">●</span> 8 connected</div>
+            <div><span style="color: #c5a572; font-weight: 600;">●</span> 2 warnings</div>
+            <div><span style="color: #f87171; font-weight: 600;">●</span> 3 missing</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tracking & Pixels -->
+      <div class="health-section">
+        <div class="health-section-head">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color: var(--text-muted);"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+          <div style="font-size: 13px; font-weight: 600;">Tracking &amp; Pixels</div>
+          <div style="flex:1;"></div>
+          <div style="font-size: 11px; color: var(--text-dim);">3 / 5 connected</div>
+        </div>
+
+        <div class="health-row">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.408.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z"/></svg></div>
+          <div class="body">
+            <div class="name">Meta Pixel</div>
+            <div class="desc">Not detected on magdalena1163.com. Without this, Meta ads can't optimize for bookings.</div>
+          </div>
+          <span class="health-badge bad"><span class="dot"></span>Missing</span>
+          <button class="btn btn-primary" style="font-size: 12px;">Install</button>
+        </div>
+
+        <div class="health-row">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.84 6.73c-.06-.21-.24-.37-.46-.4l-7.62-1.11L11.5 0c-.16-.34-.74-.34-.9 0L7.24 5.22.4 6.33c-.22.03-.4.19-.46.4-.06.21 0 .44.16.59L5.2 11.86l-.86 5.02c-.04.22.05.45.23.58.18.13.42.15.62.05L9.95 15.6l4.76 1.91c.07.03.15.05.23.05.13 0 .27-.04.39-.12.18-.13.27-.36.23-.58l-.86-5.02 4.93-4.54c.16-.15.22-.38.16-.59z"/></svg></div>
+          <div class="body">
+            <div class="name">Google Analytics 4</div>
+            <div class="desc">Receiving 247 events/day · booking conversion event mapped.</div>
+          </div>
+          <span class="health-badge ok"><span class="dot"></span>Connected</span>
+          <button class="btn btn-ghost" style="font-size: 12px;">Manage</button>
+        </div>
+
+        <div class="health-row">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.756-1.378l-.749 2.853c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg></div>
+          <div class="body">
+            <div class="name">TikTok Pixel</div>
+            <div class="desc">Not installed. TikTok ads converting at 3.9% — pixel would let us scale this.</div>
+          </div>
+          <span class="health-badge bad"><span class="dot"></span>Missing</span>
+          <button class="btn btn-primary" style="font-size: 12px;">Install</button>
+        </div>
+
+        <div class="health-row">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.18 0H1.82C.81 0 0 .81 0 1.82v20.36C0 23.19.81 24 1.82 24h20.36c1.01 0 1.82-.81 1.82-1.82V1.82C24 .81 23.19 0 22.18 0zM12 8.25l4.5 3.75H15v4.5h-2v-3h-2v3H9V12H7.5L12 8.25z"/></svg></div>
+          <div class="body">
+            <div class="name">Google Tag Manager</div>
+            <div class="desc">Installed but 2 tags are firing on the wrong trigger — won't capture all bookings.</div>
+          </div>
+          <span class="health-badge warn"><span class="dot"></span>Warning</span>
+          <button class="btn btn-secondary" style="font-size: 12px;">Review</button>
+        </div>
+
+        <div class="health-row">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0z" fill="none"/><path d="M2 4h20v16H2z" fill="currentColor" opacity="0.2"/><path d="M2 4l10 7 10-7M2 4v16h20V4M2 4l10 7 10-7"/></svg></div>
+          <div class="body">
+            <div class="name">Email service tracking</div>
+            <div class="desc">No newsletter signups detected. Worth adding — past guests are your highest LTV.</div>
+          </div>
+          <span class="health-badge bad"><span class="dot"></span>Missing</span>
+          <button class="btn btn-primary" style="font-size: 12px;">Connect</button>
+        </div>
+      </div>
+
+      <!-- Ad Accounts -->
+      <div class="health-section">
+        <div class="health-section-head">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color: var(--text-muted);"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          <div style="font-size: 13px; font-weight: 600;">Ad Accounts</div>
+          <div style="flex:1;"></div>
+          <div style="font-size: 11px; color: var(--text-dim);">4 / 4 connected</div>
+        </div>
+        <div class="health-row">
+          <div class="icon"><img src="assets/icons/google-ads.svg" alt="Google Ads" style="width:16px; height:16px; object-fit:contain;"></div>
+          <div class="body">
+            <div class="name">Google Ads</div>
+            <div class="desc">Spending $2,140 this month · 5.0× ROAS · conversion tracking healthy.</div>
+          </div>
+          <span class="health-badge ok"><span class="dot"></span>Connected</span>
+          <button class="btn btn-ghost" style="font-size: 12px;">Manage</button>
+        </div>
+        <div class="health-row">
+          <div class="icon"><img src="assets/icons/meta.svg" alt="Meta" style="width:16px; height:16px; object-fit:contain;"></div>
+          <div class="body">
+            <div class="name">Meta Business Manager</div>
+            <div class="desc">Connected. Page + IG + ad account linked. CAPI not yet sending — Pixel install needed.</div>
+          </div>
+          <span class="health-badge warn"><span class="dot"></span>Partial</span>
+          <button class="btn btn-secondary" style="font-size: 12px;">Review</button>
+        </div>
+        <div class="health-row">
+          <div class="icon"><img src="assets/icons/tiktok.svg" alt="TikTok" style="width:16px; height:16px; object-fit:contain;"></div>
+          <div class="body">
+            <div class="name">TikTok Ads Manager</div>
+            <div class="desc">Connected · 1 active campaign · $620 / mo.</div>
+          </div>
+          <span class="health-badge ok"><span class="dot"></span>Connected</span>
+          <button class="btn btn-ghost" style="font-size: 12px;">Manage</button>
+        </div>
+        <div class="health-row">
+          <div class="icon"><img src="assets/icons/linkedin.svg" alt="LinkedIn" style="width:16px; height:16px; object-fit:contain;"></div>
+          <div class="body">
+            <div class="name">LinkedIn Campaign Manager</div>
+            <div class="desc">Connected · brand campaign live · best for group/conference bookings.</div>
+          </div>
+          <span class="health-badge ok"><span class="dot"></span>Connected</span>
+          <button class="btn btn-ghost" style="font-size: 12px;">Manage</button>
+        </div>
+      </div>
+
+      <!-- Site & Discovery -->
+      <div class="health-section">
+        <div class="health-section-head">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color: var(--text-muted);"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <div style="font-size: 13px; font-weight: 600;">Discovery &amp; Site Health</div>
+          <div style="flex:1;"></div>
+          <div style="font-size: 11px; color: var(--text-dim);">2 / 3 healthy</div>
+        </div>
+        <div class="health-row">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.545 10.239v3.821h5.445c-.712 2.315-2.647 3.972-5.445 3.972a6.033 6.033 0 110-12.064c1.498 0 2.866.549 3.921 1.453l2.814-2.814A9.969 9.969 0 0012.545 2C7.021 2 2.543 6.477 2.543 12s4.478 10 10.002 10c8.396 0 10.249-7.85 9.426-11.748l-9.426-.013z"/></svg></div>
+          <div class="body">
+            <div class="name">Google Search Console</div>
+            <div class="desc">Verified. Indexed 47 pages · avg. position 8.2 for "boutique hotel Condado".</div>
+          </div>
+          <span class="health-badge ok"><span class="dot"></span>Verified</span>
+          <button class="btn btn-ghost" style="font-size: 12px;">Manage</button>
+        </div>
+        <div class="health-row">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="body">
+            <div class="name">Core Web Vitals</div>
+            <div class="desc">LCP 1.8s · INP 124ms · CLS 0.04 — all green on mobile.</div>
+          </div>
+          <span class="health-badge ok"><span class="dot"></span>Good</span>
+          <button class="btn btn-ghost" style="font-size: 12px;">View</button>
+        </div>
+        <div class="health-row">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 9h16"/></svg></div>
+          <div class="body">
+            <div class="name">Schema.org structured data</div>
+            <div class="desc">Hotel + Room schema present but missing aggregateRating &amp; PriceRange — costing rich snippets.</div>
+          </div>
+          <span class="health-badge warn"><span class="dot"></span>Partial</span>
+          <button class="btn btn-secondary" style="font-size: 12px;">Fix</button>
+        </div>
+      </div>
+
+      <!-- Footer hint -->
+      <div class="card mt-4" style="background: var(--accent-soft); border-color: rgba(184,146,79,0.30);">
+        <div class="flex items-start gap-3">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent); flex-shrink: 0; margin-top: 2px;"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6z"/></svg>
+          <div>
+            <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">Maestro recommends</div>
+            <div style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+              Install Meta Pixel + TikTok Pixel first — both directly unblock paid-channel optimization and account for $9K+ of your monthly attribution gap. Estimated install time: 20 min combined. Maestro can wire them for you if you grant site access.
+            </div>
+            <button class="btn btn-primary mt-3" style="font-size: 12px;">Authorize Maestro to install →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="assets/state.js"></script>
+  <script src="assets/interactions.js"></script>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

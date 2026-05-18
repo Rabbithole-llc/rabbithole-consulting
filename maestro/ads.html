@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paid Ads — Maestro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    .channel-tab {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text);
+      transition: background-color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                  color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.16s ease;
+    }
+    .channel-tab.active { background: var(--accent-soft); color: var(--accent); border-color: rgba(184, 146, 79, 0.30); }
+    .channel-tab:not(.active):hover { background: var(--surface-2); }
+    .channel-tab:active { transform: scale(0.98); }
+
+    /* KPI swap — fade-out fully reaches 0 BEFORE the text changes,
+       then fades in. No mid-transition glitch. */
+    .metric-value {
+      transition: opacity 0.26s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.26s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .metric-value.swapping {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+
+    /* Row filter — symmetrical fade. */
+    table.table tbody tr {
+      transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    table.table tbody tr.row-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spark { height: 32px; width: 100%; }
+
+    /* Section tabs (top-of-page navigation between Campaigns / Library / Budget / Performance) */
+    .section-tabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+      padding-bottom: 0;
+    }
+    .section-tab {
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.18s ease, border-color 0.18s ease;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .section-tab:hover { color: var(--text); }
+    .section-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .section-tab .count {
+      display: inline-flex;
+      padding: 1px 7px;
+      border-radius: 9px;
+      background: var(--surface-2);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .section-tab.active .count { background: var(--accent-soft); color: var(--accent); }
+    .section-panel { animation: panel-in 0.22s ease both; }
+    @keyframes panel-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    /* Ad Library tab — variant cards */
+    .ad-variant-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+    .ad-variant-card:hover { border-color: var(--border-strong); box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 6px 16px rgba(15,12,8,0.06); }
+    .ad-variant-creative {
+      aspect-ratio: 1/1;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .ad-variant-creative .channel-pill {
+      position: absolute;
+      top: 8px; left: 8px;
+      background: rgba(255,255,255,0.95);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .ad-variant-creative .status-pill {
+      position: absolute;
+      top: 8px; right: 8px;
+    }
+    .ad-variant-body { padding: 12px; }
+    .ad-variant-headline { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.35; }
+    .ad-variant-meta { font-size: 11px; color: var(--text-dim); display: flex; gap: 10px; }
+    .ad-variant-meta span { display: inline-flex; align-items: center; gap: 4px; }
+
+    /* Budget tab */
+    .budget-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 80px 80px;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .budget-row:last-child { border: none; }
+    .budget-bar {
+      height: 8px;
+      background: var(--surface-2);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    .budget-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #c5a572);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+    .budget-bar-fill.warn { background: linear-gradient(90deg, #e0a800, #f5b800); }
+    .budget-bar-fill.over { background: var(--danger); }
+
+    /* Performance tab spark cards */
+    .perf-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+  </style>
+</head>
+<body data-page="ads">
+  <main class="page-content">
+    <div class="page" style="max-width: 1400px;">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Paid Ads</div>
+          <div class="page-subtitle">$4,820 spent / $6,000 budget · ROAS 4.2× this month · 8 active campaigns · 24 ad variants live</div>
+        </div>
+        <div class="flex gap-2">
+          <button class="btn btn-primary">+ New campaign</button>
+        </div>
+      </div>
+
+      <!-- Section tabs -->
+      <div class="section-tabs">
+        <div class="section-tab active" data-section="campaigns">Campaigns <span class="count">8</span></div>
+        <div class="section-tab" data-section="library">Ad Library <span class="count">24</span></div>
+        <div class="section-tab" data-section="budget">Budget</div>
+        <div class="section-tab" data-section="performance">Performance</div>
+      </div>
+
+      <!-- ===== Campaigns panel (default) ===== -->
+      <div class="section-panel" data-section-panel="campaigns">
+
+      <!-- Channel tabs -->
+      <div class="flex gap-2 mb-6">
+        <div class="channel-tab active">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          All channels
+          <span style="color: var(--text-dim); font-size: 11px;">$4,820</span>
+        </div>
+        <div class="channel-tab">
+          <img src="assets/icons/google-ads.svg" alt="Google Ads" style="width:14px; height:14px; object-fit:contain;">
+          Google Ads
+          <span style="color: var(--text-dim); font-size: 11px;">$2,140</span>
+        </div>
+        <div class="channel-tab">
+          <img src="assets/icons/meta.svg" alt="Meta" style="width:14px; height:14px; object-fit:contain;">
+          Meta (FB + IG)
+          <span style="color: var(--text-dim); font-size: 11px;">$1,810</span>
+        </div>
+        <div class="channel-tab">
+          <img src="assets/icons/tiktok.svg" alt="TikTok" style="width:14px; height:14px; object-fit:contain;">
+          TikTok
+          <span style="color: var(--text-dim); font-size: 11px;">$620</span>
+        </div>
+        <div class="channel-tab">
+          <img src="assets/icons/linkedin.svg" alt="LinkedIn" style="width:14px; height:14px; object-fit:contain;">
+          LinkedIn
+          <span style="color: var(--text-dim); font-size: 11px;">$250</span>
+        </div>
+      </div>
+
+      <!-- KPI row -->
+      <div class="grid grid-cols-5 gap-4 mb-6">
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Spend (MTD)</div>
+            <div class="metric-value">$4,820</div>
+            <div class="metric-delta" style="color:var(--text-muted);">80% of budget</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Bookings driven</div>
+            <div class="metric-value">31</div>
+            <div class="metric-delta up">↑ 9 vs. last month</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Revenue attributed</div>
+            <div class="metric-value">$20.4K</div>
+            <div class="metric-delta up">↑ 22% MoM</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">ROAS</div>
+            <div class="metric-value">4.2×</div>
+            <div class="metric-delta up">Target 3.5×</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Avg. CPA</div>
+            <div class="metric-value">$155</div>
+            <div class="metric-delta up">↓ $28 MoM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active campaigns -->
+      <div class="card mb-6" style="padding:0;">
+        <div class="flex justify-between items-center p-4" style="border-bottom: 1px solid var(--border);">
+          <div>
+            <div class="card-title">Active campaigns</div>
+            <div class="card-sub">Maestro monitors performance 24/7 · auto-pauses underperformers</div>
+          </div>
+          <div class="flex gap-2">
+            <button class="btn btn-secondary" style="font-size:12px;">Filter</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Campaign</th>
+              <th>Channel</th>
+              <th>Spend</th>
+              <th>CPA</th>
+              <th>ROAS</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="font-medium text-sm">Condado · Search</div>
+                <div class="text-xs" style="color: var(--text-dim);">Keyword: "boutique hotel condado" · 4 ad variants</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/google-ads.svg" alt="Google" style="width:14px; height:14px; object-fit:contain;"> Google</span></td>
+              <td class="text-sm">$1,240</td>
+              <td class="text-sm"><span style="color: var(--success);">$112</span></td>
+              <td class="text-sm font-medium">5.1×</td>
+              <td><span class="badge badge-success"><span class="dot dot-success"></span> Scaling</span></td>
+              <td><button class="btn btn-ghost" style="font-size:11px;">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="font-medium text-sm">Romantic Getaway · Discovery</div>
+                <div class="text-xs" style="color: var(--text-dim);">Lookalike: past guests · 6 ad variants</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/meta.svg" alt="Meta" style="width:14px; height:14px; object-fit:contain;"> Meta</span></td>
+              <td class="text-sm">$890</td>
+              <td class="text-sm"><span style="color: var(--danger);">$248</span></td>
+              <td class="text-sm font-medium">2.1×</td>
+              <td><span class="badge badge-danger"><span class="dot dot-danger"></span> Auto-paused</span></td>
+              <td><button class="btn btn-ghost" style="font-size:11px;">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="font-medium text-sm">Junior Suite · Conversion</div>
+                <div class="text-xs" style="color: var(--text-dim);">High-intent retargeting · 3 ad variants</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/meta.svg" alt="Meta" style="width:14px; height:14px; object-fit:contain;"> Meta</span></td>
+              <td class="text-sm">$920</td>
+              <td class="text-sm"><span style="color: var(--success);">$94</span></td>
+              <td class="text-sm font-medium">6.8×</td>
+              <td><span class="badge badge-success"><span class="dot dot-success"></span> Scaling</span></td>
+              <td><button class="btn btn-ghost" style="font-size:11px;">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="font-medium text-sm">PR Travel · Brand</div>
+                <div class="text-xs" style="color: var(--text-dim);">Brand search defense · 2 ad variants</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/google-ads.svg" alt="Google" style="width:14px; height:14px; object-fit:contain;"> Google</span></td>
+              <td class="text-sm">$420</td>
+              <td class="text-sm"><span style="color: var(--success);">$48</span></td>
+              <td class="text-sm font-medium">9.4×</td>
+              <td><span class="badge badge-success"><span class="dot dot-success"></span> Steady</span></td>
+              <td><button class="btn btn-ghost" style="font-size:11px;">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="font-medium text-sm">Authentic Old SJ · TopFunnel</div>
+                <div class="text-xs" style="color: var(--text-dim);">Travel-interest broad · 5 ad variants</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/tiktok.svg" alt="Tiktok" style="width:14px; height:14px; object-fit:contain;"> TikTok</span></td>
+              <td class="text-sm">$480</td>
+              <td class="text-sm"><span style="color: var(--accent);">$184</span></td>
+              <td class="text-sm font-medium">3.1×</td>
+              <td><span class="badge badge-info"><span class="dot dot-info"></span> Learning</span></td>
+              <td><button class="btn btn-ghost" style="font-size:11px;">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="font-medium text-sm">Local Eats Journal · Discovery</div>
+                <div class="text-xs" style="color: var(--text-dim);">Promotes /journal/local-kitchens · 4 variants</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/tiktok.svg" alt="Tiktok" style="width:14px; height:14px; object-fit:contain;"> TikTok</span></td>
+              <td class="text-sm">$140</td>
+              <td class="text-sm"><span style="color: var(--accent);">$210</span></td>
+              <td class="text-sm font-medium">2.6×</td>
+              <td><span class="badge badge-warn"><span class="dot dot-warn"></span> Watching</span></td>
+              <td><button class="btn btn-ghost" style="font-size:11px;">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="font-medium text-sm">Executive Retreat · B2B</div>
+                <div class="text-xs" style="color: var(--text-dim);">Group bookings · 2 ad variants</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/linkedin.svg" alt="Linkedin" style="width:14px; height:14px; object-fit:contain;"> LinkedIn</span></td>
+              <td class="text-sm">$250</td>
+              <td class="text-sm"><span style="color: var(--text-muted);">$0</span></td>
+              <td class="text-sm font-medium">—</td>
+              <td><span class="badge badge-info"><span class="dot dot-info"></span> Learning</span></td>
+              <td><button class="btn btn-ghost" style="font-size:11px;">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Ad variants + live activity -->
+      <div class="grid grid-cols-3 gap-4">
+        <!-- Top creative variants -->
+        <div class="card col-span-2">
+          <div class="flex justify-between mb-3">
+            <div>
+              <div class="card-title">Top performing ad variants</div>
+              <div class="card-sub">Auto-generated · launched into Maestro automatically</div>
+            </div>
+            <button class="btn btn-secondary" style="font-size:12px;">+ Generate new variants</button>
+          </div>
+          <div class="grid grid-cols-3 gap-3">
+            <div>
+              <div class="gen-media" style="aspect-ratio: 1/1; background-image: url('assets/photos/magdalena-junior-suite.jpg'); background-size: cover; background-position: center; border-radius: 8px; position: relative; overflow: hidden;">
+                <div style="position:absolute; inset:0; background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.55) 100%);"></div>
+                <div style="position:absolute; left:10px; right:10px; bottom:10px; color:#fff; font-weight:600; font-size:13px; line-height:1.25; letter-spacing:-0.01em; text-shadow: 0 1px 4px rgba(0,0,0,0.4);">Wake up to a freestanding tub.<br><span style="font-weight:400; font-size:11px; opacity:0.85;">Junior Suite · from $309</span></div>
+              </div>
+              <div class="mt-2">
+                <div class="text-xs" style="color: var(--text-dim);">Junior Suite · Conversion</div>
+                <div class="text-sm font-medium mt-0.5">"The only freestanding tub..."</div>
+                <div class="flex gap-2 mt-1 text-xs">
+                  <span style="color: var(--success);">CTR 4.8%</span>
+                  <span style="color: var(--text-dim);">·</span>
+                  <span style="color: var(--success);">ROAS 6.8×</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="gen-media" style="aspect-ratio: 1/1; background-image: url('assets/photos/magdalena-exterior.jpg'); background-size: cover; background-position: center; border-radius: 8px; position: relative; overflow: hidden;">
+                <div style="position:absolute; inset:0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.55) 100%);"></div>
+                <div style="position:absolute; left:10px; right:10px; bottom:10px; color:#fff; font-weight:600; font-size:13px; line-height:1.25; letter-spacing:-0.01em; text-shadow: 0 1px 4px rgba(0,0,0,0.4);">A converted colonial house, in Condado.<br><span style="font-weight:400; font-size:11px; opacity:0.85;">10 suites · book direct</span></div>
+              </div>
+              <div class="mt-2">
+                <div class="text-xs" style="color: var(--text-dim);">Condado · Search</div>
+                <div class="text-sm font-medium mt-0.5">"A converted colonial house..."</div>
+                <div class="flex gap-2 mt-1 text-xs">
+                  <span style="color: var(--success);">CTR 5.4%</span>
+                  <span style="color: var(--text-dim);">·</span>
+                  <span style="color: var(--success);">ROAS 5.1×</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="gen-media" style="aspect-ratio: 1/1; background-image: url('assets/photos/magdalena-rooftop-sunset.jpg'); background-size: cover; background-position: center; border-radius: 8px; position: relative; overflow: hidden;">
+                <div style="position:absolute; inset:0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.55) 100%);"></div>
+                <div style="position:absolute; left:10px; right:10px; bottom:10px; color:#fff; font-weight:600; font-size:13px; line-height:1.25; letter-spacing:-0.01em; text-shadow: 0 1px 4px rgba(0,0,0,0.4);">Condado, our way.<br><span style="font-weight:400; font-size:11px; opacity:0.85;">Rooftop open to guests · sunset</span></div>
+              </div>
+              <div class="mt-2">
+                <div class="text-xs" style="color: var(--text-dim);">PR Travel · Brand</div>
+                <div class="text-sm font-medium mt-0.5">"Condado, our way."</div>
+                <div class="flex gap-2 mt-1 text-xs">
+                  <span style="color: var(--success);">CTR 3.9%</span>
+                  <span style="color: var(--text-dim);">·</span>
+                  <span style="color: var(--success);">ROAS 9.4×</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live activity -->
+        <div class="card">
+          <div class="card-title">Recent decisions</div>
+          <div class="card-sub">Last 24h · auto-approved by rule</div>
+          <div class="space-y-3 mt-3">
+            <div class="flex gap-3 text-sm">
+              <span class="dot dot-danger mt-2"></span>
+              <div>
+                <div>Paused "Romantic Getaway · Discovery" — CPA up 22% over 4 days</div>
+                <div class="text-xs mt-1" style="color: var(--text-dim);">2h ago</div>
+              </div>
+            </div>
+            <div class="flex gap-3 text-sm">
+              <span class="dot dot-success mt-2"></span>
+              <div>
+                <div>Scaled "Junior Suite · Conversion" budget +$200/day</div>
+                <div class="text-xs mt-1" style="color: var(--text-dim);">6h ago · ROAS held above 6× for 7 days</div>
+              </div>
+            </div>
+            <div class="flex gap-3 text-sm">
+              <span class="dot dot-info mt-2"></span>
+              <div>
+                <div>Generated 3 new ad variants from Junior Suite brief</div>
+                <div class="text-xs mt-1" style="color: var(--text-dim);">12h ago · using Maestro</div>
+              </div>
+            </div>
+            <div class="flex gap-3 text-sm">
+              <span class="dot dot-warn mt-2"></span>
+              <div>
+                <div>Flagged "Local Eats Journal" for review — CPA trending up</div>
+                <div class="text-xs mt-1" style="color: var(--text-dim);">1d ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div><!-- /Campaigns panel -->
+
+      <!-- ===== Ad Library panel ===== -->
+      <div class="section-panel" data-section-panel="library" style="display:none;">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <div class="card-title" style="font-size: 18px;">All ad variants currently running</div>
+            <div class="card-sub">24 variants across 8 campaigns · auto-rotated weekly · underperformers killed automatically</div>
+          </div>
+          <div class="flex gap-2">
+            <select class="input" style="width: 140px; font-size: 13px;">
+              <option>All channels</option>
+              <option>Meta</option>
+              <option>Google</option>
+              <option>TikTok</option>
+              <option>LinkedIn</option>
+            </select>
+            <select class="input" style="width: 130px; font-size: 13px;">
+              <option>By ROAS</option>
+              <option>Newest</option>
+              <option>Most spend</option>
+              <option>Underperforming</option>
+            </select>
+            <button class="btn btn-primary" style="font-size: 13px;">+ Generate variants</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-4 gap-4">
+          <!-- Variant 1: Junior Suite (top performer) -->
+          <div class="ad-variant-card">
+            <div class="ad-variant-creative" style="background-image: url('assets/photos/magdalena-junior-suite.jpg');">
+              <div class="channel-pill"><img src="assets/icons/meta.svg" alt="Meta" style="width:11px; height:11px;"> Meta</div>
+              <div class="status-pill"><span class="health-badge ok" style="background: rgba(4,120,87,0.95); color: white; padding: 3px 7px;">ROAS 6.8×</span></div>
+            </div>
+            <div class="ad-variant-body">
+              <div class="ad-variant-headline">"Wake up to a freestanding tub. Junior Suite from $309."</div>
+              <div class="ad-variant-meta"><span>$890 spend</span><span>·</span><span>4.8% CTR</span></div>
+            </div>
+          </div>
+
+          <!-- Variant 2: Rooftop sunset (brand) -->
+          <div class="ad-variant-card">
+            <div class="ad-variant-creative" style="background-image: url('assets/photos/magdalena-rooftop-sunset.jpg');">
+              <div class="channel-pill"><img src="assets/icons/google-ads.svg" alt="Google" style="width:11px; height:11px;"> Google</div>
+              <div class="status-pill"><span class="health-badge ok" style="background: rgba(4,120,87,0.95); color: white; padding: 3px 7px;">ROAS 9.4×</span></div>
+            </div>
+            <div class="ad-variant-body">
+              <div class="ad-variant-headline">"Condado, our way." · Rooftop open to guests at sunset.</div>
+              <div class="ad-variant-meta"><span>$420 spend</span><span>·</span><span>3.9% CTR</span></div>
+            </div>
+          </div>
+
+          <!-- Variant 3: Exterior (search) -->
+          <div class="ad-variant-card">
+            <div class="ad-variant-creative" style="background-image: url('assets/photos/magdalena-exterior.jpg');">
+              <div class="channel-pill"><img src="assets/icons/google-ads.svg" alt="Google" style="width:11px; height:11px;"> Google</div>
+              <div class="status-pill"><span class="health-badge ok" style="background: rgba(4,120,87,0.95); color: white; padding: 3px 7px;">ROAS 5.1×</span></div>
+            </div>
+            <div class="ad-variant-body">
+              <div class="ad-variant-headline">"A converted colonial house, in Condado. 10 suites · book direct."</div>
+              <div class="ad-variant-meta"><span>$1,240 spend</span><span>·</span><span>5.4% CTR</span></div>
+            </div>
+          </div>
+
+          <!-- Variant 4: Crafted for the Curious -->
+          <div class="ad-variant-card">
+            <div class="ad-variant-creative" style="background-image: url('assets/photos/magdalena-crafted-for-curious.jpg');">
+              <div class="channel-pill"><img src="assets/icons/meta.svg" alt="Meta" style="width:11px; height:11px;"> Meta</div>
+              <div class="status-pill"><span class="health-badge ok" style="background: rgba(4,120,87,0.95); color: white; padding: 3px 7px;">ROAS 4.2×</span></div>
+            </div>
+            <div class="ad-variant-body">
+              <div class="ad-variant-headline">"Crafted for the Curious." · The boutique stay in the heart of Condado.</div>
+              <div class="ad-variant-meta"><span>$640 spend</span><span>·</span><span>4.1% CTR</span></div>
+            </div>
+          </div>
+
+          <!-- Variant 5: Romantic Getaway (paused) -->
+          <div class="ad-variant-card">
+            <div class="ad-variant-creative" style="background-image: url('assets/photos/magdalena-couple-sunset.jpg');">
+              <div class="channel-pill"><img src="assets/icons/meta.svg" alt="Meta" style="width:11px; height:11px;"> Meta</div>
+              <div class="status-pill"><span class="health-badge bad" style="background: rgba(190,18,60,0.95); color: white; padding: 3px 7px;">Paused</span></div>
+            </div>
+            <div class="ad-variant-body">
+              <div class="ad-variant-headline">"Romantic getaway in Old San Juan." · 2-night escape.</div>
+              <div class="ad-variant-meta"><span>$890 spend</span><span>·</span><span>2.1× ROAS</span></div>
+            </div>
+          </div>
+
+          <!-- Variant 6: TikTok atmosphere -->
+          <div class="ad-variant-card">
+            <div class="ad-variant-creative" style="background-image: url('assets/photos/magdalena-bedroom-tray.jpg');">
+              <div class="channel-pill"><img src="assets/icons/tiktok.svg" alt="TikTok" style="width:11px; height:11px;"> TikTok</div>
+              <div class="status-pill"><span class="health-badge ok" style="background: rgba(4,120,87,0.95); color: white; padding: 3px 7px;">ROAS 3.9×</span></div>
+            </div>
+            <div class="ad-variant-body">
+              <div class="ad-variant-headline">pov: your morning starts here. The Studio at Magdalena.</div>
+              <div class="ad-variant-meta"><span>$480 spend</span><span>·</span><span>6.2% CTR</span></div>
+            </div>
+          </div>
+
+          <!-- Variant 7: Rooftop lounge (TikTok) -->
+          <div class="ad-variant-card">
+            <div class="ad-variant-creative" style="background-image: url('assets/photos/magdalena-rooftop-lounge.jpg');">
+              <div class="channel-pill"><img src="assets/icons/tiktok.svg" alt="TikTok" style="width:11px; height:11px;"> TikTok</div>
+              <div class="status-pill"><span class="health-badge warn" style="background: rgba(184,146,79,0.95); color: white; padding: 3px 7px;">Learning</span></div>
+            </div>
+            <div class="ad-variant-body">
+              <div class="ad-variant-headline">"Evenings are better up here." · Rooftop Lounge after 6pm.</div>
+              <div class="ad-variant-meta"><span>$140 spend</span><span>·</span><span>2.6× ROAS</span></div>
+            </div>
+          </div>
+
+          <!-- Variant 8: LinkedIn B2B -->
+          <div class="ad-variant-card">
+            <div class="ad-variant-creative" style="background-image: url('assets/photos/magdalena-business-desk.jpg');">
+              <div class="channel-pill"><img src="assets/icons/linkedin.svg" alt="LinkedIn" style="width:11px; height:11px;"> LinkedIn</div>
+              <div class="status-pill"><span class="health-badge warn" style="background: rgba(184,146,79,0.95); color: white; padding: 3px 7px;">Learning</span></div>
+            </div>
+            <div class="ad-variant-body">
+              <div class="ad-variant-headline">Boutique soul. Conference center, when you need it.</div>
+              <div class="ad-variant-meta"><span>$250 spend</span><span>·</span><span>1 inquiry</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-4" style="background: var(--accent-soft); border-color: rgba(184,146,79,0.30);">
+          <div class="flex items-start gap-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent); flex-shrink:0; margin-top:1px;"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6z"/></svg>
+            <div style="font-size: 13px; color: var(--text-muted);">
+              <strong style="color: var(--text);">Maestro will rotate 4 of these out this week</strong> — every variant has a learning budget. Once Maestro is 95% confident on performance, underperformers are killed and Creative generates fresh replacements from the library.
+            </div>
+          </div>
+        </div>
+      </div><!-- /Ad Library panel -->
+
+      <!-- ===== Budget panel ===== -->
+      <div class="section-panel" data-section-panel="budget" style="display:none;">
+        <div class="grid grid-cols-3 gap-4 mb-6">
+          <div class="card">
+            <div class="metric">
+              <div class="metric-label">Monthly budget</div>
+              <div class="metric-value">$6,000</div>
+              <div class="metric-delta" style="color:var(--text-muted);">Set May 1 · auto-cap</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="metric">
+              <div class="metric-label">Spent (day 16 of 31)</div>
+              <div class="metric-value">$4,820</div>
+              <div class="metric-delta" style="color:var(--accent);">80% used · slightly ahead of pace</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="metric">
+              <div class="metric-label">Projected end of month</div>
+              <div class="metric-value">$5,920</div>
+              <div class="metric-delta up">↓ within budget · holds at cap</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Budget by channel</div>
+          <div class="card-sub">Maestro auto-allocates daily based on ROAS · you can lock any channel's share</div>
+          <div class="mt-4">
+            <div class="budget-row">
+              <div style="display:flex; align-items:center; gap:8px;"><img src="assets/icons/google-ads.svg" alt="Google" style="width:16px; height:16px;"><span style="font-size:13px; font-weight:500;">Google Ads</span></div>
+              <div class="budget-bar"><div class="budget-bar-fill" style="width: 86%;"></div></div>
+              <div style="font-size:13px; font-family: 'JetBrains Mono', monospace;">$2,140<br><span style="font-size:11px; color: var(--text-dim);">of $2,500</span></div>
+              <div style="text-align:right;"><span class="badge badge-success">5.0× ROAS</span></div>
+            </div>
+            <div class="budget-row">
+              <div style="display:flex; align-items:center; gap:8px;"><img src="assets/icons/meta.svg" alt="Meta" style="width:16px; height:16px;"><span style="font-size:13px; font-weight:500;">Meta (FB + IG)</span></div>
+              <div class="budget-bar"><div class="budget-bar-fill" style="width: 82%;"></div></div>
+              <div style="font-size:13px; font-family: 'JetBrains Mono', monospace;">$1,810<br><span style="font-size:11px; color: var(--text-dim);">of $2,200</span></div>
+              <div style="text-align:right;"><span class="badge badge-success">3.5× ROAS</span></div>
+            </div>
+            <div class="budget-row">
+              <div style="display:flex; align-items:center; gap:8px;"><img src="assets/icons/tiktok.svg" alt="TikTok" style="width:16px; height:16px;"><span style="font-size:13px; font-weight:500;">TikTok</span></div>
+              <div class="budget-bar"><div class="budget-bar-fill warn" style="width: 69%;"></div></div>
+              <div style="font-size:13px; font-family: 'JetBrains Mono', monospace;">$620<br><span style="font-size:11px; color: var(--text-dim);">of $900</span></div>
+              <div style="text-align:right;"><span class="badge badge-success">3.9× ROAS</span></div>
+            </div>
+            <div class="budget-row">
+              <div style="display:flex; align-items:center; gap:8px;"><img src="assets/icons/linkedin.svg" alt="LinkedIn" style="width:16px; height:16px;"><span style="font-size:13px; font-weight:500;">LinkedIn</span></div>
+              <div class="budget-bar"><div class="budget-bar-fill warn" style="width: 63%;"></div></div>
+              <div style="font-size:13px; font-family: 'JetBrains Mono', monospace;">$250<br><span style="font-size:11px; color: var(--text-dim);">of $400</span></div>
+              <div style="text-align:right;"><span class="badge badge-info">Learning</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-4">
+          <div class="card">
+            <div class="card-title">Pacing recommendation</div>
+            <div class="card-sub mb-3">From Maestro · updated 12 min ago</div>
+            <p class="text-sm" style="color: var(--text-muted); line-height: 1.6;">Junior Suite Conversion (Meta) is holding ROAS above 6× — consider raising daily cap from $30 → $50. Romantic Getaway (Meta) is bleeding budget; already auto-paused. Net effect: ~$200/day reallocated, projected MoM revenue +$3.4K.</p>
+            <button class="btn btn-primary mt-4" style="font-size: 13px;">Apply recommendation</button>
+          </div>
+          <div class="card">
+            <div class="card-title">Spend cap</div>
+            <div class="card-sub mb-3">Hard ceiling Maestro will never exceed</div>
+            <div style="display:flex; align-items:center; gap:12px; padding:8px 0;">
+              <div style="font-size: 32px; font-weight: 600; letter-spacing: -0.02em;">$6,000</div>
+              <div style="font-size: 12px; color: var(--text-dim); flex: 1;">per month, all channels combined</div>
+              <button class="btn btn-secondary" style="font-size: 12px;">Change</button>
+            </div>
+            <div class="mt-3" style="padding: 10px; background: var(--surface-2); border-radius: 6px; font-size: 12px; color: var(--text-muted);">
+              💡 Average boutique hotel in Condado runs $8K–$12K/mo at this scale. You're spending efficiently.
+            </div>
+          </div>
+        </div>
+      </div><!-- /Budget panel -->
+
+      <!-- ===== Performance panel ===== -->
+      <div class="section-panel" data-section-panel="performance" style="display:none;">
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="perf-card">
+            <div class="card-title">Spend vs. Revenue (30 days)</div>
+            <div class="card-sub mb-3">Daily lines · paid attribution only</div>
+            <svg viewBox="0 0 600 200" style="width:100%; height:200px;">
+              <defs>
+                <linearGradient id="revGrad" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- gridlines -->
+              <line x1="0" y1="50"  x2="600" y2="50"  stroke="var(--border)" stroke-dasharray="3 3"/>
+              <line x1="0" y1="100" x2="600" y2="100" stroke="var(--border)" stroke-dasharray="3 3"/>
+              <line x1="0" y1="150" x2="600" y2="150" stroke="var(--border)" stroke-dasharray="3 3"/>
+              <!-- Revenue area -->
+              <path d="M0,150 L30,140 L60,135 L90,120 L120,115 L150,100 L180,95 L210,80 L240,75 L270,70 L300,55 L330,60 L360,45 L390,50 L420,35 L450,30 L480,25 L510,20 L540,28 L570,22 L600,18 L600,200 L0,200 Z"
+                    fill="url(#revGrad)"/>
+              <path d="M0,150 L30,140 L60,135 L90,120 L120,115 L150,100 L180,95 L210,80 L240,75 L270,70 L300,55 L330,60 L360,45 L390,50 L420,35 L450,30 L480,25 L510,20 L540,28 L570,22 L600,18"
+                    stroke="var(--accent)" stroke-width="2" fill="none"/>
+              <!-- Spend line (lower, flatter) -->
+              <path d="M0,170 L30,168 L60,165 L90,160 L120,162 L150,158 L180,155 L210,150 L240,148 L270,145 L300,140 L330,142 L360,138 L390,140 L420,135 L450,132 L480,130 L510,128 L540,130 L570,128 L600,125"
+                    stroke="var(--text-dim)" stroke-width="2" fill="none" stroke-dasharray="4 4"/>
+            </svg>
+            <div class="flex gap-4 mt-3 text-xs" style="color: var(--text-muted);">
+              <div><span style="color: var(--accent); font-weight: 700;">●</span> Revenue · $20.4K</div>
+              <div><span style="color: var(--text-dim); font-weight: 700;">- - -</span> Spend · $4.8K</div>
+              <div style="margin-left:auto; color: var(--success);">↑ Revenue growing 3.4× faster than spend</div>
+            </div>
+          </div>
+
+          <div class="perf-card">
+            <div class="card-title">ROAS by channel · this month</div>
+            <div class="card-sub mb-3">All channels above breakeven · LinkedIn still learning</div>
+            <div class="space-y-3 mt-4">
+              <div>
+                <div class="flex justify-between text-sm mb-1"><span style="display:flex; align-items:center; gap:6px;"><img src="assets/icons/google-ads.svg" style="width:12px; height:12px;">Google Ads</span><span style="font-weight:500;">5.0×</span></div>
+                <div class="budget-bar"><div class="budget-bar-fill" style="width: 71%;"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm mb-1"><span style="display:flex; align-items:center; gap:6px;"><img src="assets/icons/meta.svg" style="width:12px; height:12px;">Meta</span><span style="font-weight:500;">3.5×</span></div>
+                <div class="budget-bar"><div class="budget-bar-fill" style="width: 50%;"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm mb-1"><span style="display:flex; align-items:center; gap:6px;"><img src="assets/icons/tiktok.svg" style="width:12px; height:12px;">TikTok</span><span style="font-weight:500;">3.9×</span></div>
+                <div class="budget-bar"><div class="budget-bar-fill" style="width: 55%;"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm mb-1"><span style="display:flex; align-items:center; gap:6px;"><img src="assets/icons/linkedin.svg" style="width:12px; height:12px;">LinkedIn</span><span style="font-weight:500;">3.4×</span></div>
+                <div class="budget-bar"><div class="budget-bar-fill warn" style="width: 48%;"></div></div>
+              </div>
+              <div style="border-top: 1px solid var(--border); padding-top: 10px; margin-top: 8px;">
+                <div class="flex justify-between text-sm"><span style="font-weight:500;">Blended ROAS</span><span style="font-weight:600; color: var(--accent);">4.2×</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Cost per booking · trend</div>
+          <div class="card-sub mb-3">CPA dropping as Maestro learns · target is anything below $180</div>
+          <div class="grid grid-cols-4 gap-4 mt-4">
+            <div style="padding: 14px; background: var(--surface-2); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em;">Last week</div>
+              <div style="font-size: 26px; font-weight: 600; margin: 6px 0;">$155</div>
+              <div style="font-size: 11px; color: var(--success);">↓ $28 vs. prev</div>
+            </div>
+            <div style="padding: 14px; background: var(--surface-2); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em;">30-day avg.</div>
+              <div style="font-size: 26px; font-weight: 600; margin: 6px 0;">$172</div>
+              <div style="font-size: 11px; color: var(--success);">↓ $19 MoM</div>
+            </div>
+            <div style="padding: 14px; background: var(--surface-2); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em;">Best channel CPA</div>
+              <div style="font-size: 26px; font-weight: 600; margin: 6px 0;">$94</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Junior Suite · Meta</div>
+            </div>
+            <div style="padding: 14px; background: var(--surface-2); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em;">Avg. revenue / booking</div>
+              <div style="font-size: 26px; font-weight: 600; margin: 6px 0;">$658</div>
+              <div style="font-size: 11px; color: var(--text-muted);">~3 night stay</div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /Performance panel -->
+
+    </div>
+  </main>
+  <script src="assets/state.js"></script>
+  <script src="assets/interactions.js"></script>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

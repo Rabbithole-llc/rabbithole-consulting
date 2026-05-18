@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Maestro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="dashboard">
+  <main class="page-content">
+    <div class="page">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Good morning, Austin</div>
+          <div class="page-subtitle">Saturday, May 16 · 4 posts queued for today across 3 channels</div>
+        </div>
+        <div class="flex gap-2">
+          <button class="btn btn-secondary">Generate Week's Calendar</button>
+          <button class="btn btn-primary">New Post</button>
+        </div>
+      </div>
+
+      <!-- Metrics row -->
+      <div class="grid grid-cols-4 gap-4 mb-6">
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Posts this month</div>
+            <div class="metric-value">87</div>
+            <div class="metric-delta up">↑ 23 vs. last month</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Approval rate</div>
+            <div class="metric-value">94%</div>
+            <div class="metric-delta up">↑ 6% (eval threshold hit)</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Engagement</div>
+            <div class="metric-value">12.4K</div>
+            <div class="metric-delta up">↑ 31% vs. last month</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="metric">
+            <div class="metric-label">Time saved</div>
+            <div class="metric-value">38h</div>
+            <div class="metric-delta up">vs. doing this manually</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4">
+        <!-- Today's queue -->
+        <div class="card col-span-2">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <div class="card-title">Today's queue</div>
+              <div class="card-sub">4 posts scheduled · all awaiting your approval</div>
+            </div>
+            <a href="schedule.html" class="btn btn-ghost" style="font-size:12px;">View all →</a>
+          </div>
+          <div class="space-y-3">
+            <!-- Post 1 -->
+            <div class="flex items-center gap-3 p-3 rounded-lg" style="background: var(--surface-2);">
+              <div class="media-block" style="width:56px; height:56px; background-image:url('assets/photos/magdalena-bedroom-tray.jpg'); background-size:cover; background-position:center;"></div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="badge badge-warn"><span class="dot dot-warn"></span> Needs approval</span>
+                  <span class="text-xs" style="color:var(--text-dim);">Instagram · 7:30 AM</span>
+                </div>
+                <div class="text-sm truncate">"Your morning, unhurried. The Studio. From $249/night..."</div>
+              </div>
+              <button class="btn btn-secondary">Review</button>
+            </div>
+            <!-- Post 2 -->
+            <div class="flex items-center gap-3 p-3 rounded-lg" style="background: var(--surface-2);">
+              <div class="media-block" style="width:56px; height:56px; background-image:url('assets/photos/magdalena-business-desk.jpg'); background-size:cover; background-position:center;"></div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="badge badge-warn"><span class="dot dot-warn"></span> Needs approval</span>
+                  <span class="text-xs" style="color:var(--text-dim);">LinkedIn · 11:00 AM</span>
+                </div>
+                <div class="text-sm truncate">"Business class. Boutique soul. Conference center · room service..."</div>
+              </div>
+              <button class="btn btn-secondary">Review</button>
+            </div>
+            <!-- Post 3 -->
+            <div class="flex items-center gap-3 p-3 rounded-lg" style="background: var(--surface-2);">
+              <div class="media-block" style="width:56px; height:56px; background-image:url('assets/photos/magdalena-crafted-for-curious.jpg'); background-size:cover; background-position:center;"></div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="badge badge-success"><span class="dot dot-success"></span> Approved</span>
+                  <span class="text-xs" style="color:var(--text-dim);">TikTok · 2:15 PM</span>
+                </div>
+                <div class="text-sm truncate">"Crafted for the Curious. A boutique hotel in the heart of Condado..."</div>
+              </div>
+              <button class="btn btn-ghost">Scheduled</button>
+            </div>
+            <!-- Post 4 -->
+            <div class="flex items-center gap-3 p-3 rounded-lg" style="background: var(--surface-2);">
+              <div class="media-block" style="width:56px; height:56px; background-image:url('assets/photos/magdalena-junior-suite.jpg'); background-size:cover; background-position:center;"></div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="badge badge-warn"><span class="dot dot-warn"></span> Needs approval</span>
+                  <span class="text-xs" style="color:var(--text-dim);">Instagram · 6:00 PM</span>
+                </div>
+                <div class="text-sm truncate">"The Junior Suite. Spacious. Indulgent. Perfectly composed..."</div>
+              </div>
+              <button class="btn btn-secondary">Review</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live activity -->
+        <div class="card">
+          <div class="card-title">Live activity</div>
+          <div class="card-sub">Live · last 1h</div>
+          <div class="space-y-4 mt-2">
+            <div class="flex gap-3">
+              <span class="dot dot-success mt-2"></span>
+              <div class="flex-1">
+                <div class="text-sm">Generated 12 briefs for next week</div>
+                <div class="text-xs mt-1" style="color: var(--text-dim);">8 min ago · 1.2s</div>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <span class="dot dot-success mt-2"></span>
+              <div class="flex-1">
+                <div class="text-sm">Produced 4 variants for "Sunset terrace"</div>
+                <div class="text-xs mt-1" style="color: var(--text-dim);">14 min ago · 38s</div>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <span class="dot dot-success mt-2"></span>
+              <div class="flex-1">
+                <div class="text-sm">Wrote 4 platform variants for "Junior Suite"</div>
+                <div class="text-xs mt-1" style="color: var(--text-dim);">22 min ago · 4s</div>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <span class="dot dot-info mt-2 pulse"></span>
+              <div class="flex-1">
+                <div class="text-sm">Queuing next 3 posts...</div>
+                <div class="text-xs mt-1" style="color: var(--text-dim);">running now</div>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <span class="dot dot-muted mt-2"></span>
+              <div class="flex-1">
+                <div class="text-sm">Maestro updated weekly digest</div>
+                <div class="text-xs mt-1" style="color: var(--text-dim);">1h ago · 0.8s</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lower row: channel performance + alerts -->
+      <div class="grid grid-cols-3 gap-4 mt-4">
+        <div class="card col-span-2">
+          <div class="card-title">This week's performance</div>
+          <div class="card-sub">Across all channels</div>
+          <div class="grid grid-cols-4 gap-4 mt-4">
+            <div class="text-center p-4 rounded-lg" style="background: var(--surface-2);">
+              <div class="flex items-center justify-center gap-1.5 mb-1">
+                <img src="assets/icons/instagram.svg" alt="Instagram" style="width:14px; height:14px; object-fit:contain;">
+                <div class="text-xs" style="color:var(--text-dim);">Instagram</div>
+              </div>
+              <div style="font-size:20px; font-weight:600;">4.2K</div>
+              <div class="metric-delta up text-xs">↑ 18%</div>
+            </div>
+            <div class="text-center p-4 rounded-lg" style="background: var(--surface-2);">
+              <div class="flex items-center justify-center gap-1.5 mb-1">
+                <img src="assets/icons/tiktok.svg" alt="TikTok" style="width:14px; height:14px; object-fit:contain;">
+                <div class="text-xs" style="color:var(--text-dim);">TikTok</div>
+              </div>
+              <div style="font-size:20px; font-weight:600;">6.8K</div>
+              <div class="metric-delta up text-xs">↑ 42%</div>
+            </div>
+            <div class="text-center p-4 rounded-lg" style="background: var(--surface-2);">
+              <div class="flex items-center justify-center gap-1.5 mb-1">
+                <img src="assets/icons/facebook.svg" alt="Facebook" style="width:14px; height:14px; object-fit:contain;">
+                <div class="text-xs" style="color:var(--text-dim);">Facebook</div>
+              </div>
+              <div style="font-size:20px; font-weight:600;">980</div>
+              <div class="metric-delta up text-xs">↑ 7%</div>
+            </div>
+            <div class="text-center p-4 rounded-lg" style="background: var(--surface-2);">
+              <div class="flex items-center justify-center gap-1.5 mb-1">
+                <img src="assets/icons/linkedin.svg" alt="LinkedIn" style="width:14px; height:14px; object-fit:contain;">
+                <div class="text-xs" style="color:var(--text-dim);">LinkedIn</div>
+              </div>
+              <div style="font-size:20px; font-weight:600;">410</div>
+              <div class="metric-delta up text-xs">↑ 12%</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Needs attention</div>
+          <div class="card-sub">3 items</div>
+          <div class="space-y-3 mt-2 text-sm">
+            <div class="flex items-start gap-2">
+              <span class="badge badge-danger">Ads</span>
+              <span>Meta CPA on "Romantic Getaway" up 22%; paused</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="badge badge-warn">Copy</span>
+              <span>LinkedIn variant flagged below 0.85 voice match</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="badge badge-info">Calendar</span>
+              <span>Next week's calendar ready for review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="assets/state.js"></script>
+  <script src="assets/interactions.js"></script>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

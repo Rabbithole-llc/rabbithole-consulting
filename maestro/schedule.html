@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publishing Queue — Maestro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="schedule">
+  <main class="page-content">
+    <div class="page" style="max-width: 1400px;">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Publishing Queue</div>
+          <div class="page-subtitle">22 posts scheduled across 4 channels · 4 awaiting approval · auto-publish on approve</div>
+        </div>
+        <div class="flex gap-2">
+          <button class="btn btn-secondary">Connected accounts</button>
+          <button class="btn btn-secondary">Publish history</button>
+          <button class="btn btn-primary">+ Schedule post</button>
+        </div>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="card mb-4">
+        <div class="flex items-center gap-3 flex-wrap">
+          <div class="flex gap-1">
+            <button class="btn btn-secondary" style="font-size:12px; padding:5px 12px;">All status</button>
+            <button class="btn btn-ghost" style="font-size:12px; padding:5px 12px;">Awaiting approval (4)</button>
+            <button class="btn btn-ghost" style="font-size:12px; padding:5px 12px;">Scheduled (15)</button>
+            <button class="btn btn-ghost" style="font-size:12px; padding:5px 12px;">Failed (1)</button>
+            <button class="btn btn-ghost" style="font-size:12px; padding:5px 12px;">Published (210)</button>
+          </div>
+          <div style="flex:1;"></div>
+          <input class="input" placeholder="Search posts..." style="width:240px;">
+          <button class="btn btn-secondary" style="font-size:12px;">Filter by channel</button>
+          <div style="width:1px; height:22px; background: var(--border);"></div>
+          <span class="text-xs uppercase tracking-wider" style="color: var(--text-dim);">View</span>
+          <button class="btn btn-secondary view-toggle active" data-view="table" style="font-size:12px; padding:5px 12px;">Table</button>
+          <button class="btn btn-ghost view-toggle" data-view="calendar" style="font-size:12px; padding:5px 12px;">Calendar</button>
+          <button class="btn btn-ghost view-toggle" data-view="list" style="font-size:12px; padding:5px 12px;">List</button>
+        </div>
+      </div>
+
+      <!-- Bulk action bar (appears when rows selected) -->
+      <div class="card mb-4 hidden" id="bulk-bar" style="background: var(--text); color: var(--bg); border: none;">
+        <div class="flex items-center gap-3">
+          <span id="bulk-count" style="font-weight: 600;">0 selected</span>
+          <div style="flex: 1;"></div>
+          <button class="btn btn-secondary" data-bulk-action="approve" style="background: var(--surface-2); color: var(--text);">Approve all</button>
+          <button class="btn btn-secondary" data-bulk-action="reschedule" style="background: var(--surface-2); color: var(--text);">Reschedule</button>
+          <button class="btn btn-secondary" data-bulk-action="delete" style="background: var(--surface-2); color: var(--text);">Delete</button>
+          <button class="btn btn-secondary" data-bulk-action="clear" style="background: transparent; color: var(--bg); border-color: var(--border-strong);">Clear selection</button>
+        </div>
+      </div>
+
+      <!-- Queue table -->
+      <div class="card view-pane" data-view-pane="table" style="padding: 0;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width:32px;"><input type="checkbox" id="select-all-rows" style="cursor:pointer;"></th>
+              <th style="width:36px;"></th>
+              <th>Post</th>
+              <th>Channel</th>
+              <th>Scheduled for</th>
+              <th>Status</th>
+              <th>Approval</th>
+              <th style="width:120px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" class="row-check" style="cursor:pointer;"></td>
+              <td><div class="media-block" style="width:36px; height:36px; background-image:url('assets/photos/magdalena-bedroom-tray.jpg'); background-size:cover; background-position:center;"></div></td>
+              <td>
+                <div class="font-medium text-sm">Morning, unhurried · The Studio</div>
+                <div class="text-xs" style="color: var(--text-dim);">"Your morning, unhurried. The Studio. From $249/night..."</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/instagram.svg" alt="Instagram" style="width:14px; height:14px; object-fit:contain;"> Instagram</span></td>
+              <td class="text-sm">Today · 7:30 AM</td>
+              <td><span class="badge badge-warn"><span class="dot dot-warn"></span> Awaiting</span></td>
+              <td><span class="text-sm" style="color:var(--text-muted);">Pending Austin</span></td>
+              <td><div class="flex gap-1"><button class="btn btn-primary" style="font-size:11px; padding:4px 8px;">Approve</button><button class="btn btn-ghost" style="font-size:11px; padding:4px 6px;">···</button></div></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="row-check" style="cursor:pointer;"></td>
+              <td><div class="media-block" style="width:36px; height:36px; background-image:url('assets/photos/magdalena-business-desk.jpg'); background-size:cover; background-position:center;"></div></td>
+              <td>
+                <div class="font-medium text-sm">Business class. Boutique soul.</div>
+                <div class="text-xs" style="color: var(--text-dim);">"Conference center · high-speed wifi · room service. Book your work stay..."</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/linkedin.svg" alt="Linkedin" style="width:14px; height:14px; object-fit:contain;"> LinkedIn</span></td>
+              <td class="text-sm">Today · 11:00 AM</td>
+              <td><span class="badge badge-warn"><span class="dot dot-warn"></span> Awaiting</span></td>
+              <td><span class="text-sm" style="color:var(--text-muted);">Pending Austin</span></td>
+              <td><div class="flex gap-1"><button class="btn btn-primary" style="font-size:11px; padding:4px 8px;">Approve</button><button class="btn btn-ghost" style="font-size:11px; padding:4px 6px;">···</button></div></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="row-check" style="cursor:pointer;"></td>
+              <td><div class="media-block" style="width:36px; height:36px; background-image:url('assets/photos/magdalena-crafted-for-curious.jpg'); background-size:cover; background-position:center;"></div></td>
+              <td>
+                <div class="font-medium text-sm">Crafted for the Curious</div>
+                <div class="text-xs" style="color: var(--text-dim);">"A boutique hotel in the heart of Condado..."</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/tiktok.svg" alt="Tiktok" style="width:14px; height:14px; object-fit:contain;"> TikTok</span></td>
+              <td class="text-sm">Today · 2:15 PM</td>
+              <td><span class="badge badge-info"><span class="dot dot-info"></span> Scheduled</span></td>
+              <td><span class="text-sm" style="color:var(--text-muted);">Austin · 6 min ago</span></td>
+              <td><div class="flex gap-1"><button class="btn btn-secondary" style="font-size:11px; padding:4px 8px;">View</button><button class="btn btn-ghost" style="font-size:11px; padding:4px 6px;">···</button></div></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="row-check" style="cursor:pointer;"></td>
+              <td><div class="media-block" style="width:36px; height:36px; background-image:url('assets/photos/magdalena-junior-suite.jpg'); background-size:cover; background-position:center;"></div></td>
+              <td>
+                <div class="font-medium text-sm">The Junior Suite</div>
+                <div class="text-xs" style="color: var(--text-dim);">"Spacious. Indulgent. Perfectly composed..."</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/instagram.svg" alt="Instagram" style="width:14px; height:14px; object-fit:contain;"> Instagram</span></td>
+              <td class="text-sm">Today · 6:00 PM</td>
+              <td><span class="badge badge-warn"><span class="dot dot-warn"></span> Awaiting</span></td>
+              <td><span class="text-sm" style="color:var(--text-muted);">Pending Juan</span></td>
+              <td><div class="flex gap-1"><button class="btn btn-primary" style="font-size:11px; padding:4px 8px;">Approve</button><button class="btn btn-ghost" style="font-size:11px; padding:4px 6px;">···</button></div></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="row-check" style="cursor:pointer;"></td>
+              <td><div class="media-block" style="width:36px; height:36px; background-image:url('assets/photos/magdalena-breakfast.jpg'); background-size:cover; background-position:center;"></div></td>
+              <td>
+                <div class="font-medium text-sm">Breakfast the way the island intended</div>
+                <div class="text-xs" style="color: var(--text-dim);">"Complimentary breakfast — fresh, local, slow..."</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/facebook.svg" alt="Facebook" style="width:14px; height:14px; object-fit:contain;"> Facebook</span></td>
+              <td class="text-sm">May 7 · 7:00 PM</td>
+              <td><span class="badge badge-danger"><span class="dot dot-danger"></span> Failed</span></td>
+              <td><span class="text-sm" style="color:var(--text-muted);">Auto-approved</span></td>
+              <td><div class="flex gap-1"><button class="btn btn-secondary" style="font-size:11px; padding:4px 8px;">Retry</button><button class="btn btn-ghost" style="font-size:11px; padding:4px 6px;">···</button></div></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="row-check" style="cursor:pointer;"></td>
+              <td><div class="media-block" style="width:36px; height:36px; background-image:url('assets/photos/magdalena-rooftop-sunset.jpg'); background-size:cover; background-position:center;"></div></td>
+              <td>
+                <div class="font-medium text-sm">Evenings are better up here</div>
+                <div class="text-xs" style="color: var(--text-dim);">"Rooftop Lounge · sunset over Condado..."</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/instagram.svg" alt="Instagram" style="width:14px; height:14px; object-fit:contain;"> Instagram</span></td>
+              <td class="text-sm">Tomorrow · 7:00 PM</td>
+              <td><span class="badge badge-info"><span class="dot dot-info"></span> Scheduled</span></td>
+              <td><span class="text-sm" style="color:var(--text-muted);">Juan · 2h ago</span></td>
+              <td><div class="flex gap-1"><button class="btn btn-secondary" style="font-size:11px; padding:4px 8px;">View</button><button class="btn btn-ghost" style="font-size:11px; padding:4px 6px;">···</button></div></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="row-check" style="cursor:pointer;"></td>
+              <td><div class="media-block" style="width:36px; height:36px; background-image:url('assets/photos/magdalena-lobby.jpg'); background-size:cover; background-position:center;"></div></td>
+              <td>
+                <div class="font-medium text-sm">Arrival is part of the experience</div>
+                <div class="text-xs" style="color: var(--text-dim);">"The lobby, the art, the first quiet moment. Book direct..."</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/linkedin.svg" alt="Linkedin" style="width:14px; height:14px; object-fit:contain;"> LinkedIn</span></td>
+              <td class="text-sm">May 18 · 9:00 AM</td>
+              <td><span class="badge badge-info"><span class="dot dot-info"></span> Scheduled</span></td>
+              <td><span class="text-sm" style="color:var(--text-muted);">Auto-approved · ≥0.90 voice</span></td>
+              <td><div class="flex gap-1"><button class="btn btn-secondary" style="font-size:11px; padding:4px 8px;">View</button><button class="btn btn-ghost" style="font-size:11px; padding:4px 6px;">···</button></div></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="row-check" style="cursor:pointer;"></td>
+              <td><div class="media-block" style="width:36px; height:36px; background-image:url('assets/photos/magdalena-couple-sunset.jpg'); background-size:cover; background-position:center;"></div></td>
+              <td>
+                <div class="font-medium text-sm">An escape for two</div>
+                <div class="text-xs" style="color: var(--text-dim);">"Where the city meets the sunset. Condado..."</div>
+              </td>
+              <td><span class="flex items-center gap-2 text-sm"><img src="assets/icons/tiktok.svg" alt="Tiktok" style="width:14px; height:14px; object-fit:contain;"> TikTok</span></td>
+              <td class="text-sm">May 5 · 5:00 PM</td>
+              <td><span class="badge badge-success"><span class="dot dot-success"></span> Published</span></td>
+              <td><span class="text-sm" style="color:var(--text-muted);">2.1K views · 184 likes</span></td>
+              <td><div class="flex gap-1"><button class="btn btn-secondary" style="font-size:11px; padding:4px 8px;">View</button><button class="btn btn-ghost" style="font-size:11px; padding:4px 6px;">···</button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Calendar view -->
+      <div class="card view-pane hidden" data-view-pane="calendar" style="padding: 20px;">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <div class="card-title">May 2026 · 22 posts scheduled</div>
+            <div class="card-sub">Drag a post to reschedule · click to view detail</div>
+          </div>
+          <div class="flex gap-2">
+            <button class="btn btn-ghost" style="font-size:12px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="btn btn-secondary" style="font-size:12px;">Today</button>
+            <button class="btn btn-ghost" style="font-size:12px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 4px;">
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-dim); padding: 4px 8px;">Sun</div>
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-dim); padding: 4px 8px;">Mon</div>
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-dim); padding: 4px 8px;">Tue</div>
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-dim); padding: 4px 8px;">Wed</div>
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-dim); padding: 4px 8px;">Thu</div>
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-dim); padding: 4px 8px;">Fri</div>
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-dim); padding: 4px 8px;">Sat</div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;">
+          <!-- Week 1 -->
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px; opacity: 0.4;"><div style="font-size: 12px; color: var(--text-muted);">26</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px; opacity: 0.4;"><div style="font-size: 12px; color: var(--text-muted);">27</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px; opacity: 0.4;"><div style="font-size: 12px; color: var(--text-muted);">28</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px; opacity: 0.4;"><div style="font-size: 12px; color: var(--text-muted);">29</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px; opacity: 0.4;"><div style="font-size: 12px; color: var(--text-muted);">30</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">1</div><div class="post-chip ig" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:var(--surface-2); margin-top:4px; border-left:2px solid #ec4899; cursor:grab;">7AM · The Studio · morning</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">2</div><div class="post-chip tt" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:var(--surface-2); margin-top:4px; border-left:2px solid #1a1a1a; cursor:grab;">2PM · Crafted for the Curious</div></div>
+          <!-- Week 2 -->
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">3</div><div class="post-chip ig" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:var(--surface-2); margin-top:4px; border-left:2px solid #ec4899; cursor:grab;">11AM · Mavi recipe</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">4</div><div class="post-chip li" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:var(--surface-2); margin-top:4px; border-left:2px solid #0ea5e9; cursor:grab;">9AM · Rooftop sunset</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">5</div><div class="post-chip tt" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:var(--surface-2); margin-top:4px; border-left:2px solid #1a1a1a; cursor:grab;">5PM · Cathedral view</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">6</div><div class="post-chip ig" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:var(--surface-2); margin-top:4px; border-left:2px solid #ec4899; cursor:grab;">7AM · Linen detail</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">7</div><div class="post-chip fb" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:rgba(190,18,60,0.08); margin-top:4px; border-left:2px solid var(--danger); cursor:grab; color:var(--danger);">7PM · Quenepa · FAILED</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">8</div><div class="post-chip ig" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:var(--surface-2); margin-top:4px; border-left:2px solid #ec4899; cursor:grab;">10AM · Friday breakfast</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">9</div></div>
+          <!-- Week 3 (today is 16) -->
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">10</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">11</div><div class="post-chip ig" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:var(--surface-2); margin-top:4px; border-left:2px solid #ec4899; cursor:grab;">7AM · The Studio at sunrise</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">12</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">13</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">14</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">15</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--accent); border-radius: 8px; min-height: 90px; padding: 8px;">
+            <div style="font-size: 12px; color: var(--accent); font-weight: 600;">16 · TODAY</div>
+            <div class="post-chip ig" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:rgba(184,146,79,0.12); margin-top:4px; border-left:2px solid #ec4899; cursor:grab;">7:30AM · Sunrise courtyard</div>
+            <div class="post-chip fb" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:rgba(184,146,79,0.12); margin-top:4px; border-left:2px solid #60a5fa; cursor:grab;">11AM · Cocktail of week</div>
+            <div class="post-chip tt" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:var(--surface-2); margin-top:4px; border-left:2px solid #1a1a1a; cursor:grab;">2:15PM · Crafted for the Curious</div>
+            <div class="post-chip ig" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:rgba(184,146,79,0.12); margin-top:4px; border-left:2px solid #ec4899; cursor:grab;">6PM · Junior Suite</div>
+          </div>
+          <!-- Week 4 -->
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">17</div><div class="post-chip ig" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:var(--surface-2); margin-top:4px; border-left:2px solid #ec4899; cursor:grab;">8AM · Sunday morning</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">18</div><div class="post-chip li" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:var(--surface-2); margin-top:4px; border-left:2px solid #0ea5e9; cursor:grab;">9AM · Reynaldo · auto-approved</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">19</div><div class="post-chip tt" style="font-size:10.5px; padding:3px 6px; border-radius:4px; background:var(--surface-2); margin-top:4px; border-left:2px solid #1a1a1a; cursor:grab;">3PM · Lobby arrival</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">20</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">21</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">22</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">23</div></div>
+          <!-- Week 5 -->
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">24</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">25</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">26</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">27</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">28</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">29</div></div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 90px; padding: 8px;"><div style="font-size: 12px; color: var(--text-muted);">30</div></div>
+        </div>
+      </div>
+
+      <!-- List view (grouped by day) -->
+      <div class="card view-pane hidden" data-view-pane="list" style="padding: 20px;">
+        <div class="space-y-5">
+          <div>
+            <div class="text-xs uppercase tracking-wider mb-2" style="color: var(--accent); font-weight: 600;">Today · May 16</div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-3 p-3 rounded" style="background: var(--surface-2);"><div class="media-block" style="width:42px; height:42px; background-image:url('assets/photos/magdalena-bedroom-tray.jpg'); background-size:cover; background-position:center;"></div><div class="flex-1"><div class="text-sm font-medium">Morning, unhurried · The Studio</div><div class="text-xs" style="color: var(--text-dim);">7:30 AM · Instagram · Pending Austin</div></div><span class="badge badge-warn"><span class="dot dot-warn"></span> Awaiting</span><button class="btn btn-primary" style="font-size: 11px; padding: 4px 10px;">Approve</button></div>
+              <div class="flex items-center gap-3 p-3 rounded" style="background: var(--surface-2);"><div class="media-block" style="width:42px; height:42px; background-image:url('assets/photos/magdalena-business-desk.jpg'); background-size:cover; background-position:center;"></div><div class="flex-1"><div class="text-sm font-medium">Breakfast the way the island intended</div><div class="text-xs" style="color: var(--text-dim);">11:00 AM · Facebook · Pending Austin</div></div><span class="badge badge-warn"><span class="dot dot-warn"></span> Awaiting</span><button class="btn btn-primary" style="font-size: 11px; padding: 4px 10px;">Approve</button></div>
+              <div class="flex items-center gap-3 p-3 rounded" style="background: var(--surface-2);"><div class="media-block" style="width:42px; height:42px; background-image:url('assets/photos/magdalena-crafted-for-curious.jpg'); background-size:cover; background-position:center;"></div><div class="flex-1"><div class="text-sm font-medium">Crafted for the Curious</div><div class="text-xs" style="color: var(--text-dim);">2:15 PM · TikTok · approved 6 min ago</div></div><span class="badge badge-info"><span class="dot dot-info"></span> Scheduled</span><button class="btn btn-secondary" style="font-size: 11px; padding: 4px 10px;">View</button></div>
+              <div class="flex items-center gap-3 p-3 rounded" style="background: var(--surface-2);"><div class="media-block" style="width:42px; height:42px; background-image:url('assets/photos/magdalena-junior-suite.jpg'); background-size:cover; background-position:center;"></div><div class="flex-1"><div class="text-sm font-medium">The Junior Suite</div><div class="text-xs" style="color: var(--text-dim);">6:00 PM · Instagram · Pending Juan</div></div><span class="badge badge-warn"><span class="dot dot-warn"></span> Awaiting</span><button class="btn btn-primary" style="font-size: 11px; padding: 4px 10px;">Approve</button></div>
+            </div>
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-wider mb-2" style="color: var(--text-dim); font-weight: 600;">Tomorrow · May 17</div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-3 p-3 rounded" style="background: var(--surface-2);"><div class="media-block" style="width:42px; height:42px; background-image:url('assets/photos/magdalena-bedroom-tray.jpg'); background-size:cover; background-position:center;"></div><div class="flex-1"><div class="text-sm font-medium">Begin the day your way</div><div class="text-xs" style="color: var(--text-dim);">7:00 AM · Instagram · Juan, 2h ago</div></div><span class="badge badge-info"><span class="dot dot-info"></span> Scheduled</span><button class="btn btn-secondary" style="font-size: 11px; padding: 4px 10px;">View</button></div>
+            </div>
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-wider mb-2" style="color: var(--text-dim); font-weight: 600;">Sunday · May 18</div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-3 p-3 rounded" style="background: var(--surface-2);"><div class="media-block" style="width:42px; height:42px; background-image:url('assets/photos/magdalena-lobby.jpg'); background-size:cover; background-position:center;"></div><div class="flex-1"><div class="text-sm font-medium">Arrival is part of the experience</div><div class="text-xs" style="color: var(--text-dim);">9:00 AM · LinkedIn · auto-approved (voice ≥ 0.90)</div></div><span class="badge badge-info"><span class="dot dot-info"></span> Scheduled</span><button class="btn btn-secondary" style="font-size: 11px; padding: 4px 10px;">View</button></div>
+            </div>
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-wider mb-2" style="color: var(--text-dim); font-weight: 600;">Last week · May 7 (1 failed, needs attention)</div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-3 p-3 rounded" style="background: rgba(190,18,60,0.06); border: 1px solid rgba(190,18,60,0.2);"><div class="media-block" style="width:42px; height:42px; background-image:url('assets/photos/magdalena-breakfast.jpg'); background-size:cover; background-position:center;"></div><div class="flex-1"><div class="text-sm font-medium">Breakfast the way the island intended</div><div class="text-xs" style="color: var(--text-dim);">May 7 · 7:00 PM · Facebook · Auto-approved</div></div><span class="badge badge-danger"><span class="dot dot-danger"></span> Failed</span><button class="btn btn-secondary" style="font-size: 11px; padding: 4px 10px;">Retry</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connected accounts -->
+      <div class="grid grid-cols-2 gap-4 mt-6">
+        <div class="card">
+          <div class="card-title">Connected accounts</div>
+          <div class="card-sub">Posting on behalf of Magdalena 1163</div>
+          <div class="space-y-2 mt-3">
+            <div class="flex items-center justify-between p-3 rounded" style="background: var(--surface-2);">
+              <div class="flex items-center gap-3">
+                <span style="width:32px; height:32px; border-radius:7px; background: var(--surface-2); display:flex; align-items:center; justify-content:center;"><img src="assets/icons/instagram.svg" alt="Instagram" style="width:22px; height:22px; object-fit:contain;"></span>
+                <div>
+                  <div class="text-sm font-medium">@magdalena1163</div>
+                  <div class="text-xs" style="color: var(--text-dim);">Instagram · 18.4K followers</div>
+                </div>
+              </div>
+              <span class="badge badge-success"><span class="dot dot-success"></span> Connected</span>
+            </div>
+            <div class="flex items-center justify-between p-3 rounded" style="background: var(--surface-2);">
+              <div class="flex items-center gap-3">
+                <span style="width:32px; height:32px; border-radius:7px; background: var(--surface-2); display:flex; align-items:center; justify-content:center;"><img src="assets/icons/tiktok.svg" alt="TikTok" style="width:22px; height:22px; object-fit:contain;"></span>
+                <div>
+                  <div class="text-sm font-medium">@magdalena1163</div>
+                  <div class="text-xs" style="color: var(--text-dim);">TikTok · 12.1K followers</div>
+                </div>
+              </div>
+              <span class="badge badge-success"><span class="dot dot-success"></span> Connected</span>
+            </div>
+            <div class="flex items-center justify-between p-3 rounded" style="background: var(--surface-2);">
+              <div class="flex items-center gap-3">
+                <span style="width:32px; height:32px; border-radius:7px; background: var(--surface-2); display:flex; align-items:center; justify-content:center;"><img src="assets/icons/facebook.svg" alt="Facebook" style="width:22px; height:22px; object-fit:contain;"></span>
+                <div>
+                  <div class="text-sm font-medium">Magdalena 1163 Boutique Hotel</div>
+                  <div class="text-xs" style="color: var(--text-dim);">Facebook Page · 9.8K followers</div>
+                </div>
+              </div>
+              <span class="badge badge-success"><span class="dot dot-success"></span> Connected</span>
+            </div>
+            <div class="flex items-center justify-between p-3 rounded" style="background: var(--surface-2);">
+              <div class="flex items-center gap-3">
+                <span style="width:32px; height:32px; border-radius:7px; background: var(--surface-2); display:flex; align-items:center; justify-content:center;"><img src="assets/icons/linkedin.svg" alt="LinkedIn" style="width:22px; height:22px; object-fit:contain;"></span>
+                <div>
+                  <div class="text-sm font-medium">Magdalena 1163</div>
+                  <div class="text-xs" style="color: var(--text-dim);">LinkedIn Page · 3.2K followers</div>
+                </div>
+              </div>
+              <span class="badge badge-success"><span class="dot dot-success"></span> Connected</span>
+            </div>
+          </div>
+          <button class="btn btn-secondary w-full mt-3" style="justify-content:center;">+ Connect another channel</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Approval rules</div>
+          <div class="card-sub">When the system auto-publishes vs. waits for you</div>
+          <div class="space-y-3 mt-3">
+            <div class="flex items-start justify-between gap-3 p-3 rounded" style="background: var(--surface-2);">
+              <div>
+                <div class="text-sm font-medium">All posts require approval (default)</div>
+                <div class="text-xs mt-1" style="color: var(--text-dim);">Conservative · used for all posts during eval ramp-up</div>
+              </div>
+              <span class="badge badge-info">Active</span>
+            </div>
+            <div class="flex items-start justify-between gap-3 p-3 rounded" style="background: var(--surface-2); opacity:0.7;">
+              <div>
+                <div class="text-sm font-medium">Auto-publish if voice match ≥ 0.90</div>
+                <div class="text-xs mt-1" style="color: var(--text-dim);">Trust the copy on high-scoring posts</div>
+              </div>
+              <button class="btn btn-ghost" style="font-size:11px;">Enable</button>
+            </div>
+            <div class="flex items-start justify-between gap-3 p-3 rounded" style="background: var(--surface-2); opacity:0.7;">
+              <div>
+                <div class="text-sm font-medium">Auto-publish atmosphere posts only</div>
+                <div class="text-xs mt-1" style="color: var(--text-dim);">Promotional and booking-CTA posts still need approval</div>
+              </div>
+              <button class="btn btn-ghost" style="font-size:11px;">Enable</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="assets/state.js"></script>
+  <script src="assets/interactions.js"></script>
+  <script src="assets/layout.js"></script>
+</body>
+</html>
