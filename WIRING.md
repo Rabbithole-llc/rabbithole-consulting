@@ -140,7 +140,82 @@ Vercel project / team for env-var setup:
 - project: `rabbithole-consulting`
 - prod alias: `https://www.rabbithole.consulting`
 
-## 6. Privacy notes
+## 6. `/hello` — Virtual Sales Agent
+
+The `/hello` page is the inbound Virtual Sales Agent: a 5-turn scripted
+conversation (industry → problem → action → name → contact) that drops
+into the same pipeline as `/apply`, only lighter. It writes to a separate
+`sales_agent_leads` table so the BANT schema on `leads` stays intact.
+
+### 6.1. Supabase migration — run once
+
+```sql
+create table public.sales_agent_leads (
+  id              uuid primary key default gen_random_uuid(),
+  created_at      timestamptz not null default now(),
+  first_name      text,
+  email           text,
+  phone           text,
+  contact_method  text,            -- 'email' | 'phone' | 'both'
+  industry        text,            -- 'salon' | 'restaurant' | 'clinic' | 'other'
+  problem         text,            -- bottleneck key (industry-aware enum)
+  action_chosen   text,            -- 'demo' | 'call' | 'founder' | 'recap'
+  transcript      jsonb,           -- [{ role: 'agent'|'user', content: string }]
+  source_url      text,
+  user_agent      text,
+  ip_hash         text
+);
+
+-- Index for lead-source funnel queries
+create index if not exists sales_agent_leads_created_at_idx
+  on public.sales_agent_leads (created_at desc);
+```
+
+Keep RLS enabled with no anon policy — the service-role key in
+`api/sales-agent-lead.js` bypasses RLS.
+
+If you skip the migration, `/api/sales-agent-lead` degrades gracefully:
+email + Telegram fire as usual, the Supabase insert errors are logged, and
+the client still sees `{ ok: true, lead_id: null }`.
+
+### 6.2. Voice agent phone number
+
+`hello.html` ships with a placeholder `tel:+10000000000` on the floating
+"Talk to me by phone" button. Search for the TODO comment in the file
+and swap in the real outbound voice-agent line when ready.
+
+### 6.3. Outbound dial when visitor picks "Have your voice agent call me"
+
+For now this is captured in the lead payload (`action_chosen: "call"`)
+and surfaces in the Telegram notification with a 📞 tag. Wiring an
+actual outbound dial (Twilio/Vapi) lives in the ops repo, not here —
+the website's job is just to capture the intent + phone number.
+
+### 6.4. Local smoke test
+
+```sh
+vercel dev
+
+# Minimum payload — first_name + email/phone are the only hard requirements
+curl -i -X POST http://localhost:3000/api/sales-agent-lead \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: https://www.rabbithole.consulting' \
+  --data '{
+    "industry": "salon",
+    "problem": "missed_bookings",
+    "action_chosen": "demo",
+    "first_name": "Maria",
+    "contact_method": "email",
+    "email": "maria@example.com",
+    "transcript": [
+      {"role":"agent","content":"What kind of business?"},
+      {"role":"user","content":"Salon"}
+    ]
+  }'
+# expect: 200 { "ok": true, "lead_id": "<uuid>" | null }
+```
+
+## 7. Privacy notes
 
 - Raw IPs are never stored. `ip_hash` is the first 16 hex chars of
   `sha256(x-forwarded-for-first-hop)`. Truncated to make rainbow-table

@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- PostHog -->
+<script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_session_recording opt_out_session_recording has_opted_in_session_recording has_opted_out_session_recording clear_opt_in_out_session_recording createCohort onSessionRecording".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_kmXwWMfoPRJ2s36tUNQNrhmKiKniLGzr4pNuCKCRk4yJ', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2025-05-24',
+        person_profiles: 'identified_only'
+    });
+</script>
+<!-- /PostHog -->
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Talk to Rabbithole | Virtual Sales Agent</title>
+<meta name="description" content="Meet the Rabbithole Virtual Sales Agent. Five quick questions and you'll walk away with a live demo, a phone call from our voice agent, or a founder in your inbox. 24/7 intelligent systems."/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://rabbithole.consulting/hello"/>
+<meta property="og:title" content="Talk to Rabbithole | Virtual Sales Agent"/>
+<meta property="og:description" content="Meet the Rabbithole Virtual Sales Agent. Five quick questions and you'll walk away with a demo, a call, or a founder in your inbox."/>
+<meta property="og:image" content="https://rabbithole.consulting/og-image.png"/>
+<meta property="og:site_name" content="Rabbithole Consulting"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Talk to Rabbithole | Virtual Sales Agent"/>
+<meta name="twitter:description" content="Meet the Rabbithole Virtual Sales Agent. Five quick questions and you'll walk away with a demo, a call, or a founder in your inbox."/>
+<meta name="twitter:image" content="https://rabbithole.consulting/og-image.png"/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://rabbithole.consulting/hello"/>
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png"/>
+<link rel="apple-touch-icon" href="assets/favicon-192.png"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#ffffff;
+  --bg-2:#f5f6f8;
+  --bg-3:#eaecf0;
+  --surface:#ffffff;
+  --ink:#0a0a0a;
+  --ink-2:#1a1a1a;
+  --muted:#5a5f66;
+  --dim:#8a8f96;
+  --line:#e3e6eb;
+  --line-2:#d0d4da;
+  --inkblue:#1d3a8a;
+  --inkblue-deep:#152a66;
+  --inkblue-soft:#dee3f3;
+  --dark:#0a1226;
+  --dark-2:#142253;
+  --live:#16a34a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;height:100%}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.55;
+  font-weight:400;
+  min-height:100%;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* Background — subtle "intelligence systems" mesh */
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(29,58,138,.06), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(29,58,138,.05), transparent 60%),
+    linear-gradient(180deg, #fafbfd 0%, #ffffff 60%);
+}
+body::after{
+  content:"";
+  position:fixed;inset:0;z-index:-1;
+  background-image:
+    linear-gradient(rgba(29,58,138,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29,58,138,.045) 1px, transparent 1px);
+  background-size:48px 48px;
+  background-position:-1px -1px;
+  mask-image:radial-gradient(ellipse at 50% 30%, #000 0%, transparent 70%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 30%, #000 0%, transparent 70%);
+  opacity:.7;
+}
+
+/* ============== BRAND LOCKUP ============== */
+.brand-lockup{display:inline-flex;align-items:center;gap:12px;text-decoration:none}
+.mark{
+  display:inline-block;flex-shrink:0;
+  width:32px;height:32px;
+  background-image:url('assets/logo-black-512.png');
+  background-size:contain;background-repeat:no-repeat;background-position:center;
+}
+.wm-stack{display:flex;flex-direction:column;line-height:1}
+.wm-stack .top{
+  font-family:'Inter Tight',sans-serif;font-weight:800;
+  font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);
+}
+.wm-stack .bot{
+  margin-top:3px;
+  font-family:'Inter',sans-serif;font-weight:500;
+  font-size:.6rem;letter-spacing:.22em;color:var(--muted);
+  text-transform:uppercase;
+}
+
+/* ============== TOP BAR ============== */
+.topbar{
+  position:sticky;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:saturate(180%) blur(12px);
+  -webkit-backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.live-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 12px;
+  background:#f0f9f2;
+  border:1px solid #cce8d5;
+  border-radius:999px;
+  font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:.66rem;font-weight:600;letter-spacing:.06em;
+  color:#137a3b;text-transform:uppercase;
+}
+.live-dot{
+  display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--live);
+  box-shadow:0 0 0 0 rgba(22,163,74,.6);
+  animation:livepulse 1.8s ease-out infinite;
+}
+@keyframes livepulse{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  70%{box-shadow:0 0 0 9px rgba(22,163,74,0)}
+  100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}
+}
+.home-link{
+  font-family:'Inter Tight',sans-serif;font-weight:600;
+  font-size:.78rem;color:var(--muted);
+  text-decoration:none;letter-spacing:.02em;
+}
+.home-link:hover{color:var(--ink)}
+.topbar-right{display:flex;align-items:center;gap:14px}
+
+/* ============== STAGE ============== */
+.stage{
+  max-width:780px;margin:0 auto;
+  padding:28px 22px 200px;
+  min-height:calc(100vh - 60px);
+}
+
+/* Agent identity */
+.agent-id{
+  display:flex;align-items:center;gap:14px;
+  padding:6px 0 20px;
+  position:sticky;top:60px;z-index:5;
+  background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.7));
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+.agent-avatar{
+  width:46px;height:46px;border-radius:50%;
+  background:var(--inkblue);
+  background-image:url('assets/logo-white-512.png');
+  background-size:62%;background-repeat:no-repeat;background-position:center;
+  box-shadow:0 6px 16px -6px rgba(29,58,138,.4), 0 0 0 2px #fff, 0 0 0 3px rgba(29,58,138,.18);
+  flex-shrink:0;
+  position:relative;
+}
+.agent-avatar::after{
+  content:"";
+  position:absolute;right:0;bottom:0;
+  width:13px;height:13px;border-radius:50%;
+  background:var(--live);border:2.5px solid #fff;
+}
+.agent-meta{display:flex;flex-direction:column;line-height:1.15}
+.agent-name{
+  font-family:'Inter Tight',sans-serif;font-weight:800;
+  font-size:1.02rem;color:var(--ink);letter-spacing:-.01em;
+}
+.agent-role{
+  margin-top:2px;
+  font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:.66rem;font-weight:500;color:var(--muted);
+  letter-spacing:.06em;text-transform:uppercase;
+}
+
+/* Messages */
+.msgs{display:flex;flex-direction:column;gap:14px;padding:18px 0 8px}
+.msg{
+  max-width:88%;
+  font-size:1rem;line-height:1.55;
+  animation:slidein .35s cubic-bezier(.16,1,.3,1) both;
+}
+.msg.agent{
+  align-self:flex-start;
+  background:#fff;
+  border:1px solid var(--line);
+  padding:14px 18px;border-radius:16px 16px 16px 6px;
+  box-shadow:0 6px 18px -10px rgba(10,18,38,.15);
+  color:var(--ink-2);
+}
+.msg.user{
+  align-self:flex-end;
+  background:var(--inkblue);
+  color:#fff;
+  padding:12px 16px;border-radius:16px 16px 6px 16px;
+  font-weight:500;
+  box-shadow:0 6px 18px -10px rgba(29,58,138,.4);
+}
+.msg strong{font-weight:700;color:var(--ink)}
+.msg.user strong{color:#fff}
+.msg a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+@keyframes slidein{
+  0%{opacity:0;transform:translateY(8px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+/* Typing indicator */
+.typing{
+  align-self:flex-start;
+  display:inline-flex;align-items:center;gap:5px;
+  background:#fff;border:1px solid var(--line);
+  padding:14px 18px;border-radius:16px;
+  box-shadow:0 6px 18px -10px rgba(10,18,38,.15);
+}
+.typing span{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--dim);
+  animation:bob 1.2s infinite ease-in-out;
+}
+.typing span:nth-child(2){animation-delay:.15s}
+.typing span:nth-child(3){animation-delay:.3s}
+@keyframes bob{
+  0%,80%,100%{transform:translateY(0);opacity:.4}
+  40%{transform:translateY(-5px);opacity:1}
+}
+
+/* Bubbles (answer chips) */
+.bubbles{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:6px;
+  animation:slidein .4s cubic-bezier(.16,1,.3,1) both;
+  animation-delay:.1s;
+}
+.bubbles.solo{grid-template-columns:1fr}
+.bubble{
+  display:flex;align-items:center;gap:10px;
+  padding:18px 18px;
+  background:#fff;
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  font-family:'Inter Tight',sans-serif;font-weight:600;
+  font-size:.94rem;color:var(--ink);
+  text-align:left;
+  cursor:pointer;
+  transition:transform .15s ease, border-color .2s, background .2s, box-shadow .2s;
+  position:relative;
+  overflow:hidden;
+}
+.bubble:hover{
+  border-color:var(--inkblue);
+  background:#f8faff;
+  transform:translateY(-1px);
+  box-shadow:0 10px 22px -14px rgba(29,58,138,.35);
+}
+.bubble:active{transform:translateY(0)}
+.bubble .bicon{
+  flex-shrink:0;
+  display:grid;place-items:center;
+  width:30px;height:30px;border-radius:8px;
+  background:var(--inkblue-soft);
+  color:var(--inkblue);
+}
+.bubble .bicon svg{width:16px;height:16px}
+.bubble .blabel{flex:1;line-height:1.25}
+.bubble .bsub{
+  display:block;
+  font-family:'Inter',sans-serif;font-weight:400;
+  font-size:.78rem;color:var(--muted);
+  margin-top:3px;
+  letter-spacing:0;
+}
+.bubble[disabled]{
+  pointer-events:none;opacity:.55;
+}
+
+/* Input bar (sticky bottom) */
+.inputwrap{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  padding:16px 22px 18px;
+  background:linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.92) 35%, rgba(255,255,255,.98) 100%);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.inputbar{
+  max-width:780px;margin:0 auto;
+  display:flex;align-items:center;gap:10px;
+  background:#fff;
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  padding:8px 8px 8px 12px;
+  box-shadow:0 14px 36px -18px rgba(10,18,38,.25);
+  transition:border-color .2s, box-shadow .2s;
+}
+.inputbar:focus-within{
+  border-color:var(--inkblue);
+  box-shadow:0 14px 36px -18px rgba(29,58,138,.4);
+}
+#agent-input{
+  flex:1;
+  border:0;outline:0;background:transparent;
+  font:inherit;font-size:.98rem;color:var(--ink);
+  padding:10px 4px;
+  resize:none;
+  max-height:120px;
+  line-height:1.4;
+}
+#agent-input::placeholder{color:var(--dim)}
+.icon-btn{
+  display:grid;place-items:center;
+  width:40px;height:40px;border-radius:10px;
+  border:0;background:transparent;
+  color:var(--muted);cursor:pointer;
+  transition:background .15s, color .15s, transform .1s;
+}
+.icon-btn:hover{background:var(--bg-2);color:var(--ink)}
+.icon-btn:active{transform:scale(.95)}
+.icon-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.icon-btn.primary{
+  background:var(--inkblue);color:#fff;
+}
+.icon-btn.primary:hover{background:var(--inkblue-deep);color:#fff}
+.icon-btn.primary[disabled]{opacity:.4;cursor:not-allowed;background:var(--inkblue);color:#fff}
+.icon-btn.recording{
+  background:#fee;color:#c00;
+  animation:recpulse 1.2s ease-in-out infinite;
+}
+@keyframes recpulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(204,0,0,.4)}
+  50%{box-shadow:0 0 0 7px rgba(204,0,0,0)}
+}
+.inputfoot{
+  max-width:780px;margin:8px auto 0;
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+  font-size:.72rem;color:var(--muted);
+  font-family:'Inter',sans-serif;
+}
+.inputfoot a{color:var(--inkblue);text-decoration:none;font-weight:600}
+.inputfoot a:hover{text-decoration:underline}
+.inputfoot .left{flex:1}
+
+/* Floating "Call us" button */
+.call-fab{
+  position:fixed;bottom:96px;right:22px;z-index:45;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:12px 18px 12px 14px;
+  background:var(--ink);color:#fff;
+  border:0;border-radius:999px;
+  font-family:'Inter Tight',sans-serif;font-weight:700;
+  font-size:.84rem;letter-spacing:.02em;
+  text-decoration:none;cursor:pointer;
+  box-shadow:0 14px 28px -10px rgba(10,18,38,.45);
+  transition:transform .15s, background .2s;
+}
+.call-fab:hover{background:var(--inkblue);transform:translateY(-1px)}
+.call-fab svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.call-fab .fab-label{display:inline-block}
+.call-fab .fab-sub{
+  display:block;
+  font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-weight:500;font-size:.62rem;letter-spacing:.05em;
+  color:rgba(255,255,255,.7);
+  margin-top:1px;
+}
+
+/* Inline link in agent message */
+.inline-link{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 10px;
+  background:var(--inkblue-soft);color:var(--inkblue);
+  border-radius:6px;
+  text-decoration:none;font-weight:600;
+  font-size:.86rem;
+  transition:background .15s;
+}
+.inline-link:hover{background:#cdd5ee}
+
+/* Final card */
+.final-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:20px 22px;
+  margin-top:6px;
+  animation:slidein .4s cubic-bezier(.16,1,.3,1) both;
+}
+.final-card h3{
+  font-family:'Inter Tight',sans-serif;font-weight:800;
+  font-size:1.1rem;color:var(--ink);
+  margin-bottom:6px;
+}
+.final-card p{font-size:.94rem;color:var(--muted);margin-bottom:14px}
+.final-card .row{display:flex;gap:10px;flex-wrap:wrap}
+.final-card .row a, .final-card .row button{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 16px;border-radius:9px;
+  background:var(--inkblue);color:#fff;
+  font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.84rem;
+  letter-spacing:.04em;text-transform:uppercase;
+  text-decoration:none;border:0;cursor:pointer;
+}
+.final-card .row a:hover, .final-card .row button:hover{background:var(--inkblue-deep)}
+.final-card .row .ghost{
+  background:transparent;color:var(--ink);
+  border:1.5px solid var(--line-2);
+}
+.final-card .row .ghost:hover{background:var(--bg-2);color:var(--ink)}
+
+/* Restart link */
+.restart-row{
+  margin-top:18px;text-align:center;
+}
+.restart-row button{
+  background:transparent;border:0;
+  color:var(--muted);
+  font-size:.78rem;cursor:pointer;
+  text-decoration:underline;text-underline-offset:3px;
+}
+.restart-row button:hover{color:var(--ink)}
+
+/* Mobile */
+@media(max-width:640px){
+  .topbar{padding:12px 18px}
+  .stage{padding:22px 18px 220px}
+  .bubbles{grid-template-columns:1fr;gap:8px}
+  .bubble{padding:14px 16px}
+  .inputwrap{padding:14px 18px 16px}
+  .call-fab{bottom:104px;right:14px;padding:10px 14px 10px 12px;font-size:.78rem}
+  .call-fab .fab-sub{font-size:.58rem}
+  .agent-id{top:54px}
+  .msg{max-width:94%;font-size:.96rem}
+  .home-link{display:none}
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="/" class="brand-lockup" aria-label="Rabbithole home">
+    <span class="mark" aria-hidden="true"></span>
+    <span class="wm-stack">
+      <span class="top">Rabbithole</span>
+      <span class="bot">Consulting</span>
+    </span>
+  </a>
+  <div class="topbar-right">
+    <a href="/" class="home-link">Back to site</a>
+    <span class="live-pill"><span class="live-dot" aria-hidden="true"></span>24/7 · Online</span>
+  </div>
+</header>
+
+<main class="stage" id="stage">
+  <div class="agent-id">
+    <div class="agent-avatar" aria-hidden="true"></div>
+    <div class="agent-meta">
+      <div class="agent-name">Rabbithole Virtual Sales Agent</div>
+      <div class="agent-role">Built on Rabbithole · Always Available</div>
+    </div>
+  </div>
+
+  <div class="msgs" id="msgs" aria-live="polite"></div>
+</main>
+
+<!-- Floating dial-out button.
+     TODO: replace +10000000000 with the real voice agent number when ready. -->
+<a class="call-fab" id="call-fab" href="tel:+10000000000" aria-label="Call the voice agent now">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  <span>
+    <span class="fab-label">Talk to me by phone</span>
+    <span class="fab-sub">Voice agent · live now</span>
+  </span>
+</a>
+
+<div class="inputwrap">
+  <div class="inputbar">
+    <button class="icon-btn" id="mic-btn" type="button" aria-label="Speak instead of typing" title="Speak instead of typing" hidden>
+      <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 1 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg>
+    </button>
+    <textarea id="agent-input" rows="1" placeholder="Or just type what's on your mind." aria-label="Message the sales agent"></textarea>
+    <button class="icon-btn primary" id="send-btn" type="button" aria-label="Send" disabled>
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+  <div class="inputfoot">
+    <span class="left">Tap a bubble, type a question, or press the mic. I'll handle whatever you throw at me.</span>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   Rabbithole Virtual Sales Agent
+   - Scripted 5-turn flow with bubble answers
+   - AI escape hatch via /api/chat when user types free-form
+   - Voice dictation via Web Speech API
+   - Submits captured info to /api/sales-agent-lead
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  // ---------- DOM refs ----------
+  const $msgs = document.getElementById('msgs');
+  const $input = document.getElementById('agent-input');
+  const $send = document.getElementById('send-btn');
+  const $mic = document.getElementById('mic-btn');
+
+  // ---------- State ----------
+  const state = {
+    step: 0,
+    answers: {
+      industry: null,
+      problem: null,
+      action_chosen: null,
+      first_name: null,
+      contact_method: null,
+      email: null,
+      phone: null,
+    },
+    transcript: [],
+    activeBubbles: null,  // currently rendered bubble container (DOM node)
+    awaitingText: null,   // when a turn wants typed input only: { field, validator, onValid }
+    started: false,
+    submitting: false,
+  };
+
+  // ---------- Demo URLs by industry ----------
+  const DEMOS = {
+    salon: '/salon-demo',
+    restaurant: '/restaurants-demo',
+    clinic: '/clinic-demo',
+    other: '/bh-demo',
+  };
+  const INDUSTRY_LABEL = {
+    salon: 'salon',
+    restaurant: 'restaurant',
+    clinic: 'clinic',
+    other: 'business',
+  };
+
+  // ---------- Helpers ----------
+  function el(tag, attrs, children) {
+    const node = document.createElement(tag);
+    if (attrs) {
+      for (const k in attrs) {
+        if (k === 'class') node.className = attrs[k];
+        else if (k === 'html') node.innerHTML = attrs[k];
+        else if (k.startsWith('on') && typeof attrs[k] === 'function') node.addEventListener(k.slice(2), attrs[k]);
+        else node.setAttribute(k, attrs[k]);
+      }
+    }
+    if (children) {
+      (Array.isArray(children) ? children : [children]).forEach(c => {
+        if (c == null) return;
+        node.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+      });
+    }
+    return node;
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[c]);
+  }
+
+  function renderInline(s) {
+    let out = escapeHtml(s);
+    out = out.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    out = out.replace(/\n/g, '<br>');
+    return out;
+  }
+
+  function scrollToBottom() {
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+  }
+
+  function track(event, props) {
+    try {
+      if (window.posthog && typeof window.posthog.capture === 'function') {
+        window.posthog.capture(event, props || {});
+      }
+    } catch (e) { /* no-op */ }
+  }
+
+  // ---------- Message rendering ----------
+  function appendAgent(text) {
+    const node = el('div', { class: 'msg agent', html: renderInline(text) });
+    $msgs.appendChild(node);
+    state.transcript.push({ role: 'agent', content: text });
+    scrollToBottom();
+    return node;
+  }
+
+  function appendUser(text) {
+    const node = el('div', { class: 'msg user', html: renderInline(text) });
+    $msgs.appendChild(node);
+    state.transcript.push({ role: 'user', content: text });
+    scrollToBottom();
+    return node;
+  }
+
+  function showTyping() {
+    const t = el('div', { class: 'typing', id: 'typing-indicator' }, [
+      el('span'), el('span'), el('span')
+    ]);
+    $msgs.appendChild(t);
+    scrollToBottom();
+    return t;
+  }
+  function hideTyping() {
+    const t = document.getElementById('typing-indicator');
+    if (t) t.remove();
+  }
+
+  function agentSpeak(text, delay) {
+    // typed-out feel: typing indicator briefly, then message
+    return new Promise(resolve => {
+      const t = showTyping();
+      setTimeout(() => {
+        hideTyping();
+        appendAgent(text);
+        resolve();
+      }, delay == null ? Math.min(900, 350 + text.length * 8) : delay);
+    });
+  }
+
+  // ---------- Bubbles ----------
+  // options: [{ key, label, sub?, icon? }, ...]
+  function renderBubbles(options, onPick) {
+    if (state.activeBubbles) {
+      state.activeBubbles.remove();
+      state.activeBubbles = null;
+    }
+    const wrap = el('div', { class: 'bubbles' + (options.length === 1 ? ' solo' : '') });
+    options.forEach(opt => {
+      const btn = el('button', {
+        class: 'bubble',
+        type: 'button',
+        'data-key': opt.key,
+        onclick: () => {
+          // disable siblings
+          Array.from(wrap.querySelectorAll('.bubble')).forEach(b => b.setAttribute('disabled', ''));
+          onPick(opt);
+        },
+      }, [
+        el('span', { class: 'bicon', html: opt.icon || ICON_DOT, 'aria-hidden': 'true' }),
+        el('span', { class: 'blabel', html: opt.sub
+          ? `${escapeHtml(opt.label)}<span class="bsub">${escapeHtml(opt.sub)}</span>`
+          : escapeHtml(opt.label) }),
+      ]);
+      wrap.appendChild(btn);
+    });
+    $msgs.appendChild(wrap);
+    state.activeBubbles = wrap;
+    scrollToBottom();
+  }
+
+  function clearBubbles() {
+    if (state.activeBubbles) {
+      state.activeBubbles.remove();
+      state.activeBubbles = null;
+    }
+  }
+
+  // ---------- Icons ----------
+  const ICON_DOT = '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="12" cy="12" r="4"/></svg>';
+  const ICON_SCISSORS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.12 8.12L20 20M14.5 13.5L20 8M8.12 15.88L12 12"/></svg>';
+  const ICON_UTENSIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V2M5 11v11M19 22V2a4 4 0 0 0-4 4v7a2 2 0 0 0 2 2h2z"/></svg>';
+  const ICON_HEART = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+  const ICON_BLDG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1M10 21v-3h4v3"/></svg>';
+  const ICON_DEMO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  const ICON_PHONE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
+  const ICON_MAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>';
+  const ICON_BOTH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="13" height="10" rx="2"/><path d="M16 11h5v8h-8v-5"/></svg>';
+  const ICON_INFO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>';
+  const ICON_USER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+
+  // ---------- Flow ----------
+  async function start() {
+    if (state.started) return;
+    state.started = true;
+    track('sales_agent_started');
+
+    await agentSpeak("Hey. I'm Rabbithole's **Virtual Sales Agent**. Full disclosure: my job is to sell you on us. The good news? I'm actually pretty good at it, because what we build genuinely works.");
+    await agentSpeak("Five quick questions and you'll walk away with a live demo, a phone call from our voice agent, or a founder in your inbox. Ready?");
+    askIndustry();
+  }
+
+  // ----- Turn 1: industry -----
+  function askIndustry() {
+    state.step = 1;
+    appendAgent("First — what kind of business do you run?");
+    renderBubbles([
+      { key: 'salon',      label: 'Salon or Spa',         icon: ICON_SCISSORS },
+      { key: 'restaurant', label: 'Restaurant or Food',   icon: ICON_UTENSIL  },
+      { key: 'clinic',     label: 'Clinic or Medical',    icon: ICON_HEART    },
+      { key: 'other',      label: 'Something else',       icon: ICON_BLDG     },
+    ], (pick) => {
+      state.answers.industry = pick.key;
+      appendUser(pick.label);
+      track('sales_agent_industry', { industry: pick.key });
+      setTimeout(askProblem, 250);
+    });
+  }
+
+  // ----- Turn 2: problem (industry-aware) -----
+  const PROBLEM_OPTIONS = {
+    salon: {
+      framer: "Salons. Booking gaps and no-shows eat the margin. What's costing you the most time?",
+      options: [
+        { key: 'missed_bookings',  label: 'Missed bookings after hours' },
+        { key: 'rescheduling',     label: 'Constant rescheduling' },
+        { key: 'dms_reviews',      label: 'DMs and reviews piling up' },
+        { key: 'other',            label: 'Something else' },
+      ]
+    },
+    restaurant: {
+      framer: "Restaurants. The rush hits and the phone never stops. What's the worst part of your day?",
+      options: [
+        { key: 'reservations',     label: 'Reservations & no-shows' },
+        { key: 'multichannel',     label: 'DMs everywhere — Insta, DoorDash, calls' },
+        { key: 'catering',         label: 'Catering or private events' },
+        { key: 'other',            label: 'Something else' },
+      ]
+    },
+    clinic: {
+      framer: "Clinics. Insurance verification, intake, no-show fees. What's eating the most time?",
+      options: [
+        { key: 'intake',           label: 'Patient intake & forms' },
+        { key: 'scheduling',       label: 'Phone tag for scheduling' },
+        { key: 'billing',          label: 'Insurance & billing' },
+        { key: 'other',            label: 'Something else' },
+      ]
+    },
+    other: {
+      framer: "Got it — we work across all kinds. What's the bottleneck right now?",
+      options: [
+        { key: 'missed_leads',     label: 'Missed leads after hours' },
+        { key: 'inbox_overload',   label: 'Drowning in DMs/email' },
+        { key: 'manual_scheduling',label: 'Manual scheduling/intake' },
+        { key: 'other',            label: 'Something else' },
+      ]
+    },
+  };
+
+  async function askProblem() {
+    state.step = 2;
+    const cfg = PROBLEM_OPTIONS[state.answers.industry] || PROBLEM_OPTIONS.other;
+    await agentSpeak(cfg.framer);
+    renderBubbles(cfg.options.map(o => ({ ...o, icon: ICON_DOT })), (pick) => {
+      state.answers.problem = pick.key;
+      appendUser(pick.label);
+      track('sales_agent_problem', { industry: state.answers.industry, problem: pick.key });
+      setTimeout(askAction, 250);
+    });
+  }
+
+  // ----- Turn 3: action -----
+  async function askAction() {
+    state.step = 3;
+    await agentSpeak("Okay. We've built this exact thing before. Pick how you want me to prove it:");
+    renderBubbles([
+      { key: 'demo',     label: 'Show me a live demo',    sub: 'Opens the working build for your industry', icon: ICON_DEMO  },
+      { key: 'call',     label: 'Have your voice agent call me', sub: "We'll dial you in a few moments",     icon: ICON_PHONE },
+      { key: 'founder',  label: "I'm ready — connect me to a founder", sub: '30-min strategy call',         icon: ICON_USER  },
+      { key: 'recap',    label: 'Just send me a recap',   sub: 'Email or text, no pressure',                icon: ICON_INFO  },
+    ], (pick) => {
+      state.answers.action_chosen = pick.key;
+      appendUser(pick.label);
+      track('sales_agent_action', { action: pick.key });
+      setTimeout(askName, 250);
+    });
+  }
+
+  // ----- Turn 4: first name (typed) -----
+  async function askName() {
+    state.step = 4;
+    await agentSpeak("Two more. **What's your first name?**");
+    $input.setAttribute('placeholder', 'Your first name…');
+    $input.focus();
+    state.awaitingText = {
+      field: 'first_name',
+      validator: (v) => v && v.trim().length >= 1 && v.trim().length <= 60,
+      reject: "I just need a first name — even a nickname works.",
+      onValid: (v) => {
+        state.answers.first_name = v.trim();
+        track('sales_agent_name');
+        setTimeout(askContactMethod, 250);
+      }
+    };
+  }
+
+  // ----- Turn 5a: contact method bubble -----
+  async function askContactMethod() {
+    state.step = 5;
+    $input.setAttribute('placeholder', "Or just type what's on your mind.");
+    state.awaitingText = null;
+
+    const name = state.answers.first_name || 'friend';
+    await agentSpeak(`Nice to meet you, **${escapeHtml(name)}**. What's the best way to reach you?`);
+    renderBubbles([
+      { key: 'email', label: 'Email',          icon: ICON_MAIL  },
+      { key: 'phone', label: 'Phone / text',   icon: ICON_PHONE },
+      { key: 'both',  label: 'Both — be thorough', icon: ICON_BOTH },
+    ], (pick) => {
+      state.answers.contact_method = pick.key;
+      appendUser(pick.label);
+      track('sales_agent_contact_method', { method: pick.key });
+      setTimeout(askContactValue, 250);
+    });
+  }
+
+  // ----- Turn 5b: contact value(s) (typed) -----
+  function askContactValue() {
+    const method = state.answers.contact_method;
+    if (method === 'email') return askEmail(false);
+    if (method === 'phone') return askPhone(false);
+    // both
+    return askEmail(true);
+  }
+
+  async function askEmail(thenPhone) {
+    $input.setAttribute('placeholder', 'you@example.com');
+    $input.focus();
+    await agentSpeak("Drop your **email** below.");
+    state.awaitingText = {
+      field: 'email',
+      validator: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+      reject: "That doesn't look like a valid email. Try again?",
+      onValid: (v) => {
+        state.answers.email = v.trim().toLowerCase();
+        if (thenPhone) setTimeout(() => askPhone(false), 200);
+        else finishAndSubmit();
+      }
+    };
+  }
+
+  async function askPhone(/*alreadyHaveEmail*/) {
+    $input.setAttribute('placeholder', 'e.g. (555) 123-4567');
+    $input.focus();
+    await agentSpeak("And your **phone number** (include country code if outside the US).");
+    state.awaitingText = {
+      field: 'phone',
+      validator: (v) => {
+        const digits = v.replace(/[^\d]/g, '');
+        return digits.length >= 7 && digits.length <= 16;
+      },
+      reject: "That doesn't look like a phone number. Try again?",
+      onValid: (v) => {
+        state.answers.phone = v.trim();
+        finishAndSubmit();
+      }
+    };
+  }
+
+  // ----- Final: submit and route -----
+  async function finishAndSubmit() {
+    if (state.submitting) return;
+    state.submitting = true;
+    $input.setAttribute('placeholder', 'You can keep chatting — anything else?');
+    state.awaitingText = null;
+
+    const name = state.answers.first_name || 'friend';
+
+    await agentSpeak(`Got it. Locking you into the pipeline…`);
+    showTyping();
+
+    try {
+      const res = await fetch('/api/sales-agent-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          industry: state.answers.industry,
+          problem: state.answers.problem,
+          action_chosen: state.answers.action_chosen,
+          first_name: state.answers.first_name,
+          contact_method: state.answers.contact_method,
+          email: state.answers.email,
+          phone: state.answers.phone,
+          transcript: state.transcript.slice(-40),
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      hideTyping();
+
+      if (!res.ok) {
+        appendAgent("Hmm — submission hit a snag on our end. Email us at **team@rabbithole.pro** with your contact info and I'll make sure you get a real reply within the hour.");
+        track('sales_agent_submit_failed', { status: res.status, error: data && data.error });
+        state.submitting = false;
+        return;
+      }
+
+      track('sales_agent_submitted', {
+        industry: state.answers.industry,
+        action: state.answers.action_chosen,
+        contact_method: state.answers.contact_method,
+        lead_id: data.lead_id || null,
+      });
+
+      // Identify in PostHog for funnel stitching
+      try {
+        if (state.answers.email && window.posthog && typeof window.posthog.identify === 'function') {
+          window.posthog.identify(state.answers.email, {
+            email: state.answers.email,
+            first_name: state.answers.first_name,
+            phone: state.answers.phone,
+            lead_source: 'virtual_sales_agent',
+          });
+        }
+      } catch (e) {}
+
+      await agentSpeak(`You're in, **${escapeHtml(name)}**. We're 24/7 — meaning a real human (or me) follows up within the hour, usually faster.`);
+      renderFinalCard();
+
+    } catch (e) {
+      hideTyping();
+      appendAgent("Network blip on our end. Email us at **team@rabbithole.pro** with your info and we'll pick up from there.");
+      track('sales_agent_submit_error');
+      state.submitting = false;
+    }
+  }
+
+  function renderFinalCard() {
+    const action = state.answers.action_chosen;
+    const industry = state.answers.industry;
+    const demoUrl = DEMOS[industry] || DEMOS.other;
+    const industryLabel = INDUSTRY_LABEL[industry] || 'business';
+
+    let title, body, rowChildren;
+
+    if (action === 'demo') {
+      title = `Your ${industryLabel} demo is loaded.`;
+      body = "Click below to open the live build in a new tab. It runs end-to-end — try it like a real customer would.";
+      rowChildren = [
+        el('a', { href: demoUrl, target: '_blank', rel: 'noopener' }, 'Open the live demo →'),
+        el('a', { href: '/apply', class: 'ghost' }, 'Or apply for a strategy call'),
+      ];
+      // also auto-open
+      try { window.open(demoUrl, '_blank', 'noopener'); } catch (e) {}
+    } else if (action === 'call') {
+      title = "Voice agent on the way.";
+      body = "Our AI voice agent will dial you shortly. If you can't wait, tap below to call us directly.";
+      rowChildren = [
+        el('a', { href: document.getElementById('call-fab').getAttribute('href') }, 'Call us now'),
+        el('a', { href: demoUrl, target: '_blank', rel: 'noopener', class: 'ghost' }, 'Peek at a demo while you wait'),
+      ];
+    } else if (action === 'founder') {
+      title = "Founder reaching out personally.";
+      body = "You skipped the line. While you wait, fill out the 3-minute application and we'll book a 30-min strategy call.";
+      rowChildren = [
+        el('a', { href: '/apply' }, 'Open the application →'),
+        el('a', { href: demoUrl, target: '_blank', rel: 'noopener', class: 'ghost' }, 'See the live demo'),
+      ];
+    } else {
+      title = "Recap incoming.";
+      body = "We'll send a short note covering exactly what we'd build for you. No pressure, no sales follow-up cascade — promise.";
+      rowChildren = [
+        el('a', { href: demoUrl, target: '_blank', rel: 'noopener' }, 'See the live demo'),
+        el('a', { href: '/apply', class: 'ghost' }, 'Or apply for a call now'),
+      ];
+    }
+
+    const card = el('div', { class: 'final-card' }, [
+      el('h3', null, title),
+      el('p', null, body),
+      el('div', { class: 'row' }, rowChildren),
+    ]);
+    $msgs.appendChild(card);
+
+    const restart = el('div', { class: 'restart-row' }, [
+      el('button', {
+        type: 'button',
+        onclick: () => location.reload(),
+      }, 'Start over'),
+    ]);
+    $msgs.appendChild(restart);
+
+    scrollToBottom();
+  }
+
+  // ---------- AI escape hatch ----------
+  // If the user types something free-form mid-flow (and we're not awaiting a typed answer),
+  // route the message through /api/chat for an answer, then bring them back to the question.
+  async function aiEscape(userText) {
+    appendUser(userText);
+    track('sales_agent_escape_used', { step: state.step });
+
+    // Build a short context — recent transcript only
+    const messages = [];
+    // Synthesize the conversation as Q&A pairs for the model
+    state.transcript.forEach(t => {
+      if (t.role === 'agent') messages.push({ role: 'assistant', content: t.content });
+      else messages.push({ role: 'user', content: t.content });
+    });
+    // Ensure final message is the user's
+    if (!messages.length || messages[messages.length - 1].role !== 'user') {
+      messages.push({ role: 'user', content: userText });
+    }
+
+    const typing = showTyping();
+    try {
+      const resp = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages }),
+      });
+
+      if (!resp.ok || !resp.body) {
+        hideTyping();
+        appendAgent("Something hiccuped on our side. Tap one of the options to keep going, or just type your answer.");
+        rerenderCurrentQuestion();
+        return;
+      }
+
+      // Stream SSE
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let assistantNode = null;
+      let accumulated = '';
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const events = buffer.split('\n\n');
+        buffer = events.pop();
+        for (const ev of events) {
+          if (!ev.trim()) continue;
+          let dataStr = '';
+          for (const line of ev.split('\n')) {
+            if (line.startsWith('data:')) dataStr += line.slice(5).trim();
+          }
+          if (!dataStr) continue;
+          try {
+            const data = JSON.parse(dataStr);
+            if (data.type === 'content_block_delta' && data.delta && data.delta.type === 'text_delta') {
+              const chunk = data.delta.text || '';
+              if (chunk) {
+                if (!assistantNode) {
+                  hideTyping();
+                  assistantNode = appendAgent('');
+                  // remove the placeholder from transcript (we'll push the final at the end)
+                  state.transcript.pop();
+                }
+                accumulated += chunk;
+                assistantNode.innerHTML = renderInline(accumulated);
+                scrollToBottom();
+              }
+            }
+          } catch (e) { /* swallow malformed events */ }
+        }
+      }
+
+      if (!assistantNode) {
+        hideTyping();
+        appendAgent("I didn't get a response. Tap an option to keep going.");
+      } else {
+        state.transcript.push({ role: 'agent', content: accumulated });
+      }
+
+      // Re-anchor to the current question
+      setTimeout(() => rerenderCurrentQuestion(), 400);
+
+    } catch (e) {
+      hideTyping();
+      appendAgent("Connection trouble. Pick an option below to keep moving.");
+      rerenderCurrentQuestion();
+    }
+  }
+
+  function rerenderCurrentQuestion() {
+    // Re-show the question + bubbles for the current step (without re-asking via typing)
+    const step = state.step;
+    if (step === 1) {
+      appendAgent("Back to it — what kind of business do you run?");
+      renderBubbles([
+        { key: 'salon',      label: 'Salon or Spa',         icon: ICON_SCISSORS },
+        { key: 'restaurant', label: 'Restaurant or Food',   icon: ICON_UTENSIL  },
+        { key: 'clinic',     label: 'Clinic or Medical',    icon: ICON_HEART    },
+        { key: 'other',      label: 'Something else',       icon: ICON_BLDG     },
+      ], (pick) => {
+        state.answers.industry = pick.key;
+        appendUser(pick.label);
+        setTimeout(askProblem, 250);
+      });
+    } else if (step === 2) {
+      const cfg = PROBLEM_OPTIONS[state.answers.industry] || PROBLEM_OPTIONS.other;
+      appendAgent("Back to the question — " + cfg.framer);
+      renderBubbles(cfg.options.map(o => ({ ...o, icon: ICON_DOT })), (pick) => {
+        state.answers.problem = pick.key;
+        appendUser(pick.label);
+        setTimeout(askAction, 250);
+      });
+    } else if (step === 3) {
+      askAction();
+    } else if (step === 4) {
+      appendAgent("Anyway — what's your first name?");
+      $input.setAttribute('placeholder', 'Your first name…');
+      $input.focus();
+      state.awaitingText = {
+        field: 'first_name',
+        validator: (v) => v && v.trim().length >= 1 && v.trim().length <= 60,
+        reject: "I just need a first name — even a nickname works.",
+        onValid: (v) => { state.answers.first_name = v.trim(); setTimeout(askContactMethod, 250); }
+      };
+    } else if (step === 5) {
+      if (!state.answers.contact_method) askContactMethod();
+      else if (state.answers.contact_method === 'email' && !state.answers.email) askEmail(false);
+      else if (state.answers.contact_method === 'phone' && !state.answers.phone) askPhone(false);
+      else if (state.answers.contact_method === 'both' && !state.answers.email) askEmail(true);
+      else if (state.answers.contact_method === 'both' && !state.answers.phone) askPhone(false);
+    }
+  }
+
+  // ---------- Input handling ----------
+  function handleSend() {
+    const raw = $input.value;
+    const text = (raw || '').trim();
+    if (!text) return;
+
+    $input.value = '';
+    autoresize();
+    updateSendBtn();
+
+    // If we're awaiting typed input for a specific field, validate it
+    if (state.awaitingText) {
+      const awaiting = state.awaitingText;
+      if (awaiting.validator(text)) {
+        appendUser(text);
+        state.awaitingText = null;
+        awaiting.onValid(text);
+      } else {
+        appendUser(text);
+        agentSpeak(awaiting.reject);
+      }
+      return;
+    }
+
+    // Otherwise: AI escape hatch
+    aiEscape(text);
+  }
+
+  function autoresize() {
+    $input.style.height = 'auto';
+    $input.style.height = Math.min($input.scrollHeight, 120) + 'px';
+  }
+
+  function updateSendBtn() {
+    $send.disabled = $input.value.trim().length === 0;
+  }
+
+  $input.addEventListener('input', () => { autoresize(); updateSendBtn(); });
+  $input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  });
+  $send.addEventListener('click', handleSend);
+
+  // ---------- Voice dictation (Web Speech API) ----------
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SR) {
+    $mic.hidden = false;
+    let recognizer = null;
+    let recording = false;
+
+    $mic.addEventListener('click', () => {
+      if (recording) {
+        if (recognizer) try { recognizer.stop(); } catch (e) {}
+        return;
+      }
+      try {
+        recognizer = new SR();
+      } catch (e) {
+        $mic.hidden = true;
+        return;
+      }
+      recognizer.continuous = false;
+      recognizer.interimResults = true;
+      recognizer.lang = (navigator.language || 'en-US');
+
+      let finalText = '';
+      recognizer.onresult = (ev) => {
+        let interim = '';
+        for (let i = ev.resultIndex; i < ev.results.length; i++) {
+          const r = ev.results[i];
+          if (r.isFinal) finalText += r[0].transcript;
+          else interim += r[0].transcript;
+        }
+        $input.value = (finalText + interim).trim();
+        autoresize();
+        updateSendBtn();
+      };
+      recognizer.onerror = () => {
+        recording = false;
+        $mic.classList.remove('recording');
+      };
+      recognizer.onend = () => {
+        recording = false;
+        $mic.classList.remove('recording');
+        track('sales_agent_voice_used');
+      };
+      try {
+        recognizer.start();
+        recording = true;
+        $mic.classList.add('recording');
+      } catch (e) {
+        recording = false;
+        $mic.classList.remove('recording');
+      }
+    });
+  }
+
+  // ---------- Boot ----------
+  start();
+})();
+</script>
+</body>
+</html>
