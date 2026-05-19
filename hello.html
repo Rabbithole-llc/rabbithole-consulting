@@ -489,13 +489,12 @@ body::after{
   <div class="msgs" id="msgs" aria-live="polite"></div>
 </main>
 
-<!-- Floating dial-out button.
-     TODO: replace +10000000000 with the real voice agent number when ready. -->
-<a class="call-fab" id="call-fab" href="tel:+10000000000" aria-label="Call the voice agent now">
+<!-- Floating dial-out button. -->
+<a class="call-fab" id="call-fab" href="tel:+17876638987" aria-label="Call our voice agent at (787) 663-8987">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
   <span>
     <span class="fab-label">Talk to me by phone</span>
-    <span class="fab-sub">Voice agent · live now</span>
+    <span class="fab-sub">(787) 663-8987 · live now</span>
   </span>
 </a>
 
@@ -546,6 +545,7 @@ body::after{
     transcript: [],
     activeBubbles: null,  // currently rendered bubble container (DOM node)
     awaitingText: null,   // when a turn wants typed input only: { field, validator, onValid }
+    currentQuestion: null,// function pointer to re-render the current question after an AI escape
     started: false,
     submitting: false,
   };
@@ -703,6 +703,10 @@ body::after{
   const ICON_BOTH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="13" height="10" rx="2"/><path d="M16 11h5v8h-8v-5"/></svg>';
   const ICON_INFO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>';
   const ICON_USER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+  const ICON_EYE    = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+  const ICON_SPARK  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 16v6M2 12h6M16 12h6M5.6 5.6l4.2 4.2M14.2 14.2l4.2 4.2M18.4 5.6l-4.2 4.2M9.8 14.2l-4.2 4.2"/></svg>';
+  const ICON_TARGET = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>';
+  const ICON_BOLT   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>';
 
   // ---------- Flow ----------
   async function start() {
@@ -711,14 +715,194 @@ body::after{
     track('sales_agent_started');
 
     await agentSpeak("Hey. I'm Rabbithole's **Virtual Sales Agent**. Full disclosure: my job is to sell you on us. The good news? I'm actually pretty good at it, because what we build genuinely works.");
-    await agentSpeak("Five quick questions and you'll walk away with a live demo, a phone call from our voice agent, or a founder in your inbox. Ready?");
-    askIndustry();
+    await agentSpeak("You'll walk out with a live demo, a phone call from our voice agent, a custom analysis of your business, or a founder in your inbox. Pick how you want to start.");
+    askIntent();
   }
 
-  // ----- Turn 1: industry -----
-  function askIndustry() {
+  // ----- Turn 1: intent (entry point) -----
+  function askIntent() {
     state.step = 1;
-    appendAgent("First — what kind of business do you run?");
+    state.currentQuestion = askIntent;
+    appendAgent("**What brings you here?**");
+    renderBubbles([
+      { key: 'curious',  label: "I'm just curious",            sub: 'Show me what you actually do',           icon: ICON_EYE    },
+      { key: 'test',     label: 'Run a personalized test',     sub: "Show me what you'd build for me",        icon: ICON_SPARK  },
+      { key: 'problem',  label: 'I have a specific problem',   sub: "Walk me through how you'd solve it",     icon: ICON_TARGET },
+      { key: 'ready',    label: "I'm ready — let's talk",      sub: 'Skip the song and dance',                icon: ICON_BOLT   },
+    ], (pick) => {
+      state.answers.entry_intent = pick.key;
+      appendUser(pick.label);
+      track('sales_agent_intent', { intent: pick.key });
+      setTimeout(() => routeIntent(pick.key), 250);
+    });
+  }
+
+  function routeIntent(intent) {
+    if (intent === 'curious')  return askDemoIndustry();
+    if (intent === 'test')     return askPersonalized();
+    if (intent === 'ready')    { state.answers.action_chosen = 'founder'; return askNameReady(); }
+    /* problem */              return askIndustry();
+  }
+
+  // ----- Curious path: pick a demo, open it, then capture -----
+  async function askDemoIndustry() {
+    state.step = 2;
+    state.currentQuestion = askDemoIndustry;
+    await agentSpeak("Cool. We have live working builds across industries. Pick one to poke at — they answer, book, and follow up like real ops, not slideware.");
+    renderBubbles([
+      { key: 'salon',      label: 'Salon or Spa',         icon: ICON_SCISSORS },
+      { key: 'restaurant', label: 'Restaurant or Food',   icon: ICON_UTENSIL  },
+      { key: 'clinic',     label: 'Clinic or Medical',    icon: ICON_HEART    },
+      { key: 'other',      label: 'Surprise me',          icon: ICON_BLDG     },
+    ], (pick) => {
+      state.answers.industry = pick.key;
+      state.answers.action_chosen = 'demo';
+      appendUser(pick.label);
+      track('sales_agent_industry', { industry: pick.key, from: 'curious' });
+      const demoUrl = DEMOS[pick.key] || DEMOS.other;
+      try { window.open(demoUrl, '_blank', 'noopener'); } catch (e) {}
+      setTimeout(async () => {
+        await agentSpeak("Opening the live demo in a new tab. Treat it like a real customer would. While you do — two quick things so we know where to send your recap.");
+        askName();
+      }, 250);
+    });
+  }
+
+  // ----- Personalized test path: free-text describe + AI custom take -----
+  async function askPersonalized() {
+    state.step = 2;
+    state.currentQuestion = askPersonalized;
+    state.answers.action_chosen = 'personalized';
+    await agentSpeak("Love this one. **Tell me about your business in one or two sentences** — what you do, who you serve, where you lose time. I'll come back with what we'd build for *you* specifically.");
+    $input.setAttribute('placeholder', "e.g. I run a 6-chair barbershop in Brooklyn — losing bookings after hours.");
+    $input.focus();
+    state.awaitingText = {
+      field: 'biz_description',
+      validator: (v) => v && v.trim().length >= 10,
+      reject: "Give me a little more to work with — even one full sentence about what you do is enough.",
+      onValid: (v) => {
+        const desc = v.trim();
+        state.answers.biz_description = desc;
+        state.answers.industry = 'other';
+        state.answers.problem = desc.slice(0, 400);
+        runPersonalizedAnalysis(desc);
+      }
+    };
+  }
+
+  async function runPersonalizedAnalysis(description) {
+    $input.setAttribute('placeholder', "Or just type what's on your mind.");
+    state.awaitingText = null;
+    track('sales_agent_personalized_request');
+
+    const primed = `A prospect on rabbithole.consulting/hello just asked for a personalized analysis. They described their business below. Reply directly to them. Suggest 2-3 specific automations Rabbithole would build for their situation. Keep it operator-to-operator: short, concrete, no buzzwords. End by telling them a founder will follow up to walk through it.\n\nTheir description:\n"${description}"`;
+
+    const messages = [{ role: 'user', content: primed }];
+    showTyping();
+    try {
+      const resp = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages }),
+      });
+      if (!resp.ok || !resp.body) {
+        hideTyping();
+        appendAgent("Hmm — my analysis engine hiccuped. Drop your contact and a founder will send the custom take by email.");
+        setTimeout(askName, 300);
+        return;
+      }
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let assistantNode = null;
+      let accumulated = '';
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const events = buffer.split('\n\n');
+        buffer = events.pop();
+        for (const ev of events) {
+          if (!ev.trim()) continue;
+          let dataStr = '';
+          for (const line of ev.split('\n')) {
+            if (line.startsWith('data:')) dataStr += line.slice(5).trim();
+          }
+          if (!dataStr) continue;
+          try {
+            const data = JSON.parse(dataStr);
+            if (data.type === 'content_block_delta' && data.delta && data.delta.type === 'text_delta') {
+              const chunk = data.delta.text || '';
+              if (chunk) {
+                if (!assistantNode) {
+                  hideTyping();
+                  assistantNode = appendAgent('');
+                  state.transcript.pop();
+                }
+                accumulated += chunk;
+                assistantNode.innerHTML = renderInline(accumulated);
+                scrollToBottom();
+              }
+            }
+          } catch (e) { /* swallow */ }
+        }
+      }
+      if (!assistantNode) {
+        hideTyping();
+        appendAgent("My analysis engine ran dry. Drop your contact and we'll send the custom take by email.");
+      } else {
+        state.transcript.push({ role: 'agent', content: accumulated });
+      }
+      setTimeout(async () => {
+        await agentSpeak("That's the sketch. Want the polished version + a founder to walk you through it? **What's your first name?**");
+        $input.setAttribute('placeholder', 'Your first name…');
+        $input.focus();
+        state.step = 4;
+        state.currentQuestion = null;
+        state.awaitingText = {
+          field: 'first_name',
+          validator: (v) => v && v.trim().length >= 1 && v.trim().length <= 60,
+          reject: "I just need a first name — even a nickname works.",
+          onValid: (v) => {
+            state.answers.first_name = v.trim();
+            track('sales_agent_name');
+            setTimeout(askContactMethod, 250);
+          }
+        };
+      }, 400);
+    } catch (e) {
+      hideTyping();
+      appendAgent("Connection blip on the analysis. Drop your contact and we'll send the custom take by email.");
+      setTimeout(askName, 300);
+    }
+  }
+
+  // ----- Ready path: jump straight to name + contact -----
+  async function askNameReady() {
+    state.step = 4;
+    state.currentQuestion = askNameReady;
+    state.answers.industry = state.answers.industry || 'other';
+    await agentSpeak("Heard. No song and dance. **What's your first name?**");
+    $input.setAttribute('placeholder', 'Your first name…');
+    $input.focus();
+    state.awaitingText = {
+      field: 'first_name',
+      validator: (v) => v && v.trim().length >= 1 && v.trim().length <= 60,
+      reject: "I just need a first name — even a nickname works.",
+      onValid: (v) => {
+        state.answers.first_name = v.trim();
+        track('sales_agent_name');
+        setTimeout(askContactMethod, 250);
+      }
+    };
+  }
+
+  // ----- Industry pick (reached via 'problem' intent) -----
+  function askIndustry() {
+    state.step = 2;
+    state.currentQuestion = askIndustry;
+    appendAgent("Got it. **What kind of business is this?**");
     renderBubbles([
       { key: 'salon',      label: 'Salon or Spa',         icon: ICON_SCISSORS },
       { key: 'restaurant', label: 'Restaurant or Food',   icon: ICON_UTENSIL  },
@@ -773,7 +957,8 @@ body::after{
   };
 
   async function askProblem() {
-    state.step = 2;
+    state.step = 3;
+    state.currentQuestion = askProblem;
     const cfg = PROBLEM_OPTIONS[state.answers.industry] || PROBLEM_OPTIONS.other;
     await agentSpeak(cfg.framer);
     renderBubbles(cfg.options.map(o => ({ ...o, icon: ICON_DOT })), (pick) => {
@@ -784,9 +969,10 @@ body::after{
     });
   }
 
-  // ----- Turn 3: action -----
+  // ----- Action (problem path only) -----
   async function askAction() {
-    state.step = 3;
+    state.step = 4;
+    state.currentQuestion = askAction;
     await agentSpeak("Okay. We've built this exact thing before. Pick how you want me to prove it:");
     renderBubbles([
       { key: 'demo',     label: 'Show me a live demo',    sub: 'Opens the working build for your industry', icon: ICON_DEMO  },
@@ -801,9 +987,10 @@ body::after{
     });
   }
 
-  // ----- Turn 4: first name (typed) -----
+  // ----- Name (typed) — used by demo path, problem path, and after personalized analysis -----
   async function askName() {
-    state.step = 4;
+    state.step = 5;
+    state.currentQuestion = askName;
     await agentSpeak("Two more. **What's your first name?**");
     $input.setAttribute('placeholder', 'Your first name…');
     $input.focus();
@@ -819,9 +1006,10 @@ body::after{
     };
   }
 
-  // ----- Turn 5a: contact method bubble -----
+  // ----- Contact method bubble -----
   async function askContactMethod() {
-    state.step = 5;
+    state.step = 6;
+    state.currentQuestion = askContactMethod;
     $input.setAttribute('placeholder', "Or just type what's on your mind.");
     state.awaitingText = null;
 
@@ -899,8 +1087,10 @@ body::after{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          entry_intent: state.answers.entry_intent,
           industry: state.answers.industry,
           problem: state.answers.problem,
+          biz_description: state.answers.biz_description,
           action_chosen: state.answers.action_chosen,
           first_name: state.answers.first_name,
           contact_method: state.answers.contact_method,
@@ -979,6 +1169,13 @@ body::after{
       rowChildren = [
         el('a', { href: '/apply' }, 'Open the application →'),
         el('a', { href: demoUrl, target: '_blank', rel: 'noopener', class: 'ghost' }, 'See the live demo'),
+      ];
+    } else if (action === 'personalized') {
+      title = "Your custom analysis is locked in.";
+      body = "A founder will follow up with the polished version + how we'd actually build it. While you wait, peek at the closest live demo.";
+      rowChildren = [
+        el('a', { href: demoUrl, target: '_blank', rel: 'noopener' }, 'See a live demo'),
+        el('a', { href: '/apply', class: 'ghost' }, 'Or apply for a 30-min call'),
       ];
     } else {
       title = "Recap incoming.";
@@ -1099,47 +1296,17 @@ body::after{
   }
 
   function rerenderCurrentQuestion() {
-    // Re-show the question + bubbles for the current step (without re-asking via typing)
-    const step = state.step;
-    if (step === 1) {
-      appendAgent("Back to it — what kind of business do you run?");
-      renderBubbles([
-        { key: 'salon',      label: 'Salon or Spa',         icon: ICON_SCISSORS },
-        { key: 'restaurant', label: 'Restaurant or Food',   icon: ICON_UTENSIL  },
-        { key: 'clinic',     label: 'Clinic or Medical',    icon: ICON_HEART    },
-        { key: 'other',      label: 'Something else',       icon: ICON_BLDG     },
-      ], (pick) => {
-        state.answers.industry = pick.key;
-        appendUser(pick.label);
-        setTimeout(askProblem, 250);
-      });
-    } else if (step === 2) {
-      const cfg = PROBLEM_OPTIONS[state.answers.industry] || PROBLEM_OPTIONS.other;
-      appendAgent("Back to the question — " + cfg.framer);
-      renderBubbles(cfg.options.map(o => ({ ...o, icon: ICON_DOT })), (pick) => {
-        state.answers.problem = pick.key;
-        appendUser(pick.label);
-        setTimeout(askAction, 250);
-      });
-    } else if (step === 3) {
-      askAction();
-    } else if (step === 4) {
-      appendAgent("Anyway — what's your first name?");
-      $input.setAttribute('placeholder', 'Your first name…');
-      $input.focus();
-      state.awaitingText = {
-        field: 'first_name',
-        validator: (v) => v && v.trim().length >= 1 && v.trim().length <= 60,
-        reject: "I just need a first name — even a nickname works.",
-        onValid: (v) => { state.answers.first_name = v.trim(); setTimeout(askContactMethod, 250); }
-      };
-    } else if (step === 5) {
-      if (!state.answers.contact_method) askContactMethod();
-      else if (state.answers.contact_method === 'email' && !state.answers.email) askEmail(false);
-      else if (state.answers.contact_method === 'phone' && !state.answers.phone) askPhone(false);
-      else if (state.answers.contact_method === 'both' && !state.answers.email) askEmail(true);
-      else if (state.answers.contact_method === 'both' && !state.answers.phone) askPhone(false);
+    // Each ask*() function sets state.currentQuestion to itself. Just call it again.
+    if (typeof state.currentQuestion === 'function') {
+      try { state.currentQuestion(); } catch (e) { /* swallow */ }
+      return;
     }
+    // Fallback: figure out from contact state where we are.
+    if (state.answers.contact_method === 'email' && !state.answers.email) return askEmail(false);
+    if (state.answers.contact_method === 'phone' && !state.answers.phone) return askPhone(false);
+    if (state.answers.contact_method === 'both' && !state.answers.email) return askEmail(true);
+    if (state.answers.contact_method === 'both' && !state.answers.phone) return askPhone(false);
+    if (!state.answers.first_name) return askName();
   }
 
   // ---------- Input handling ----------

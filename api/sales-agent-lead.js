@@ -143,8 +143,10 @@ function renderSalesAgentEmail(lead) {
 
   <h3 style="margin:24px 0 8px;font-size:14px;text-transform:uppercase;color:#888;letter-spacing:.04em">Context</h3>
   <table style="width:100%;border-collapse:collapse;font-size:14px">
+    ${row("Entry intent", lead.entry_intent)}
     ${row("Industry", lead.industry)}
     ${row("Bottleneck", lead.problem)}
+    ${row("Their description", lead.biz_description)}
     ${row("Asked for", lead.action_chosen)}
   </table>
   ${transcriptHtml}
@@ -201,11 +203,17 @@ function renderTelegramMessage(lead) {
   }
   const lines = [];
   lines.push(`🐰 *New Sales Agent lead*: ${esc(lead.first_name || "(no name)")}`);
+  lines.push(`🚪 Entry: *${esc(lead.entry_intent || "—")}*`);
   lines.push(`🏷️ ${esc(lead.industry || "—")} · ${esc(lead.problem || "—")}`);
   lines.push("");
   if (lead.email) lines.push(`✉️ ${esc(lead.email)}`);
   if (lead.phone) lines.push(`📞 ${esc(lead.phone)}`);
   lines.push(`🎯 Asked for: *${esc(lead.action_chosen || "—")}*`);
+  if (lead.biz_description) {
+    lines.push("");
+    lines.push("*Their description*");
+    lines.push(esc(lead.biz_description.slice(0, 500)));
+  }
   if (lead.source_url) lines.push(`🔗 ${esc(lead.source_url)}`);
   return lines.join("\n").slice(0, 3900);
 }
@@ -220,8 +228,10 @@ module.exports = async function handler(req, res) {
   const body = req.body && typeof req.body === "object" ? req.body : {};
 
   const lead = {
+    entry_intent: pickString(body, "entry_intent"),
     industry: pickString(body, "industry"),
     problem: pickString(body, "problem"),
+    biz_description: pickString(body, "biz_description"),
     action_chosen: pickString(body, "action_chosen"),
     first_name: pickString(body, "first_name"),
     contact_method: pickString(body, "contact_method"),
