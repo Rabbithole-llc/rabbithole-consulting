@@ -365,6 +365,33 @@ module.exports = async function handler(req, res) {
       );
     }
 
+    // Mirror to the CRM. Non-blocking — if the CRM is down we still answer
+    // the applicant successfully; the lead row already exists in our Supabase
+    // and can be backfilled later via scripts/backfill-consulting-leads.ts.
+    try {
+      const crmUrl = process.env.CRM_INTAKE_URL;
+      const crmSecret = process.env.CRM_INTAKE_SECRET;
+      if (crmUrl && crmSecret) {
+        const r = await fetch(crmUrl, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${crmSecret}`,
+          },
+          body: JSON.stringify({ ...insertRow, lead_id: leadId }),
+        });
+        if (!r.ok) {
+          const text = await r.text().catch(() => "");
+          console.error("leads crm-intake error:", r.status, text);
+        }
+      }
+    } catch (crmErr) {
+      console.error(
+        "leads crm-intake error:",
+        crmErr && crmErr.message ? crmErr.message : crmErr
+      );
+    }
+
     return res.status(200).json({ ok: true, lead_id: leadId });
   } catch (err) {
     console.error("leads handler error:", err && err.message ? err.message : err);
