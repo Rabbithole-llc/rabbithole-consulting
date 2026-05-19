@@ -44,11 +44,11 @@
             "destination": "https://hvac-demo-production-d1aa.up.railway.app/:path*"
         },
         {
-            "source": "/mdemo-hvac",
+            "source": "/hvac-mdemo",
             "destination": "https://hvac-maestro.vercel.app"
         },
         {
-            "source": "/mdemo-hvac/:path*",
+            "source": "/hvac-mdemo/:path*",
             "destination": "https://hvac-maestro.vercel.app/:path*"
         }
     ],
@@ -170,7 +170,7 @@
             ]
         },
         {
-            "source": "/mdemo-hvac",
+            "source": "/hvac-mdemo",
             "headers": [
                 {
                     "key": "X-Frame-Options",
@@ -179,7 +179,7 @@
             ]
         },
         {
-            "source": "/mdemo-hvac/:path*",
+            "source": "/hvac-mdemo/:path*",
             "headers": [
                 {
                     "key": "X-Frame-Options",
