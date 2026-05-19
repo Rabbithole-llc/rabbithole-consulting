@@ -34,6 +34,22 @@
         {
             "source": "/salon-demo/:path*",
             "destination": "https://web-production-a4f42.up.railway.app/:path*"
+        },
+        {
+            "source": "/hvac-demo",
+            "destination": "https://hvac-demo-production-d1aa.up.railway.app"
+        },
+        {
+            "source": "/hvac-demo/:path*",
+            "destination": "https://hvac-demo-production-d1aa.up.railway.app/:path*"
+        },
+        {
+            "source": "/mdemo-hvac",
+            "destination": "https://hvac-maestro.vercel.app"
+        },
+        {
+            "source": "/mdemo-hvac/:path*",
+            "destination": "https://hvac-maestro.vercel.app/:path*"
         }
     ],
     "headers": [
@@ -128,6 +144,42 @@
         },
         {
             "source": "/salon-demo/:path*",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        },
+        {
+            "source": "/hvac-demo",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        },
+        {
+            "source": "/hvac-demo/:path*",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        },
+        {
+            "source": "/mdemo-hvac",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                }
+            ]
+        },
+        {
+            "source": "/mdemo-hvac/:path*",
             "headers": [
                 {
                     "key": "X-Frame-Options",
