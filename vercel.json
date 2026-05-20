@@ -58,6 +58,14 @@
     {
       "source": "/plumber-mdemo/:path*",
       "destination": "https://plumber-maestro.vercel.app/:path*"
+    },
+    {
+      "source": "/salon-mdemo",
+      "destination": "https://salon-maestro.vercel.app"
+    },
+    {
+      "source": "/salon-mdemo/:path*",
+      "destination": "https://salon-maestro.vercel.app/:path*"
     }
   ],
   "headers": [
@@ -206,6 +214,24 @@
     },
     {
       "source": "/plumber-mdemo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/salon-mdemo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/salon-mdemo/:path*",
       "headers": [
         {
           "key": "X-Frame-Options",
