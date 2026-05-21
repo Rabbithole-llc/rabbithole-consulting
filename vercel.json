@@ -5,43 +5,43 @@
   "rewrites": [
     {
       "source": "/bh-demo",
-      "destination": "https://web-production-33b90.up.railway.app"
+      "destination": "/api/demo?v=bh-demo"
     },
     {
       "source": "/bh-demo/:path*",
-      "destination": "https://web-production-33b90.up.railway.app/:path*"
+      "destination": "/api/demo?v=bh-demo&path=:path*"
     },
     {
       "source": "/clinic-demo",
-      "destination": "https://clinic-demo-production.up.railway.app"
+      "destination": "/api/demo?v=clinic-demo"
     },
     {
       "source": "/clinic-demo/:path*",
-      "destination": "https://clinic-demo-production.up.railway.app/:path*"
+      "destination": "/api/demo?v=clinic-demo&path=:path*"
     },
     {
       "source": "/restaurants-demo",
-      "destination": "https://web-production-1b1b.up.railway.app"
+      "destination": "/api/demo?v=restaurants-demo"
     },
     {
       "source": "/restaurants-demo/:path*",
-      "destination": "https://web-production-1b1b.up.railway.app/:path*"
+      "destination": "/api/demo?v=restaurants-demo&path=:path*"
     },
     {
       "source": "/salon-demo",
-      "destination": "https://web-production-a4f42.up.railway.app"
+      "destination": "/api/demo?v=salon-demo"
     },
     {
       "source": "/salon-demo/:path*",
-      "destination": "https://web-production-a4f42.up.railway.app/:path*"
+      "destination": "/api/demo?v=salon-demo&path=:path*"
     },
     {
       "source": "/hvac-demo",
-      "destination": "https://hvac-demo-production-d1aa.up.railway.app"
+      "destination": "/api/demo?v=hvac-demo"
     },
     {
       "source": "/hvac-demo/:path*",
-      "destination": "https://hvac-demo-production-d1aa.up.railway.app/:path*"
+      "destination": "/api/demo?v=hvac-demo&path=:path*"
     },
     {
       "source": "/hvac-mdemo",
@@ -85,11 +85,11 @@
     },
     {
       "source": "/plumber-demo",
-      "destination": "https://plumber-demo-production.up.railway.app"
+      "destination": "/api/demo?v=plumber-demo"
     },
     {
       "source": "/plumber-demo/:path*",
-      "destination": "https://plumber-demo-production.up.railway.app/:path*"
+      "destination": "/api/demo?v=plumber-demo&path=:path*"
     }
   ],
   "headers": [
@@ -125,10 +125,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     },
@@ -138,10 +134,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     },
@@ -151,10 +143,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     },
@@ -164,10 +152,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     },
@@ -177,10 +161,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     },
@@ -190,10 +170,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     },
@@ -203,10 +179,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     },
@@ -216,10 +188,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     },
@@ -229,10 +197,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     },
@@ -242,10 +206,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     },
@@ -385,10 +345,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     },
@@ -398,10 +354,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     }
