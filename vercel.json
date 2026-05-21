@@ -82,6 +82,14 @@
     {
       "source": "/bh-mdemo/:path*",
       "destination": "https://bh-maestro.vercel.app/:path*"
+    },
+    {
+      "source": "/plumber-demo",
+      "destination": "https://plumber-demo-production.up.railway.app"
+    },
+    {
+      "source": "/plumber-demo/:path*",
+      "destination": "https://plumber-demo-production.up.railway.app/:path*"
     }
   ],
   "headers": [
@@ -284,6 +292,24 @@
     },
     {
       "source": "/bh-mdemo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/plumber-demo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/plumber-demo/:path*",
       "headers": [
         {
           "key": "X-Frame-Options",
