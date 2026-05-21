@@ -90,6 +90,14 @@
     {
       "source": "/plumber-demo/:path*",
       "destination": "/api/demo?u=https://plumber-demo-production.up.railway.app&path=:path*"
+    },
+    {
+      "source": "/dentist-mdemo",
+      "destination": "https://dentist-maestro.vercel.app"
+    },
+    {
+      "source": "/dentist-mdemo/:path*",
+      "destination": "https://dentist-maestro.vercel.app/:path*"
     }
   ],
   "headers": [
@@ -354,6 +362,32 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/dentist-mdemo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/dentist-mdemo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     }
