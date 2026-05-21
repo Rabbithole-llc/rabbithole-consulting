@@ -98,6 +98,14 @@
     {
       "source": "/dentist-mdemo/:path*",
       "destination": "https://dentist-maestro.vercel.app/:path*"
+    },
+    {
+      "source": "/dentist-demo",
+      "destination": "/api/demo?u=https://dentist-demo-production.up.railway.app"
+    },
+    {
+      "source": "/dentist-demo/:path*",
+      "destination": "/api/demo?u=https://dentist-demo-production.up.railway.app&path=:path*"
     }
   ],
   "headers": [
@@ -380,6 +388,32 @@
     },
     {
       "source": "/dentist-mdemo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/dentist-demo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/dentist-demo/:path*",
       "headers": [
         {
           "key": "X-Frame-Options",
