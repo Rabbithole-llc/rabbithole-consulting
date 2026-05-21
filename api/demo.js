@@ -7,20 +7,14 @@
 // headers Vercel's edge respects. Subsequent clicks hit the edge cache.
 //
 // Wired via vercel.json rewrites:
-//   /<v>-demo            -> /api/demo?v=<v>-demo
-//   /<v>-demo/:path*     -> /api/demo?v=<v>-demo&path=:path*
+//   /<v>-demo            -> /api/demo?u=<railway-url>
+//   /<v>-demo/:path*     -> /api/demo?u=<railway-url>&path=:path*
+//
+// New verticals don't require code changes here — the rewrite supplies the
+// upstream URL. Only constraint: it must be a *.up.railway.app host.
 
 export const config = {
   runtime: 'edge',
-};
-
-const UPSTREAMS = {
-  'salon-demo': 'https://web-production-a4f42.up.railway.app',
-  'restaurants-demo': 'https://web-production-1b1b.up.railway.app',
-  'bh-demo': 'https://web-production-33b90.up.railway.app',
-  'hvac-demo': 'https://hvac-demo-production-d1aa.up.railway.app',
-  'plumber-demo': 'https://plumber-demo-production.up.railway.app',
-  'clinic-demo': 'https://clinic-demo-production.up.railway.app',
 };
 
 // 5-minute browser cache, 24-hour edge cache, 7-day stale-while-revalidate.
@@ -40,22 +34,38 @@ function isDynamicPath(p) {
   return p.includes('/api/') || p.includes('/chat') || p.includes('/sse') || p.includes('/widget/api');
 }
 
+function resolveUpstream(rawValue) {
+  if (!rawValue) return { error: 'missing upstream', status: 400 };
+  let parsed;
+  try {
+    parsed = new URL(rawValue);
+  } catch {
+    return { error: 'invalid upstream URL', status: 400 };
+  }
+  if (parsed.protocol !== 'https:') {
+    return { error: 'upstream must be https', status: 400 };
+  }
+  if (!parsed.hostname.endsWith('.up.railway.app')) {
+    return { error: 'upstream host not allowed', status: 400 };
+  }
+  return { origin: parsed.origin };
+}
+
 export default async function handler(req) {
   const url = new URL(req.url);
-  const vertical = url.searchParams.get('v');
   const subPath = url.searchParams.get('path') || '';
-  const upstream = UPSTREAMS[vertical];
 
-  if (!upstream) {
-    return new Response('Not found', { status: 404 });
+  const upstreamResolved = resolveUpstream(url.searchParams.get('u'));
+  if (upstreamResolved.error) {
+    return new Response(upstreamResolved.error, { status: upstreamResolved.status });
   }
 
   // Build upstream URL. FastAPI app is rooted at /, so /<v>-demo/foo becomes /foo.
   const forwardedQuery = new URLSearchParams(url.search);
-  forwardedQuery.delete('v');
+  forwardedQuery.delete('u');
   forwardedQuery.delete('path');
   const qs = forwardedQuery.toString();
-  const upstreamUrl = upstream + '/' + subPath + (qs ? '?' + qs : '');
+  const upstreamUrl = upstreamResolved.origin + '/' + subPath + (qs ? '?' + qs : '');
 
   const fwdHeaders = new Headers();
   for (const [k, v] of req.headers.entries()) {

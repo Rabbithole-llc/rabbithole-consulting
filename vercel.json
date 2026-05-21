@@ -5,43 +5,43 @@
   "rewrites": [
     {
       "source": "/bh-demo",
-      "destination": "/api/demo?v=bh-demo"
+      "destination": "/api/demo?u=https://web-production-33b90.up.railway.app"
     },
     {
       "source": "/bh-demo/:path*",
-      "destination": "/api/demo?v=bh-demo&path=:path*"
+      "destination": "/api/demo?u=https://web-production-33b90.up.railway.app&path=:path*"
     },
     {
       "source": "/clinic-demo",
-      "destination": "/api/demo?v=clinic-demo"
+      "destination": "/api/demo?u=https://clinic-demo-production.up.railway.app"
     },
     {
       "source": "/clinic-demo/:path*",
-      "destination": "/api/demo?v=clinic-demo&path=:path*"
+      "destination": "/api/demo?u=https://clinic-demo-production.up.railway.app&path=:path*"
     },
     {
       "source": "/restaurants-demo",
-      "destination": "/api/demo?v=restaurants-demo"
+      "destination": "/api/demo?u=https://web-production-1b1b.up.railway.app"
     },
     {
       "source": "/restaurants-demo/:path*",
-      "destination": "/api/demo?v=restaurants-demo&path=:path*"
+      "destination": "/api/demo?u=https://web-production-1b1b.up.railway.app&path=:path*"
     },
     {
       "source": "/salon-demo",
-      "destination": "/api/demo?v=salon-demo"
+      "destination": "/api/demo?u=https://web-production-a4f42.up.railway.app"
     },
     {
       "source": "/salon-demo/:path*",
-      "destination": "/api/demo?v=salon-demo&path=:path*"
+      "destination": "/api/demo?u=https://web-production-a4f42.up.railway.app&path=:path*"
     },
     {
       "source": "/hvac-demo",
-      "destination": "/api/demo?v=hvac-demo"
+      "destination": "/api/demo?u=https://hvac-demo-production-d1aa.up.railway.app"
     },
     {
       "source": "/hvac-demo/:path*",
-      "destination": "/api/demo?v=hvac-demo&path=:path*"
+      "destination": "/api/demo?u=https://hvac-demo-production-d1aa.up.railway.app&path=:path*"
     },
     {
       "source": "/hvac-mdemo",
@@ -85,11 +85,11 @@
     },
     {
       "source": "/plumber-demo",
-      "destination": "/api/demo?v=plumber-demo"
+      "destination": "/api/demo?u=https://plumber-demo-production.up.railway.app"
     },
     {
       "source": "/plumber-demo/:path*",
-      "destination": "/api/demo?v=plumber-demo&path=:path*"
+      "destination": "/api/demo?u=https://plumber-demo-production.up.railway.app&path=:path*"
     }
   ],
   "headers": [
