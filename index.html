@@ -824,6 +824,23 @@ details[open] .faq-q .plus{
 }
 .final .cta-primary{background:#fff;color:var(--ink);box-shadow:0 12px 30px rgba(255,255,255,.15)}
 .final .cta-primary:hover{background:#f0f0f0}
+.iclosed-frame{
+  max-width:760px;margin:0 auto 12px;
+  background:#fff;border-radius:14px;
+  box-shadow:0 24px 60px rgba(0,0,0,.35);
+  overflow:hidden;
+  min-height:420px;
+}
+.iclosed-frame iframe{display:block;width:100%;border:0}
+.iclosed-placeholder{
+  padding:48px 28px;text-align:center;color:#444;
+  font-family:'Inter',sans-serif;font-size:.95rem;line-height:1.6;
+}
+.iclosed-placeholder b{color:var(--ink)}
+.iclosed-placeholder code{
+  background:#f4f4f6;padding:2px 6px;border-radius:4px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;
+}
 
 /* ============== FOOTER ============== */
 footer{
@@ -1169,7 +1186,7 @@ footer .legal-links a:hover{color:var(--text)}
     <a href="#about">About&nbsp;Us</a>
     <a href="#faq">FAQ</a>
   </div>
-  <a href="/apply" class="nav-cta">Apply Now</a>
+  <a href="#book" class="nav-cta">Book a Call</a>
 </nav>
 
 <header class="hero" id="top">
@@ -1189,7 +1206,7 @@ footer .legal-links a:hover{color:var(--text)}
       <video src="/assets/landing-hero.mp4" poster="/assets/landing-hero-cover.jpg" controls playsinline preload="metadata" aria-label="Why Rabbithole — 2 minute overview"></video>
     </div>
 
-    <a href="/apply" class="cta-primary">
+    <a href="#book" class="cta-primary">
       I'm Ready To Scale
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
     </a>
@@ -1491,7 +1508,7 @@ footer .legal-links a:hover{color:var(--text)}
         <p><span class="promise">30-day deployment guarantee.</span> If we're not running infrastructure in your business within 30 days from kickoff, <b>you don't pay your second month.</b> Skin in the game from day one.</p>
       </div>
 
-      <a href="/apply" class="cta-primary">
+      <a href="#book" class="cta-primary">
         I'm Ready To Scale
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
@@ -1602,13 +1619,24 @@ footer .legal-links a:hover{color:var(--text)}
 <section class="final" id="book">
   <div class="final-inner">
     <h2 class="fade">The work isn't going away. You don't have to keep doing it.</h2>
-    <p class="fade">Apply for a free strategy call. We'll review your application and book you a thirty-minute call with the founders to diagnose your single biggest bottleneck and show you <b>exactly what we'd build</b> to fix it. No pitch deck. No pressure.</p>
-    <a href="/apply" class="cta-primary fade">
-      I'm Ready To Scale
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
-    </a>
+    <p class="fade">Three quick questions, then pick a time. You'll be on a thirty-minute call with the founders to diagnose your single biggest bottleneck and see <b>exactly what we'd build</b> to fix it. No pitch deck. No pressure.</p>
+
+    <!-- ============================================================
+         iClosed inline embed.
+         Paste the iClosed Lift / Inline snippet between the markers
+         below. See WIRING-ICLOSED.md for signup + Zapier instructions.
+         ============================================================ -->
+    <div class="iclosed-frame fade">
+      <!-- ICLOSED:EMBED:START -->
+      <div id="iclosed-embed-placeholder" class="iclosed-placeholder">
+        <p><b>iClosed widget not configured yet.</b></p>
+        <p>Paste the iClosed embed snippet inside the <code>ICLOSED:EMBED</code> markers in <code>index.html</code>. See <code>WIRING-ICLOSED.md</code>.</p>
+      </div>
+      <!-- ICLOSED:EMBED:END -->
+    </div>
+
     <div class="meta-row fade">
-      <span>Application reviewed in 24h</span>
+      <span>Three questions · about 60 seconds</span>
       <span>30-min founder-led call</span>
       <span>No obligation</span>
     </div>
