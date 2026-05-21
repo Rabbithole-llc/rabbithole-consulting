@@ -61,11 +61,11 @@
     },
     {
       "source": "/salon-mdemo",
-      "destination": "https://salon-maestro.vercel.app"
+      "destination": "https://salon-maestro-fawn.vercel.app"
     },
     {
       "source": "/salon-mdemo/:path*",
-      "destination": "https://salon-maestro.vercel.app/:path*"
+      "destination": "https://salon-maestro-fawn.vercel.app/:path*"
     },
     {
       "source": "/restaurants-mdemo",
