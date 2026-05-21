@@ -1,286 +1,312 @@
 {
-    "$schema": "https://openapi.vercel.sh/vercel.json",
-    "cleanUrls": true,
-    "trailingSlash": false,
-    "rewrites": [
-        {
-            "source": "/bh-demo",
-            "destination": "https://web-production-33b90.up.railway.app"
-        },
-        {
-            "source": "/bh-demo/:path*",
-            "destination": "https://web-production-33b90.up.railway.app/:path*"
-        },
-        {
-            "source": "/clinic-demo",
-            "destination": "https://clinic-demo-production.up.railway.app"
-        },
-        {
-            "source": "/clinic-demo/:path*",
-            "destination": "https://clinic-demo-production.up.railway.app/:path*"
-        },
-        {
-            "source": "/restaurants-demo",
-            "destination": "https://web-production-1b1b.up.railway.app"
-        },
-        {
-            "source": "/restaurants-demo/:path*",
-            "destination": "https://web-production-1b1b.up.railway.app/:path*"
-        },
-        {
-            "source": "/salon-demo",
-            "destination": "https://web-production-a4f42.up.railway.app"
-        },
-        {
-            "source": "/salon-demo/:path*",
-            "destination": "https://web-production-a4f42.up.railway.app/:path*"
-        },
-        {
-            "source": "/hvac-demo",
-            "destination": "https://hvac-demo-production-d1aa.up.railway.app"
-        },
-        {
-            "source": "/hvac-demo/:path*",
-            "destination": "https://hvac-demo-production-d1aa.up.railway.app/:path*"
-        },
-        {
-            "source": "/hvac-mdemo",
-            "destination": "https://hvac-maestro.vercel.app"
-        },
-        {
-            "source": "/hvac-mdemo/:path*",
-            "destination": "https://hvac-maestro.vercel.app/:path*"
-        },
-        {
-            "source": "/plumber-mdemo",
-            "destination": "https://plumber-maestro.vercel.app"
-        },
-        {
-            "source": "/plumber-mdemo/:path*",
-            "destination": "https://plumber-maestro.vercel.app/:path*"
-        },
-        {
-            "source": "/salon-mdemo",
-            "destination": "https://salon-maestro.vercel.app"
-        },
-        {
-            "source": "/salon-mdemo/:path*",
-            "destination": "https://salon-maestro.vercel.app/:path*"
-        },
-        {
-            "source": "/restaurants-mdemo",
-            "destination": "https://restaurants-maestro-68f4pavw2-rabbitholes-projects-2d4b7f9f.vercel.app"
-        },
-        {
-            "source": "/restaurants-mdemo/:path*",
-            "destination": "https://restaurants-maestro-68f4pavw2-rabbitholes-projects-2d4b7f9f.vercel.app/:path*"
-        }
-    ],
-    "headers": [
-        {
-            "source": "/(.*)",
-            "headers": [
-                {
-                    "key": "X-Content-Type-Options",
-                    "value": "nosniff"
-                },
-                {
-                    "key": "X-Frame-Options",
-                    "value": "DENY"
-                },
-                {
-                    "key": "Referrer-Policy",
-                    "value": "strict-origin-when-cross-origin"
-                }
-            ]
-        },
-        {
-            "source": "/og-image.png",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "public, max-age=86400"
-                }
-            ]
-        },
-        {
-            "source": "/bh-demo",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/bh-demo/:path*",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/clinic-demo",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/clinic-demo/:path*",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/restaurants-demo",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/restaurants-demo/:path*",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/salon-demo",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/salon-demo/:path*",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/hvac-demo",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/hvac-demo/:path*",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/hvac-mdemo",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/hvac-mdemo/:path*",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/plumber-mdemo",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/plumber-mdemo/:path*",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/salon-mdemo",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/salon-mdemo/:path*",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/restaurants-mdemo",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        },
-        {
-            "source": "/restaurants-mdemo/:path*",
-            "headers": [
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                }
-            ]
-        }
-    ],
-    "redirects": [
-        {
-            "source": "/www",
-            "destination": "https://rabbithole.consulting",
-            "statusCode": 301
-        }
-    ],
-    "functions": {
-        "api/subscribe.js": {
-            "memory": 256,
-            "maxDuration": 10
-        },
-        "api/leads.js": {
-            "memory": 256,
-            "maxDuration": 10
-        }
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/bh-demo",
+      "destination": "https://web-production-33b90.up.railway.app"
+    },
+    {
+      "source": "/bh-demo/:path*",
+      "destination": "https://web-production-33b90.up.railway.app/:path*"
+    },
+    {
+      "source": "/clinic-demo",
+      "destination": "https://clinic-demo-production.up.railway.app"
+    },
+    {
+      "source": "/clinic-demo/:path*",
+      "destination": "https://clinic-demo-production.up.railway.app/:path*"
+    },
+    {
+      "source": "/restaurants-demo",
+      "destination": "https://web-production-1b1b.up.railway.app"
+    },
+    {
+      "source": "/restaurants-demo/:path*",
+      "destination": "https://web-production-1b1b.up.railway.app/:path*"
+    },
+    {
+      "source": "/salon-demo",
+      "destination": "https://web-production-a4f42.up.railway.app"
+    },
+    {
+      "source": "/salon-demo/:path*",
+      "destination": "https://web-production-a4f42.up.railway.app/:path*"
+    },
+    {
+      "source": "/hvac-demo",
+      "destination": "https://hvac-demo-production-d1aa.up.railway.app"
+    },
+    {
+      "source": "/hvac-demo/:path*",
+      "destination": "https://hvac-demo-production-d1aa.up.railway.app/:path*"
+    },
+    {
+      "source": "/hvac-mdemo",
+      "destination": "https://hvac-maestro.vercel.app"
+    },
+    {
+      "source": "/hvac-mdemo/:path*",
+      "destination": "https://hvac-maestro.vercel.app/:path*"
+    },
+    {
+      "source": "/plumber-mdemo",
+      "destination": "https://plumber-maestro.vercel.app"
+    },
+    {
+      "source": "/plumber-mdemo/:path*",
+      "destination": "https://plumber-maestro.vercel.app/:path*"
+    },
+    {
+      "source": "/salon-mdemo",
+      "destination": "https://salon-maestro.vercel.app"
+    },
+    {
+      "source": "/salon-mdemo/:path*",
+      "destination": "https://salon-maestro.vercel.app/:path*"
+    },
+    {
+      "source": "/restaurants-mdemo",
+      "destination": "https://restaurants-maestro.vercel.app"
+    },
+    {
+      "source": "/restaurants-mdemo/:path*",
+      "destination": "https://restaurants-maestro.vercel.app/:path*"
+    },
+    {
+      "source": "/bh-mdemo",
+      "destination": "https://bh-maestro.vercel.app"
+    },
+    {
+      "source": "/bh-mdemo/:path*",
+      "destination": "https://bh-maestro.vercel.app/:path*"
     }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/og-image.png",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    },
+    {
+      "source": "/bh-demo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/bh-demo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/clinic-demo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/clinic-demo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/restaurants-demo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/restaurants-demo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/salon-demo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/salon-demo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/hvac-demo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/hvac-demo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/hvac-mdemo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/hvac-mdemo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/plumber-mdemo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/plumber-mdemo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/salon-mdemo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/salon-mdemo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/restaurants-mdemo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/restaurants-mdemo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/bh-mdemo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/bh-mdemo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/www",
+      "destination": "https://rabbithole.consulting",
+      "statusCode": 301
+    }
+  ],
+  "functions": {
+    "api/subscribe.js": {
+      "memory": 256,
+      "maxDuration": 10
+    },
+    "api/leads.js": {
+      "memory": 256,
+      "maxDuration": 10
+    }
+  }
 }
