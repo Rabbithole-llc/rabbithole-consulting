@@ -1,0 +1,71 @@
+# Rabbithole Consulting
+
+> AI consulting + custom AI systems for business owners. Designed, built, and operated end-to-end. Headquartered in San Juan, Puerto Rico — working worldwide.
+
+Rabbithole Consulting is an AI consultancy that goes beyond strategy decks. We map where AI creates real revenue or removes real cost in a business, then design, deploy, and operate the systems that do it — typically with an upfront setup fee plus an ongoing monthly retainer. We work with restaurants, boutique hotels, salons, dental practices, plumbers, HVAC services, and other small + mid-market businesses, and we ship the same engine to client demos so prospects can experience the product before signing.
+
+The company is run by Austin White from San Juan, Puerto Rico, and we serve clients across Puerto Rico (San Juan, Condado, Old San Juan, Ponce, Mayagüez, Caguas) and remotely worldwide. In-person workshops and on-site implementations are concentrated in Puerto Rico.
+
+## Services
+
+- [AI Operations Audit](https://rabbithole.consulting/services/ai-operations-audit): One-time audit of where AI can drive measurable revenue or cost reduction in your operations. Deliverable is a prioritized plan, not a slide deck.
+- [Custom AI Systems](https://rabbithole.consulting/services/custom-ai-systems): Full design + build + ongoing operation of bespoke AI workflows. AI receptionists, multi-channel inboxes, marketing maestros, dispatch systems, review responders.
+- [Team AI Training](https://rabbithole.consulting/services/team-ai-training): Hands-on AI training for business owners and their teams. Workshop format or embedded coaching.
+
+## Geo-targeted pages
+
+- [AI Consulting in Puerto Rico](https://rabbithole.consulting/ai-consulting-puerto-rico): Local AI consulting practice — San Juan based, working across all of Puerto Rico.
+- [AI Workshops in Puerto Rico](https://rabbithole.consulting/ai-workshops-puerto-rico): In-person AI training workshops for business owners in San Juan and across PR, often hosted at top hotels.
+
+## Demos (live, interactive)
+
+These are the actual systems we deploy for clients, running with mock data so prospects can use them end-to-end:
+
+- /salon-demo: Hair salon operations — AI receptionist, appointment chat, review drafting, marketing maestro
+- /dentist-demo: Dental practice operations — same engine, dental vocabulary + workflows
+- /restaurants-demo: Restaurant operations — reservation chat, takeout, review responses
+- /bh-demo: Boutique hotel operations — pre-arrival, guest inbox, distinctiveness audit
+- /plumber-demo: Plumbing business — service dispatch, emergency calls, scheduling
+- /hvac-demo: HVAC service — same shape as plumber, HVAC-specific vocabulary
+
+Each vertical also has a matching `<vertical>-mdemo` URL showing the marketing maestro: ad generation, content scheduling, brand voice control.
+
+## Booking & contact
+
+- [Book a 15-min intro call](https://rabbithole.consulting/hello): Free strategy call. We map what's actually worth automating before any quote.
+- [Apply for engagement](https://rabbithole.consulting/apply): Longer intake for serious engagements.
+- Email: team@rabbithole.consulting
+- Support: support@rabbithole.consulting
+
+## Who runs Rabbithole
+
+Austin White — founder. Background in production AI systems, agentic workflows, and small-business operations. Lives in San Juan, Puerto Rico. Reachable via the booking link above or LinkedIn.
+
+## How we price
+
+Two-part: upfront setup fee (one-time, depends on system complexity) plus ongoing monthly retainer (covers operating the system, iterating on it, and handling edge cases). Pricing is transparent on call — typical engagements start in the low five figures for setup and three to five figures per month thereafter.
+
+## Common questions
+
+**What does an AI consultant actually do?** We map where AI can create revenue or remove cost, then build and operate the systems that do it — not just write a strategy doc.
+
+**Do you only work in Puerto Rico?** No — we're headquartered in San Juan and concentrate in-person work locally, but most engagements are remote. We work worldwide.
+
+**Is this just a wrapper around ChatGPT?** No — every system we ship has a multi-step pipeline, retrieval, business-specific data, escalation rules, and a human-in-the-loop where it matters. The demos at /salon-demo, /dentist-demo etc. show what production systems actually look like.
+
+**How fast can you start?** A 15-minute intro call this week, scoped plan within a few business days, first system shipped in 2–4 weeks depending on complexity.
+
+## Site index
+
+- [Home](https://rabbithole.consulting/)
+- [Hello / Book a call](https://rabbithole.consulting/hello)
+- [Apply](https://rabbithole.consulting/apply)
+- [AI Consulting in Puerto Rico](https://rabbithole.consulting/ai-consulting-puerto-rico)
+- [AI Workshops in Puerto Rico](https://rabbithole.consulting/ai-workshops-puerto-rico)
+- [AI Operations Audit](https://rabbithole.consulting/services/ai-operations-audit)
+- [Custom AI Systems](https://rabbithole.consulting/services/custom-ai-systems)
+- [Team AI Training](https://rabbithole.consulting/services/team-ai-training)
+- [Blog: AI Workforce for the Creator Economy](https://rabbithole.consulting/blog/ai-workforce-for-creator-economy)
+- [Privacy](https://rabbithole.consulting/privacy)
+- [Terms](https://rabbithole.consulting/terms)
+- [Sitemap](https://rabbithole.consulting/sitemap.xml)
