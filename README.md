@@ -1,4 +1,4 @@
-# Last cache-invalidate redeploy: 2026-05-23T13:17:11Z
+# Last cache-invalidate redeploy: 2026-05-23T13:38:22Z
 # Rabbithole Consulting
 
 Landing page for rabbithole.consulting — AI consulting for business owners in Puerto Rico.
