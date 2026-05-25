@@ -174,6 +174,7 @@ section{
 .vfx[data-aspect="3-2"]{aspect-ratio:3/2}
 .vfx[data-aspect="1-1"]{aspect-ratio:1/1}
 .vfx[data-aspect="21-9"]{aspect-ratio:21/9}
+.vfx[data-aspect="9-16"]{aspect-ratio:9/16}
 .vfx img,.vfx video{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;object-position:center;display:block;
@@ -230,7 +231,11 @@ section{
   line-height:1.55;
 }
 .hero .sub b{color:var(--ink);font-weight:700}
-.hero .vfx{max-width:1000px;margin:0 auto}
+.hero .vfx{
+  max-width:360px;margin:0 auto;
+  border-radius:28px;
+  box-shadow:0 24px 60px -20px rgba(10,18,38,.28), 0 0 0 1px rgba(10,18,38,.06);
+}
 .cta-primary{
   display:inline-flex;align-items:center;gap:14px;
   font-family:'Inter Tight',sans-serif;font-weight:800;
@@ -499,11 +504,11 @@ footer a:hover{border-color:var(--inkblue);color:var(--inkblue)}
       Whatever's eating your week, we'd <b>build the system that does it for you.</b> Bookings, follow-up, inbox, reporting. Custom, end to end, designed around how your business actually runs. Nothing off a shelf.
     </p>
 
-    <figure class="vfx fade" data-aspect="16-10" data-slot="01-hero">
+    <figure class="vfx fade" data-aspect="9-16" data-slot="01-hero">
       <video
         src="/assets/scan-hero-craftsman.mp4"
         autoplay muted loop playsinline
-        preload="metadata"
+        preload="auto"
         aria-label="A custom system being built by hand"
       ></video>
     </figure>
