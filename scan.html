@@ -252,28 +252,30 @@ section{
 
 /* ============== SECTION 1 — WHY THIS CARD ============== */
 .intro{background:var(--bg-2)}
-.intro-grid{
-  display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;
-}
+.intro-text{max-width:680px;margin:0 auto;text-align:center}
 .intro h2{
   font-family:'Inter Tight',sans-serif;font-weight:800;
-  font-size:clamp(1.7rem, 3.4vw, 2.6rem);
+  font-size:clamp(1.8rem, 3.4vw, 2.6rem);
   line-height:1.1;letter-spacing:-.02em;color:var(--ink);
   margin-bottom:20px;
 }
+.intro .section-eyebrow{margin-bottom:14px}
 .intro p{color:var(--muted);font-size:1.04rem;line-height:1.65;margin-bottom:14px}
 .intro p b{color:var(--ink);font-weight:700}
 .intro .signoff{
+  display:inline-block;
   margin-top:22px;padding-top:18px;
   border-top:1px solid var(--line-2);
   font-family:'Inter Tight',sans-serif;font-weight:700;
   font-size:.82rem;letter-spacing:.04em;color:var(--ink);
 }
-.intro .vfx{max-width:520px;margin:0 auto}
-@media(max-width:880px){
-  .intro-grid{grid-template-columns:1fr;gap:32px}
-  .intro .vfx{order:-1}
+
+/* ============== SECTION 1.5 — STANDALONE BRIDGE VISUAL ============== */
+.bridge-visual{
+  background:var(--bg-2);
+  padding:0 28px 72px;
 }
+.bridge-visual .vfx{max-width:1180px;margin:0 auto}
 
 /* ============== SECTION 2 — WHAT WE BUILD ============== */
 .build{background:var(--bg)}
@@ -428,10 +430,10 @@ footer a:hover{border-color:var(--inkblue);color:var(--inkblue)}
   .cta-primary svg{width:12px;height:12px}
   .hero .cta-row{margin-top:20px}
 
-  .intro-grid{gap:24px}
-  .intro h2{font-size:1.35rem;line-height:1.18;margin-bottom:10px}
+  .intro h2{font-size:1.45rem;line-height:1.18;margin-bottom:10px}
   .intro p{font-size:.9rem;line-height:1.55;margin-bottom:8px}
   .intro .signoff{font-size:.72rem;margin-top:12px;padding-top:10px}
+  .bridge-visual{padding:0 18px 36px}
 
   .build .vfx{margin-bottom:20px}
 
@@ -497,13 +499,13 @@ footer a:hover{border-color:var(--inkblue);color:var(--inkblue)}
       Whatever's eating your week, we'd <b>build the system that does it for you.</b> Bookings, follow-up, inbox, reporting. Custom, end to end, designed around how your business actually runs. Nothing off a shelf.
     </p>
 
-    <figure class="vfx fade" data-aspect="16-10" data-slot="01-hero"
-            data-prompt="Quiet, premium overhead-angle still life of a craftsman's workbench at dusk in a small studio in San Juan. Centered on the workbench: a folded architectural blueprint of a business workflow diagram (arrows between an inbox icon, a booking calendar, a phone, a customer silhouette) drawn in deep ink-blue on warm cream paper. Around it: brass calipers, a fountain pen, a small machined brass module in three modular pieces, a single warm desk lamp casting a slanted pool of light from the left. Background fades into deep navy. Color palette: deep ink blue (#1d3a8a), warm cream paper, brass, black. 50mm prime lens feel, shallow depth of field, slight grain. Cinematic, considered, not glossy. No people, no logos. The scene says 'something is being built here, by hand, for one client'.">
-      <div class="vfx-empty">
-        <span class="slot">01 · Hero</span>
-        <div class="title">Craftsman's workbench at dusk, blueprint of a workflow being drawn by hand</div>
-        <p class="prompt">Establishing image. Premium, quiet, hand-made. Brass + ink-blue + cream. No people.</p>
-      </div>
+    <figure class="vfx fade" data-aspect="16-10" data-slot="01-hero">
+      <video
+        src="/assets/scan-hero-craftsman.mp4"
+        autoplay muted loop playsinline
+        preload="metadata"
+        aria-label="A custom system being built by hand"
+      ></video>
     </figure>
 
     <div class="cta-row fade">
@@ -522,24 +524,32 @@ footer a:hover{border-color:var(--inkblue);color:var(--inkblue)}
      about why this scan exists. Personal, short, warm.
 ============================================================ -->
 <section class="intro" id="why">
-  <div class="wrap">
-    <div class="intro-grid">
-      <div class="fade">
-        <span class="section-eyebrow">From Austin &amp; Juan</span>
-        <h2>We came by today.</h2>
-        <p>Thanks for the warm welcome. You've got a great business, and we'd love to learn more about how you run it.</p>
-        <p>If there's a way to <b>take the work that's eating your week off your plate</b> and turn some of it back into revenue, we'd want to be the ones to build it for you.</p>
-        <div class="signoff">— Austin &amp; Juan, Rabbithole</div>
-      </div>
-      <figure class="vfx fade" data-aspect="4-5" data-slot="02-card-on-counter"
-              data-prompt="Quiet still life: a single matte navy business card resting on a worn wooden counter in a small owner-operated business at end of day — could read as a restaurant pass, a hotel front desk, a salon station, a small office reception. Warm wood, a hint of brass hardware, soft evening light from camera-left. The card has a small embossed brass-tone wordmark and a QR code printed in deep ink-blue. Beside the card: a fountain pen, a folded receipt or note, a coffee cup slightly out of focus. Color palette: ink-blue (#1d3a8a), warm cream, aged brass, walnut. 50mm prime lens, shallow depth of field, slight film grain. No faces, no people, no logos, no readable text other than the QR pattern. Premium, considered, intimate — the card has just been set down.">
-        <div class="vfx-empty">
-          <span class="slot">02 · The card</span>
-          <div class="title">Matte navy card with QR on a worn wooden counter at end of day</div>
-          <p class="prompt">Vertical-neutral. Could be a restaurant pass, hotel desk, salon, or office. Warm + intimate.</p>
-        </div>
-      </figure>
+  <div class="wrap-narrow">
+    <div class="intro-text fade">
+      <span class="section-eyebrow">From Austin &amp; Juan</span>
+      <h2>We came by today.</h2>
+      <p>Thanks for the warm welcome. You've got a great business, and we'd love to learn more about how you run it.</p>
+      <p>If there's a way to <b>take the work that's eating your week off your plate</b> and turn some of it back into revenue, we'd want to be the ones to build it for you.</p>
+      <div class="signoff">— Austin &amp; Juan, Rabbithole</div>
     </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 1.5. STANDALONE VISUAL (was inside Austin & Juan).
+     Pulled out into its own full-width breath between the founder
+     note and the "What we'd build" section.
+============================================================ -->
+<section class="bridge-visual">
+  <div class="wrap">
+    <figure class="vfx fade" data-aspect="21-9" data-slot="02-card-on-counter"
+            data-prompt="Quiet still life: a single matte navy business card resting on a worn wooden counter in a small owner-operated business at end of day. Could read as a restaurant pass, a hotel front desk, a salon station, or a small office reception. Warm wood, a hint of brass hardware, soft evening light from camera-left. The card has a small embossed brass-tone wordmark and a QR code printed in deep ink-blue. Beside the card: a fountain pen, a folded receipt or note, a coffee cup slightly out of focus. Color palette: ink-blue (#1d3a8a), warm cream, aged brass, walnut. 50mm prime lens, shallow depth of field, slight film grain. No faces, no people, no logos, no readable text other than the QR pattern. Premium, considered, intimate. The card has just been set down. Wide composition: 21:9 cinematic, the counter extending across the frame.">
+      <div class="vfx-empty">
+        <span class="slot">02 · The card</span>
+        <div class="title">Matte navy card with QR on a worn wooden counter at end of day</div>
+        <p class="prompt">Wide 21:9 now (standalone full-width). Vertical-neutral. Reads as restaurant pass, hotel desk, salon, or office.</p>
+      </div>
+    </figure>
   </div>
 </section>
 
