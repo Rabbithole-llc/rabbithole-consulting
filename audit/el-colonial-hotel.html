@@ -4,91 +4,95 @@
 <meta name="robots" content="noindex">
 <style>
 :root{--ink:#14161a;--muted:#5b626d;--line:#e7e9ee;--bg:#f6f7f9;--card:#fff;--accent:#1f6feb;--good:#1f8a4c;--warn:#9a6a00;--crit:#b3261e}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.55}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.42}
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-.wrap{max-width:880px;margin:0 auto;padding:0 20px}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
 header.top{border-bottom:1px solid var(--line);background:#fff}
-.kick{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
-.hero{padding:30px 0 26px}h1{font-size:33px;line-height:1.1;margin:6px 0 4px;letter-spacing:-0.5px}
-.meta{color:var(--muted);font-size:14px}.lede{font-size:17px;margin:18px 0 0;max-width:60ch}
-.hero-grid{display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin-top:24px}
-.ring{--p:46;width:128px;height:128px;border-radius:50%;flex:none;background:conic-gradient(var(--accent) calc(var(--p)*1%),#e9edf3 0);display:grid;place-items:center}
-.ring>div{width:100px;height:100px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center}
-.ring b{font-size:30px;display:block;line-height:1}.ring span{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
-.ring-note{font-size:14px;color:var(--muted);max-width:46ch}
-section{padding:26px 0;border-bottom:1px solid var(--line)}
-h2{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:0 0 16px}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:640px){.cards{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 15px}
-.card .lab{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}.card .val{font-size:16px;font-weight:600;margin-top:3px}.card .src{font-size:12px;color:var(--muted)}
-.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 8px;border-radius:999px}
+.kick{font-size:10.5px;letter-spacing:2.2px;text-transform:uppercase;color:var(--muted)}
+.hero{padding:18px 0 16px}h1{font-size:25px;line-height:1.08;margin:4px 0 2px;letter-spacing:-0.4px}
+.meta{color:var(--muted);font-size:12.5px}.lede{font-size:14.5px;margin:9px 0 0;max-width:64ch}
+.hero-grid{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.ring{--p:56;width:100px;height:100px;border-radius:50%;flex:none;background:conic-gradient(var(--accent) calc(var(--p)*1%),#e9edf3 0);display:grid;place-items:center}
+.ring>div{width:80px;height:80px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center}
+.ring b{font-size:23px;display:block;line-height:1}.ring span{font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted)}
+.ring-note{font-size:13px;color:var(--muted);max-width:50ch;line-height:1.42}
+section{padding:14px 0;border-bottom:1px solid var(--line)}
+section p{margin:5px 0}
+h2{font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:7px}@media(max-width:640px){.cards{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:8px 11px}
+.card .lab{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}.card .val{font-size:13.5px;font-weight:600;margin-top:2px}.card .src{font-size:11.5px;color:var(--muted);line-height:1.35;margin-top:1px}
+.tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:2px 7px;border-radius:999px}
 .t-good{background:#e7f4ec;color:var(--good)}.t-warn{background:#fbf2dd;color:var(--warn)}.t-crit{background:#fbe6e4;color:var(--crit)}
-details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
-summary{cursor:pointer;list-style:none;padding:15px 16px;display:flex;gap:12px;justify-content:space-between;align-items:flex-start}summary::-webkit-details-marker{display:none}
-summary h3{font-size:16.5px;margin:0;line-height:1.3}.body{padding:0 16px 16px;color:#23262c}.body p{margin:6px 0}.lbl{font-weight:700}
-.scoregrid{display:grid;grid-template-columns:1fr auto;gap:0 14px}.scoregrid .name{padding:8px 0;border-bottom:1px solid var(--line)}.scoregrid .st{padding:8px 0;border-bottom:1px solid var(--line);text-align:right}
-.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}.pill{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:5px 11px;background:#fff}
-ol.plan{counter-reset:s;list-style:none;padding:0;margin:0}ol.plan li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px 13px 52px;position:relative;margin-bottom:10px}
-ol.plan li::before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:13px;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
-.book{background:var(--ink);color:#fff;border-radius:16px;padding:28px;text-align:center;margin:26px 0}.book h2{color:#cdd3de}.book p{color:#e7eaf0;max-width:52ch;margin:6px auto 16px}
-.embed{background:#fff;border-radius:12px;overflow:hidden;max-width:560px;margin:0 auto}.embed iframe{width:100%;height:640px;border:0;display:block}
-.src{font-size:12px;color:var(--muted)}
+details{background:var(--card);border:1px solid var(--line);border-radius:9px;margin-bottom:7px;overflow:hidden}
+summary{cursor:pointer;list-style:none;padding:9px 12px;display:flex;gap:10px;justify-content:space-between;align-items:flex-start}summary::-webkit-details-marker{display:none}
+summary h3{font-size:14.5px;margin:0;line-height:1.25}.body{padding:0 12px 11px;color:#23262c}.body p{margin:4px 0}.lbl{font-weight:700}
+.scoregrid{display:grid;grid-template-columns:1fr auto;gap:0 12px}.scoregrid .name{padding:5px 0;border-bottom:1px solid var(--line);font-size:13.5px}.scoregrid .st{padding:5px 0;border-bottom:1px solid var(--line);text-align:right}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.pill{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 9px;background:#fff}
+ol.plan{counter-reset:s;list-style:none;padding:0;margin:0}ol.plan li{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 12px 9px 42px;position:relative;margin-bottom:6px;font-size:13.5px}
+ol.plan li::before{counter-increment:s;content:counter(s);position:absolute;left:11px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+.book{background:var(--ink);color:#fff;border-radius:12px;padding:18px;text-align:center;margin:14px 0}.book h2{color:#cdd3de;margin:0 0 4px}.book p{color:#e7eaf0;max-width:54ch;margin:4px auto 10px;font-size:13.5px}
+.embed{background:#fff;border-radius:10px;overflow:hidden;max-width:560px;margin:0 auto}.embed iframe{width:100%;height:560px;border:0;display:block}
+.src{font-size:11.5px;color:var(--muted)}
 </style></head><body>
 <header class="top"><div class="wrap hero">
 <div class="kick">rabbithole.consulting · digital deep-dive</div>
 <h1>El Colonial Hotel — Adults Only</h1>
 <div class="meta">Old San Juan · 312 C. de San Francisco, San Juan 00901 · listed on Google as "El Colonial Hotel - Adults Only"</div>
-<p class="lede">You've earned a strong reputation — 4.6 stars across 470 reviews — and you're listed everywhere travelers look: TripAdvisor, Booking, Expedia, Yelp. The opportunity is that you don't yet control a single path to a guest: there's no way to book on your own site, your site's social links point to other hotels in your group, and search engines can't read the page as a hotel. The demand is here — let's make it yours.</p>
-<div class="hero-grid"><div class="ring" style="--p:46"><div><span>Digital</span><b>46</b><span>/ 100</span></div></div>
-<div class="ring-note">A composite snapshot across reputation, direct booking, distribution, discoverability, site health, and brand. <b>Excellent reputation, almost no ownership of the funnel.</b> The fastest wins are direct booking and fixing the social links.</div></div>
+<p class="lede">You've earned a strong reputation — 4.6 stars across 470 reviews — and you're listed everywhere travelers look: TripAdvisor, Booking, Expedia, Yelp. The opportunity is that your own funnel leaks: the booking flow on your site is a clunky multi-step path that many guests abandon for an OTA, and search engines can't read the page as a hotel. The demand is already here — let's make it yours.</p>
+<div class="hero-grid"><div class="ring" style="--p:56"><div><span>Digital</span><b>56</b><span>/ 100</span></div></div>
+<div class="ring-note">A composite snapshot across reputation, booking experience, distribution, discoverability, site health, and brand. <b>Excellent reputation, leaky funnel.</b> The fastest wins are streamlining the booking flow and making the page legible to Google as a hotel.</div></div>
 </div></header>
 <div class="wrap">
 <section><h2>Where you stand today</h2><div class="scoregrid">
 <div class="name">Guest reputation (Google)</div><div class="st"><span class="tag t-good">4.6★ · 470</span></div>
 <div class="name">Listed on TripAdvisor / Booking / Expedia / Yelp</div><div class="st"><span class="tag t-good">Yes</span></div>
 <div class="name">Found in Google's knowledge panel</div><div class="st"><span class="tag t-good">Yes</span></div>
-<div class="name">Direct booking on your own site</div><div class="st"><span class="tag t-crit">None</span></div>
-<div class="name">Your social media links</div><div class="st"><span class="tag t-crit">Point to other hotels</span></div>
+<div class="name">Technical SEO &amp; accessibility</div><div class="st"><span class="tag t-good">Solid (92 / 88)</span></div>
+<div class="name">Booking experience on your site</div><div class="st"><span class="tag t-crit">Clunky</span></div>
 <div class="name">Google can read your site as a hotel</div><div class="st"><span class="tag t-warn">No structured data</span></div>
 <div class="name">Found for "boutique hotel Old San Juan"</div><div class="st"><span class="tag t-warn">Not ranking</span></div>
-<div class="name">Mobile site performance</div><div class="st"><span class="tag t-warn">Poor (47/100)</span></div>
+<div class="name">Mobile site performance</div><div class="st"><span class="tag t-warn">Poor (47 / 100)</span></div>
 <div class="name">Website security headers</div><div class="st"><span class="tag t-warn">None in place</span></div>
 </div></section>
-<section><h2>The research behind this audit</h2><p class="src" style="margin-top:-6px">Every line is real data we pulled before writing a word — Google, your live site, the booking flow, search results, and the platforms travelers use.</p>
-<div class="cards" style="margin-top:14px">
+<section><h2>The research behind this audit</h2><p class="src" style="margin-top:-4px">Every line is real data we pulled before writing a word — Google, your live site, the booking flow, search results, and the platforms travelers use.</p>
+<div class="cards" style="margin-top:9px">
 <div class="card"><div class="lab">Google listing</div><div class="val">4.6★ · 470 reviews</div><div class="src">Knowledge panel live; recent reviews polarized (a 1★ and 2★ in the latest five)</div></div>
-<div class="card"><div class="lab">Direct booking</div><div class="val">None detected</div><div class="src">No booking engine on the site — all reservations route through OTAs</div></div>
+<div class="card"><div class="lab">Knowledge panel</div><div class="val">Present (4.6)</div><div class="src">Google surfaces the hotel directly with rating and hours</div></div>
+<div class="card"><div class="lab">Booking experience</div><div class="val">Clunky (multi-click)</div><div class="src">Booking exists on your site, but the flow is multi-step and resets to the top — guests bounce to an OTA</div></div>
 <div class="card"><div class="lab">TripAdvisor</div><div class="val">Listed ✓</div><div class="src"><a href="https://www.tripadvisor.com/Hotel_Review-g147320-d23344761-Reviews-Hotel_El_Colonial-San_Juan_Puerto_Rico.html">view listing</a></div></div>
 <div class="card"><div class="lab">Booking.com</div><div class="val">Listed ✓</div><div class="src"><a href="https://www.booking.com/hotel/pr/el-colonial-san-juan.html">view listing</a></div></div>
 <div class="card"><div class="lab">Expedia</div><div class="val">Listed ✓</div><div class="src"><a href="https://www.expedia.com/San-Juan-Hotels-El-Colonial.h66385923.Hotel-Information">view listing</a></div></div>
 <div class="card"><div class="lab">Yelp</div><div class="val">Listed ✓</div><div class="src"><a href="https://www.yelp.com/biz/hotel-el-colonial-san-juan">view listing</a></div></div>
-<div class="card"><div class="lab">Your site links to these</div><div class="val">None of them</div><div class="src">Zero outbound links to any platform you're listed on</div></div>
-<div class="card"><div class="lab">Social links on site</div><div class="val">Wrong business</div><div class="src">Point to sister properties (La Tropical, San Juan 901), not El Colonial</div></div>
 <div class="card"><div class="lab">Structured data</div><div class="val">None (0 schemas)</div><div class="src">No hotel tagging — Google &amp; AI can't read the page as a hotel</div></div>
 <div class="card"><div class="lab">Search — your own name</div><div class="val">#2 (behind TripAdvisor)</div><div class="src">The TripAdvisor listing outranks your own website</div></div>
+<div class="card"><div class="lab">Search — category</div><div class="val">Not in top 10</div><div class="src">"Boutique hotel Old San Juan" — the page doesn't surface for the category guests actually search</div></div>
+<div class="card"><div class="lab">Technical SEO / accessibility</div><div class="val">92 / 88 (solid)</div><div class="src">Lighthouse SEO and accessibility scores — the bones are good</div></div>
 <div class="card"><div class="lab">Mobile performance</div><div class="val">47 / 100 (poor)</div><div class="src">Desktop 69/100 — mobile is the weak side</div></div>
-<div class="card"><div class="lab">Website &amp; domain</div><div class="val">Shared group page</div><div class="src">Lives at sanjuan901.com/el-colonial, not its own domain; no security headers</div></div>
+<div class="card"><div class="lab">Page weight</div><div class="val">Very heavy</div><div class="src">~17k words and 84 links on a single page — most travelers won't scroll that far</div></div>
+<div class="card"><div class="lab">Security headers</div><div class="val">None in place</div><div class="src">Standard browser-level protections aren't set</div></div>
 </div></section>
-<section><h2>Distribution &amp; booking — the big picture</h2><p>You're present on every major platform a traveler checks — but you capture none of them directly. There's no booking engine on your site, and your site links to none of your own listings. So the platforms hold the guest relationship, set the ranking, and own the data. Your reputation is doing the selling; the platforms are keeping the customer.</p>
-<div class="pill-row"><span class="pill"><b>Direct (own site):</b> ✗ none</span><span class="pill"><b>TripAdvisor:</b> ✓ listed</span><span class="pill"><b>Booking.com:</b> ✓ listed</span><span class="pill"><b>Expedia:</b> ✓ listed</span><span class="pill"><b>Yelp:</b> ✓ listed</span><span class="pill"><b>Airbnb:</b> not confirmed</span></div></section>
+<section><h2>Distribution &amp; booking — the big picture</h2><p>You're present on every major platform a traveler checks, and you do offer booking on your own site — but the on-site flow is clunky enough that many guests give up and finish on Booking, Expedia, or TripAdvisor. The platforms then hold the guest relationship, set the ranking, and own the data. Your reputation is doing the selling; the platforms are keeping the customer.</p>
+<div class="pill-row"><span class="pill"><b>Direct (own site):</b> ✓ exists, clunky</span><span class="pill"><b>TripAdvisor:</b> ✓ listed</span><span class="pill"><b>Booking.com:</b> ✓ listed</span><span class="pill"><b>Expedia:</b> ✓ listed</span><span class="pill"><b>Yelp:</b> ✓ listed</span><span class="pill"><b>Airbnb:</b> not confirmed</span></div></section>
 <section><h2>Reputation &amp; guest sentiment</h2><p>4.6★ across 470 reviews is a strong, established reputation — reinforced across TripAdvisor, Booking, Expedia, and Yelp. The recent sample is polarized, though: alongside the 5★ reviews there's a recent 1★ and 2★. Recent low reviews carry outsized weight in how Google and the OTAs rank you, so a thoughtful public reply to each is worth doing now.</p><p class="src">Sentiment here is drawn from your overall ratings and a sampled set of recent reviews. Full theme-by-theme sentiment across all 470+ reviews on every platform is a quick add-on.</p></section>
 <section><h2>What needs attention — in priority order</h2>
-<details open><summary><h3>You can't take a booking on your own site</h3><span class="tag t-crit">Critical</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> Every guest goes through TripAdvisor, Booking, or Expedia — you never own the guest, their details, or the terms, and you're fully dependent on those platforms' rankings and rules.</p><p><span class="lbl">The fix.</span> Add a booking engine (Cloudbeds, Little Hotelier, Lodgify) so guests can reserve directly — live within days.</p></div></details>
-<details><summary><h3>Your website sends guests to other hotels</h3><span class="tag t-crit">Critical</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> The "follow us" links point to sister properties (La Tropical, San Juan 901), not El Colonial — guests trying to follow you land on a different business.</p><p><span class="lbl">The fix.</span> Replace them with El Colonial's own profiles (or create them) so every link points back to your hotel.</p></div></details>
+<details open><summary><h3>Your booking experience fights the guest</h3><span class="tag t-crit">Critical</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> Guests can book, but it's a multi-click flow that resets to the top and isn't seamless, so many bounce to an OTA — and you lose the direct relationship, the data, and the margin.</p><p><span class="lbl">The fix.</span> Streamline to a modern few-step booking engine (Cloudbeds, Little Hotelier, Lodgify) so the path from "I want this room" to "confirmed" is smooth on phone and desktop.</p></div></details>
 <details><summary><h3>Google can't read your site as a hotel</h3><span class="tag t-warn">High</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> No structured data — so Google can't show your 4.6 rating in hotel results, and AI travel assistants can't read you.</p><p><span class="lbl">The fix.</span> Add hotel tagging (name, rating, room types) so search and AI can understand and surface the property.</p></div></details>
-<details><summary><h3>The travel sites outrank you for your own name</h3><span class="tag t-warn">High</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> Search "El Colonial Hotel" and the TripAdvisor listing appears above your own site — so even guests looking for you land on a platform first.</p><p><span class="lbl">The fix.</span> A proper site with hotel tagging and direct booking pulls that top spot back.</p></div></details>
+<details><summary><h3>The travel sites outrank you for your own name</h3><span class="tag t-warn">High</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> Search "El Colonial Hotel" and the TripAdvisor listing appears above your own site — so even guests looking for you land on a platform first.</p><p><span class="lbl">The fix.</span> A proper site with hotel tagging and a clean booking flow pulls that top spot back.</p></div></details>
+<details><summary><h3>Not surfacing for the category travelers actually search</h3><span class="tag t-warn">High</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> "Boutique hotel Old San Juan" doesn't return your page in the top 10 — so all the guests in the discovery stage of the trip don't see you.</p><p><span class="lbl">The fix.</span> Targeted on-page work plus the hotel tagging above brings you into that category result set.</p></div></details>
 <details><summary><h3>Weak on mobile, and no website security in place</h3><span class="tag t-warn">Medium</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> Mobile is where most travelers browse and your site scores poorly there (47/100); it also has none of the standard security headers.</p><p><span class="lbl">The fix.</span> A mobile performance pass plus standard security headers.</p></div></details>
-<p class="src" style="margin-top:8px">Also worth a look: respond to the recent 1★ and 2★ reviews; and consider moving off the shared group page onto your own domain.</p></section>
+<details><summary><h3>The page is too heavy for the way guests skim</h3><span class="tag t-warn">Medium</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> ~17k words and 84 links on one page — most travelers won't scroll far enough to find the rooms, the booking, or the reasons to stay.</p><p><span class="lbl">The fix.</span> Trim, restructure, and surface rooms + booking near the top so the page works the way guests actually read it.</p></div></details>
+<p class="src" style="margin-top:6px">Also worth a look: a thoughtful public reply to each of the recent 1★ and 2★ reviews on Google.</p></section>
 <section><h2>If we worked together, here's the order</h2><ol class="plan">
-<li><b>Take back the booking.</b> Add a direct booking engine so guests can reserve with you, not just the OTAs.</li>
-<li><b>Fix the dead ends.</b> Repair the social links (point them to El Colonial) and answer the recent low reviews.</li>
+<li><b>Streamline the booking flow.</b> Replace the clunky multi-step path with a modern booking engine so guests finish on your site, not on an OTA.</li>
+<li><b>Answer the recent low reviews.</b> A measured public reply to each 1★ and 2★ on Google — recent low scores carry outsized weight in ranking.</li>
 <li><b>Make Google &amp; AI read you.</b> Add hotel structured data so your rating shows in results and assistants surface you.</li>
-<li><b>Strengthen the foundation.</b> Mobile performance, security headers, and a plan for your own domain.</li>
+<li><b>Strengthen the foundation.</b> Mobile performance, security headers, and a tighter page so guests can actually find the rooms and the booking.</li>
 </ol></section>
-<div class="book"><h2 style="letter-spacing:2px;text-transform:uppercase;font-size:12px">Book your walkthrough</h2>
+<div class="book"><h2 style="letter-spacing:1.8px;text-transform:uppercase;font-size:11px">Book your walkthrough</h2>
 <p>Pick a time for a free 30-minute walkthrough — in person or by call. We'll go through your specific situation and map the fixes that move the needle first. No cost, no obligation.</p>
-<!-- iClose embed slot: replace the iframe src with the iClose scheduler embed URL/snippet when available. -->
-<div class="embed"><iframe title="Book with rabbithole.consulting" src="https://www.rabbithole.consulting/#book" loading="lazy"></iframe></div>
-<p class="src" style="color:#aeb6c2;margin-top:14px">Booking not loading? <a style="color:#fff;text-decoration:underline" href="https://www.rabbithole.consulting/#book">Open the booking page →</a></p></div>
-<p class="src" style="padding-bottom:40px">Prepared by rabbithole.consulting · data collected 2026-05-25 · figures reflect what was publicly observable for this property at audit time.</p>
+<!-- iClosed embed — swap src for a per-calendar URL if provided. -->
+<div class="embed"><iframe title="Book with rabbithole.consulting" src="https://app.iclosed.io/embed" allow="camera; microphone; fullscreen" loading="lazy"></iframe></div>
+<p class="src" style="color:#aeb6c2;margin-top:10px">Booking not loading? <a style="color:#fff;text-decoration:underline" href="https://www.rabbithole.consulting/#book">Open the booking page →</a></p></div>
+<p class="src" style="padding-bottom:28px">Prepared by rabbithole.consulting · data collected 2026-05-25 · figures reflect what was publicly observable for this property at audit time.</p>
 </div></body></html>
