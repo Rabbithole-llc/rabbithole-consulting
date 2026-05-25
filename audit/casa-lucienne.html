@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casa Lucienne - Digital Deep-Dive · rabbithole.consulting</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://app.iclosed.io" crossorigin>
+<link rel="dns-prefetch" href="https://app.iclosed.io">
+<link rel="preload" as="script" href="https://app.iclosed.io/assets/widget.js">
+<style>
+:root{--ink:#14161a;--muted:#5b626d;--line:#e7e9ee;--bg:#f6f7f9;--card:#fff;--accent:#1f6feb;--good:#1f8a4c;--warn:#9a6a00;--crit:#b3261e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.42}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+header.top{border-bottom:1px solid var(--line);background:#fff}
+.kick{font-size:10.5px;letter-spacing:2.2px;text-transform:uppercase;color:var(--muted)}
+.hero{padding:18px 0 16px}h1{font-size:25px;line-height:1.08;margin:4px 0 2px;letter-spacing:-0.4px}
+.meta{color:var(--muted);font-size:12.5px}.lede{font-size:14.5px;margin:9px 0 0;max-width:64ch}
+.hero-grid{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.ring{--p:56;width:100px;height:100px;border-radius:50%;flex:none;background:conic-gradient(var(--accent) calc(var(--p)*1%),#e9edf3 0);display:grid;place-items:center}
+.ring>div{width:80px;height:80px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center}
+.ring b{font-size:23px;display:block;line-height:1}.ring span{font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted)}
+.ring-note{font-size:13px;color:var(--muted);max-width:50ch;line-height:1.42}
+section{padding:14px 0;border-bottom:1px solid var(--line)}
+section p{margin:5px 0}
+h2{font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:7px}@media(max-width:640px){.cards{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:8px 11px}
+.card .lab{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}.card .val{font-size:13.5px;font-weight:600;margin-top:2px}.card .src{font-size:11.5px;color:var(--muted);line-height:1.35;margin-top:1px}
+.tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:2px 7px;border-radius:999px}
+.t-good{background:#e7f4ec;color:var(--good)}.t-warn{background:#fbf2dd;color:var(--warn)}.t-crit{background:#fbe6e4;color:var(--crit)}
+details{background:var(--card);border:1px solid var(--line);border-radius:9px;margin-bottom:7px;overflow:hidden}
+summary{cursor:pointer;list-style:none;padding:9px 12px;display:flex;gap:10px;justify-content:space-between;align-items:flex-start}summary::-webkit-details-marker{display:none}
+summary h3{font-size:14.5px;margin:0;line-height:1.25}.body{padding:0 12px 11px;color:#23262c}.body p{margin:4px 0}.lbl{font-weight:700}
+.scoregrid{display:grid;grid-template-columns:1fr auto;gap:0 12px}.scoregrid .name{padding:5px 0;border-bottom:1px solid var(--line);font-size:13.5px}.scoregrid .st{padding:5px 0;border-bottom:1px solid var(--line);text-align:right}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.pill{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 9px;background:#fff}
+ol.plan{counter-reset:s;list-style:none;padding:0;margin:0}ol.plan li{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 12px 9px 42px;position:relative;margin-bottom:6px;font-size:13.5px}
+ol.plan li::before{counter-increment:s;content:counter(s);position:absolute;left:11px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+.book{background:var(--ink);color:#fff;border-radius:12px;padding:18px;text-align:center;margin:14px 0}.book h2{color:#cdd3de;margin:0 0 4px}.book p{color:#e7eaf0;max-width:54ch;margin:4px auto 10px;font-size:13.5px}
+.embed{background:#fff;border-radius:10px;overflow:hidden;max-width:760px;margin:0 auto;min-height:420px}.embed iframe{display:block;width:100%;border:0}.embed .iclosed-widget{width:100%}
+.src{font-size:11.5px;color:var(--muted)}
+.cat{font-size:11px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.lede2{margin:0 0 6px;max-width:64ch;font-size:14px}
+.bars{padding:14px 0;border-bottom:1px solid var(--line)}.bar-row{display:grid;grid-template-columns:155px 1fr 32px;gap:10px;align-items:center;padding:3px 0;font-size:12.5px;color:var(--ink)}.bar-label{color:#23262c}.bar-track{height:6px;background:#e9edf3;border-radius:999px;overflow:hidden}.bar-fill{display:block;height:100%;border-radius:999px;background:var(--accent)}.bar-val{font-size:11.5px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+@media(max-width:600px){
+  body{font-size:14px;line-height:1.5;-webkit-text-size-adjust:100%}
+  .wrap{padding:0 14px}
+  h1{font-size:21px;line-height:1.12;letter-spacing:-0.3px}
+  .hero{padding:16px 0 14px}
+  .meta{font-size:12px}.lede{font-size:14px;line-height:1.45;max-width:none}
+  .hero-grid{gap:12px;margin-top:10px;flex-direction:column;align-items:flex-start}
+  .ring{width:84px;height:84px}.ring>div{width:66px;height:66px}.ring b{font-size:20px}
+  .ring-note{font-size:12.5px;max-width:100%;line-height:1.42}
+  section{padding:15px 0}
+  h2{font-size:11px;margin-bottom:10px}
+  .cards{gap:6px}
+  .card{padding:8px 10px}.card .val{font-size:13px}.card .src{font-size:11.5px}
+  .scoregrid{gap:0 10px}
+  .scoregrid .name{font-size:13px;padding-right:6px;min-width:0;word-break:break-word}
+  .scoregrid .st{white-space:nowrap}
+  .tag{font-size:9px;padding:2px 6px}
+  summary{padding:11px 12px}summary h3{font-size:14px;line-height:1.25}
+  .body{padding:0 12px 12px;font-size:13.5px}
+  .pill{font-size:11.5px;padding:3px 8px}
+  ol.plan li{padding:9px 12px 9px 40px;font-size:13px}
+  ol.plan li::before{left:10px;top:9px;width:20px;height:20px;font-size:11px}
+  .book{padding:16px;border-radius:12px;margin:12px 0}
+  .book p{font-size:13px;max-width:none}
+  .embed{max-width:100%;min-height:520px}
+  .embed iframe,.embed .iclosed-widget{min-height:520px}
+  .bars{padding:12px 0}  .bar-row{grid-template-columns:120px 1fr 28px;gap:8px;font-size:11.5px;padding:2px 0}  .bar-val{font-size:11px}
+  .cat{margin:12px 0 6px}
+}
+</style></head><body>
+<header class="top"><div class="wrap hero">
+<div class="kick">rabbithole.consulting · digital deep-dive</div>
+<h1>Casa Lucienne</h1>
+<div class="meta">Old San Juan · 406 C. de la Luna · casaluciennepr.com</div>
+<p class="lede">Casa Lucienne is the newest of the group and the best built - direct booking through Cloudbeds, the fastest site, and the strongest security baseline. With 13 reviews at 4.5 stars, the job now is visibility: Google can't read your site as a hotel, you're not in the category search yet, and there's very little on the page for search engines to work with.</p>
+<div class="hero-grid"><div class="ring" style="--p:62"><div><span>Digital</span><b>62</b><span>/ 100</span></div></div>
+<div class="ring-note">A composite snapshot across reputation, booking, distribution, discoverability, site health, and brand. <b>Best-built site of the group, newest brand.</b> The fastest wins are making the page legible to Google as a hotel and building review velocity.</div></div>
+</div></header>
+<div class="wrap">
+<section class="bars">
+<h2>Across the funnel</h2>
+  <div class="bar-row"><span class="bar-label">Direct booking</span><span class="bar-track"><span class="bar-fill" style="width:85%;background:var(--good)"></span></span><span class="bar-val">85</span></div>
+  <div class="bar-row"><span class="bar-label">Site and security</span><span class="bar-track"><span class="bar-fill" style="width:80%;background:var(--good)"></span></span><span class="bar-val">80</span></div>
+  <div class="bar-row"><span class="bar-label">Guest reputation (thin)</span><span class="bar-track"><span class="bar-fill" style="width:70%;background:var(--good)"></span></span><span class="bar-val">70</span></div>
+  <div class="bar-row"><span class="bar-label">Google-readable (schema)</span><span class="bar-track"><span class="bar-fill" style="width:18%;background:var(--crit)"></span></span><span class="bar-val">18</span></div>
+  <div class="bar-row"><span class="bar-label">Search discoverability</span><span class="bar-track"><span class="bar-fill" style="width:18%;background:var(--crit)"></span></span><span class="bar-val">18</span></div>
+</section>
+<section><h2>Where you stand today</h2><div class="scoregrid">
+<div class="name">Guest reputation (Google)</div><div class="st"><span class="tag t-good">4.5 / 13 - new</span></div>
+<div class="name">Direct booking on your site</div><div class="st"><span class="tag t-good">Yes - Cloudbeds</span></div>
+<div class="name">Website speed</div><div class="st"><span class="tag t-good">Strong - best of group</span></div>
+<div class="name">Website security</div><div class="st"><span class="tag t-good">Strong</span></div>
+<div class="name">Google can read your site as a hotel</div><div class="st"><span class="tag t-crit">No</span></div>
+<div class="name">Structured data on site</div><div class="st"><span class="tag t-warn">Minimal</span></div>
+<div class="name">Found for &quot;boutique hotel San Juan&quot;</div><div class="st"><span class="tag t-warn">Not ranking</span></div>
+<div class="name">Listed on TripAdvisor / Booking / Expedia / Airbnb</div><div class="st"><span class="tag t-good">Yes</span></div>
+</div></section>
+<section><h2>The research behind this audit</h2><p class="src" style="margin-top:-4px">Every line is real data we pulled before writing a word: Google, your live site, the booking flow, search results, and the platforms travelers use.</p>
+<div class="cards" style="margin-top:9px">
+<div class="card"><div class="lab">Google rating</div><div class="val">4.5 / 13</div><div class="src">Newest property, smallest review base; trajectory is the metric</div></div>
+<div class="card"><div class="lab">Direct booking</div><div class="val">Cloudbeds (active)</div><div class="src">Direct booking already wired into your own site</div></div>
+<div class="card"><div class="lab">TripAdvisor / Booking / Expedia / Airbnb</div><div class="val">Listed ✓</div><div class="src">Present on every major demand source</div></div>
+<div class="card"><div class="lab">Instagram</div><div class="val">@casaluciennepr</div><div class="src">Linked from the site (but the link uses an insecure http address)</div></div>
+<div class="card"><div class="lab">Structured data</div><div class="val">1 schema</div><div class="src">WebSite only - sparsest of the group; no Hotel tag, no rating</div></div>
+<div class="card"><div class="lab">Mobile performance</div><div class="val">71 / 100</div><div class="src">LCP 7.1s on mobile; desktop is much faster</div></div>
+<div class="card"><div class="lab">Desktop performance</div><div class="val">93 / 100</div><div class="src">Best desktop score in the audit</div></div>
+<div class="card"><div class="lab">Security headers</div><div class="val">Strong</div><div class="src">HSTS present - the best baseline in the group</div></div>
+<div class="card"><div class="lab">Search - your name</div><div class="val">#1</div><div class="src">You win for your own name</div></div>
+<div class="card"><div class="lab">Search - category</div><div class="val">Not ranking</div><div class="src">"boutique hotel San Juan" returns competitors</div></div>
+</div></section>
+<section><h2>Distribution &amp; booking, the big picture</h2><p>You're on every major OTA travelers check and you already take direct bookings through Cloudbeds, on a fast, secure site. The work is upstream: Google has almost nothing to read on the page (just one schema, no hotel tag), so your 4.5 and your rooms don't show up where guests are comparing.</p>
+<div class="pill-row"><span class="pill"><b>Direct (own site):</b> ✓ Cloudbeds</span><span class="pill"><b>TripAdvisor:</b> ✓ listed</span><span class="pill"><b>Booking.com:</b> ✓ listed</span><span class="pill"><b>Expedia:</b> ✓ listed</span><span class="pill"><b>Airbnb:</b> ✓ listed</span><span class="pill"><b>Yelp:</b> not confirmed</span></div></section>
+<section><h2>Reputation &amp; guest sentiment</h2><p>4.5 stars across 13 reviews is a strong start for the newest property in this audit, but the base is thin: a single bad review moves the average noticeably. Building review velocity is part of the work, alongside getting found in the first place.</p><p class="src">Sentiment here is drawn from your overall ratings and a sampled set of recent reviews. Full theme-by-theme sentiment across every review on every platform is a quick add-on.</p></section>
+<section><h2>What needs attention, in priority order</h2>
+<details open><summary><h3>Google can't read your site as a hotel</h3><span class="tag t-crit">Critical</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> No hotel structured data and very little markup at all, so Google has almost nothing to show; your 4.5 and your rooms don't surface where travelers compare.</p><p><span class="lbl">The fix.</span> Proper hotel tagging gives Google something to surface.</p></div></details>
+<details><summary><h3>You're invisible for the category</h3><span class="tag t-warn">High</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> "boutique hotel San Juan" goes to Olive, SLH, and Acacia; a new property needs into that race.</p><p><span class="lbl">The fix.</span> Structured data plus a fuller site plus a stronger local profile.</p></div></details>
+<details><summary><h3>Build review velocity</h3><span class="tag t-warn">High</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> Thirteen reviews is a strong 4.5 but a thin base; one bad review moves the average a lot.</p><p><span class="lbl">The fix.</span> A simple post-stay review flow builds the base over the next few months.</p></div></details>
+<details><summary><h3>A couple of small fixes</h3><span class="tag t-warn">Medium</span></summary><div class="body"><p><span class="lbl">Why it matters.</span> The Instagram link uses an insecure http address; mobile still loads slowly despite a fast desktop.</p><p><span class="lbl">The fix.</span> Both are quick clean fixes.</p></div></details>
+</section>
+<section><h2>The competitive picture</h2><p>Search "boutique hotel in San Juan" and the top results are Olive Boutique Hotel, SLH, and Acacia Boutique Hotel, Casa Lucienne isn't among them yet. With the best-built site of the group, getting found is the whole opportunity.</p></section>
+<section><h2>If we worked together, here's the order</h2><ol class="plan">
+<li><b>Make Google read you.</b> Add hotel structured data on the well-built foundation you already have, so the 4.5 you've earned starts showing in hotel results.</li>
+<li><b>Build review velocity.</b> A simple post-stay flow that turns happy guests into reviews on Google and Booking, growing the base from 13 toward something Google can rank on.</li>
+<li><b>Get into the category.</b> Structured data plus a fuller site plus a stronger local profile bring you into "boutique hotel San Juan" results.</li>
+<li><b>Close the small fixes.</b> Move the Instagram link to https, and a focused mobile-performance pass to match the desktop 93.</li>
+</ol></section>
+<section><h2>Beyond the audit: how we work with boutique hotels</h2>
+<p class="lede2">Fixing what's above is the start. Beyond it, Rabbithole builds <b>custom front-office infrastructure</b> for your hotel, not a menu of plug-in products, but a coherent system that runs reservations, guest communication, and growth around your property.</p>
+<h3 class="cat">Operations</h3>
+<div class="cards">
+  <div class="card"><div class="val">AI Receptionist</div><div class="src">A voice agent that answers every call to the property, books rooms over the phone, transfers genuine emergencies to staff, and follows up by SMS, so nights, weekends, and overflow stop costing you reservations.</div></div>
+  <div class="card"><div class="val">Unified Guest Inbox</div><div class="src">Phone, SMS, WhatsApp, Booking.com messages, email, and Instagram DMs land in one threaded inbox per guest, so a single person on shift can respond fast without juggling six tabs.</div></div>
+  <div class="card"><div class="val">Direct Booking Chat</div><div class="src">A booking-aware chat on your site that quotes live availability, answers room and policy questions, and pushes guests through to checkout, so the people who already trust your brand stop bouncing to an OTA.</div></div>
+  <div class="card"><div class="val">AI Review Responses</div><div class="src">Drafts personalized public replies to every new review on Google, TripAdvisor, Booking, and Expedia within hours, in your voice and approved before posting, so recent 1★ and 2★ stop dragging your rank.</div></div>
+  <div class="card"><div class="val">Pre-Arrival Sequences</div><div class="src">Automated, well-timed pre-arrival messages handle parking, check-in, upsells (early check-in, late checkout, upgrades), and local recommendations, so guests arrive oriented and revenue per stay lifts.</div></div>
+  <div class="card"><div class="val">Rate Parity &amp; Channel Profitability</div><div class="src">Monitors your rates across every OTA in near-real-time, flags parity violations, and surfaces true margin per channel after commissions, so you know which platforms actually pay and which to deprioritize.</div></div>
+  <div class="card"><div class="val">Daily Briefing &amp; Live Calendar</div><div class="src">A single morning briefing on arrivals, departures, special requests, and revenue pace, plus a live occupancy calendar, so the front desk and ownership see the property the same way every morning.</div></div>
+</div>
+<h3 class="cat">Marketing &amp; growth</h3>
+<div class="cards">
+  <div class="card"><div class="val">Brand Engine</div><div class="src">Locks in your voice, photography style, and visual system so every channel - site, social, ads, email, booking flow - feels like one property, not a patchwork.</div></div>
+  <div class="card"><div class="val">Content Generation</div><div class="src">On-brand photo, copy, and short-video output at the cadence your channels need, drawn from real moments at the property rather than stock footage that flattens the place.</div></div>
+  <div class="card"><div class="val">Content Calendar &amp; Scheduling</div><div class="src">A 60-day calendar of posts across Instagram, TikTok, Facebook, and email, scheduled and published automatically with current rates and seasonal offers built into the messaging.</div></div>
+  <div class="card"><div class="val">Paid Ads</div><div class="src">Auto-paced campaigns across Google, Meta, TikTok, and LinkedIn that shift budget toward what's actually returning, with creative refreshed before fatigue rather than after.</div></div>
+  <div class="card"><div class="val">Marketing Analytics &amp; Attribution</div><div class="src">Tracks every booking - direct, OTA, ad-driven, organic - back to the channel and touchpoint that produced it, so you stop guessing what marketing spend is actually doing.</div></div>
+  <div class="card"><div class="val">AI Discovery (GEO / AEO)</div><div class="src">Optimizes how ChatGPT, Claude, Perplexity, and Gemini describe your property when a traveler asks them for the best boutique hotel in Old San Juan, the new search front door.</div></div>
+  <div class="card"><div class="val">Distinctiveness Audit</div><div class="src">Quarterly comparison of your brand, copy, photography, and positioning against your direct competitors so you stop sounding like every other Old San Juan boutique hotel.</div></div>
+</div>
+</section>
+<div class="book"><h2 style="letter-spacing:1.8px;text-transform:uppercase;font-size:11px">Book your walkthrough</h2>
+<p>Pick a time for a free 30-minute walkthrough, in person or by call. We'll go through your specific situation and map the fixes that move the needle first. No cost, no obligation.</p>
+<!-- iClosed inline widget, same snippet the live homepage /#book section uses (index.html:1633-1634). Swap the data-url for a per-property calendar if one is provided. -->
+<div class="embed">
+  <!-- iClosed inline widget begin -->
+  <div class="iclosed-widget" data-url="https://app.iclosed.io/e/rabbithole-consulting/30-min-strategy-call" title="30-min Strategy Call" style="width: 100%; height: 620px"></div>
+  <script type="text/javascript" src="https://app.iclosed.io/assets/widget.js" async></script>
+  <!-- iClosed inline widget end -->
+</div>
+<p class="src" style="color:#aeb6c2;margin-top:10px">Booking not loading? <a style="color:#fff;text-decoration:underline" href="https://www.rabbithole.consulting/#book">Open the booking page →</a></p></div>
+<p class="src" style="padding-bottom:28px">Prepared by rabbithole.consulting · data collected 2026-05-25 · figures reflect what was publicly observable for this property at audit time.</p>
+</div></body></html>
