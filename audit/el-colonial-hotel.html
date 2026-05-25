@@ -34,6 +34,23 @@ ol.plan li::before{counter-increment:s;content:counter(s);position:absolute;left
 .book{background:var(--ink);color:#fff;border-radius:12px;padding:18px;text-align:center;margin:14px 0}.book h2{color:#cdd3de;margin:0 0 4px}.book p{color:#e7eaf0;max-width:54ch;margin:4px auto 10px;font-size:13.5px}
 .embed{background:#fff;border-radius:10px;overflow:hidden;max-width:760px;margin:0 auto;min-height:420px}.embed iframe{display:block;width:100%;border:0}.embed .iclosed-widget{width:100%}
 .src{font-size:11.5px;color:var(--muted)}
+@media(max-width:600px){
+  body{font-size:14px;line-height:1.5}
+  .wrap{padding:0 14px}
+  h1{font-size:21px;line-height:1.12}
+  .hero{padding:16px 0 14px}
+  .meta{font-size:12px}.lede{font-size:14px}
+  .hero-grid{gap:14px}
+  .ring{width:84px;height:84px}.ring>div{width:66px;height:66px}.ring b{font-size:20px}
+  .ring-note{font-size:12.5px}
+  section{padding:15px 0}
+  h2{font-size:11px;margin-bottom:10px}
+  .scoregrid .name{font-size:13px}
+  summary{padding:12px}summary h3{font-size:14px}
+  .body{padding:0 12px 12px;font-size:13.5px}
+  .book{padding:16px;border-radius:12px}
+  .embed iframe,.embed .iclosed-widget{min-height:520px}
+}
 </style></head><body>
 <header class="top"><div class="wrap hero">
 <div class="kick">rabbithole.consulting · digital deep-dive</div>
@@ -89,6 +106,14 @@ ol.plan li::before{counter-increment:s;content:counter(s);position:absolute;left
 <li><b>Make Google &amp; AI read you.</b> Add hotel structured data so your rating shows in results and assistants surface you.</li>
 <li><b>Strengthen the foundation.</b> Mobile performance, security headers, and a tighter page so guests can actually find the rooms and the booking.</li>
 </ol></section>
+<section><h2>Beyond the audit — what we build for hotels</h2>
+<p style="margin-top:-4px;max-width:64ch">Fixing what's above is the start. Rabbithole builds the systems that run a hotel's front office — so the demand your reputation creates turns into booked, repeat guests.</p>
+<div class="cards" style="margin-top:12px">
+  <div class="card"><div class="lab">Booking &amp; front-desk automation</div><div class="val">Own every reservation</div><div class="src">Capture bookings directly, cut no-shows, and stop leaking guests to the OTAs</div></div>
+  <div class="card"><div class="lab">AI call handling</div><div class="val">Answer every call</div><div class="src">Take bookings around the clock — nights, weekends, and overflow included</div></div>
+  <div class="card"><div class="lab">Guest messaging</div><div class="val">Automated &amp; on time</div><div class="src">Pre-arrival, upsells, and review requests that protect the rating and lift revenue per stay</div></div>
+  <div class="card"><div class="lab">Marketing automation</div><div class="val">Fill rooms on your terms</div><div class="src">Email &amp; SMS campaigns, win-backs, and direct-booking pushes</div></div>
+</div></section>
 <div class="book"><h2 style="letter-spacing:1.8px;text-transform:uppercase;font-size:11px">Book your walkthrough</h2>
 <p>Pick a time for a free 30-minute walkthrough — in person or by call. We'll go through your specific situation and map the fixes that move the needle first. No cost, no obligation.</p>
 <!-- iClosed inline widget — same pattern the live /#book section uses (index.html). Swap the data-url for a per-property calendar if one is provided. -->
