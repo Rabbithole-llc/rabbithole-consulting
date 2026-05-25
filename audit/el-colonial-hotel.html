@@ -32,7 +32,7 @@ summary h3{font-size:14.5px;margin:0;line-height:1.25}.body{padding:0 12px 11px;
 ol.plan{counter-reset:s;list-style:none;padding:0;margin:0}ol.plan li{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 12px 9px 42px;position:relative;margin-bottom:6px;font-size:13.5px}
 ol.plan li::before{counter-increment:s;content:counter(s);position:absolute;left:11px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
 .book{background:var(--ink);color:#fff;border-radius:12px;padding:18px;text-align:center;margin:14px 0}.book h2{color:#cdd3de;margin:0 0 4px}.book p{color:#e7eaf0;max-width:54ch;margin:4px auto 10px;font-size:13.5px}
-.embed{background:#fff;border-radius:10px;overflow:hidden;max-width:560px;margin:0 auto}.embed iframe{width:100%;height:560px;border:0;display:block}
+.embed{background:#fff;border-radius:10px;overflow:hidden;max-width:760px;margin:0 auto;min-height:420px}.embed iframe{display:block;width:100%;border:0}.embed .iclosed-widget{width:100%}
 .src{font-size:11.5px;color:var(--muted)}
 </style></head><body>
 <header class="top"><div class="wrap hero">
@@ -91,8 +91,11 @@ ol.plan li::before{counter-increment:s;content:counter(s);position:absolute;left
 </ol></section>
 <div class="book"><h2 style="letter-spacing:1.8px;text-transform:uppercase;font-size:11px">Book your walkthrough</h2>
 <p>Pick a time for a free 30-minute walkthrough — in person or by call. We'll go through your specific situation and map the fixes that move the needle first. No cost, no obligation.</p>
-<!-- iClosed embed — swap src for a per-calendar URL if provided. -->
-<div class="embed"><iframe title="Book with rabbithole.consulting" src="https://app.iclosed.io/embed" allow="camera; microphone; fullscreen" loading="lazy"></iframe></div>
+<!-- iClosed inline widget — same pattern the live /#book section uses (index.html). Swap the data-url for a per-property calendar if one is provided. -->
+<div class="embed">
+  <div class="iclosed-widget" data-url="https://app.iclosed.io/e/rabbithole-consulting/30-min-strategy-call" title="30-min Strategy Call" style="width:100%;height:620px"></div>
+  <script type="text/javascript" src="https://app.iclosed.io/assets/widget.js" async></script>
+</div>
 <p class="src" style="color:#aeb6c2;margin-top:10px">Booking not loading? <a style="color:#fff;text-decoration:underline" href="https://www.rabbithole.consulting/#book">Open the booking page →</a></p></div>
 <p class="src" style="padding-bottom:28px">Prepared by rabbithole.consulting · data collected 2026-05-25 · figures reflect what was publicly observable for this property at audit time.</p>
 </div></body></html>
