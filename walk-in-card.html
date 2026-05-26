@@ -63,10 +63,29 @@ body {
   .sheet { box-shadow: none !important; padding: 0; max-width: none; min-height: 0; }
 }
 
-/* ---- Wordmark (text-only, no ink-heavy logo image) ---- */
+/* ---- Brand lockup (spiral mark + wordmark) ---- */
 .brand {
-  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.18in;
   margin-bottom: 0.25in;
+}
+.brand .mark {
+  flex-shrink: 0;
+  width: 0.6in;
+  height: 0.6in;
+  background-image: url('/assets/logo-black-512.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Make sure the mark prints crisply, not auto-suppressed by some browsers' "save ink" print options */
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.brand .wm-stack {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
 }
 .brand .name {
   font-family: 'Inter Tight', sans-serif;
@@ -166,8 +185,11 @@ body {
 <div class="sheet">
 
   <header class="brand">
-    <div class="name" translate="no">Rabbithole</div>
-    <div class="tag">Consulting</div>
+    <span class="mark" aria-hidden="true"></span>
+    <div class="wm-stack">
+      <div class="name" translate="no">Rabbithole</div>
+      <div class="tag">Consulting</div>
+    </div>
   </header>
 
   <section class="letter">
@@ -175,7 +197,7 @@ body {
     <p>We came by today looking to talk to your owner or manager. They weren't here, so we decided to leave you this. It's just a short introduction about us.</p>
     <p>If you have 15 minutes, we'd truly appreciate the chance to talk more about your business, learn from your expertise in the industry, and figure out how we can better serve businesses like yours.</p>
     <p>Below is a QR code that will show you a little bit more about us and what we do at <span translate="no">Rabbithole</span>.</p>
-    <p>Look forward to speaking soon. Thanks for the hospitality.</p>
+    <p>Look forward to speaking soon. Thanks for your time.</p>
     <div class="signature">Austin &amp; Juan</div>
   </section>
 
