@@ -275,12 +275,42 @@ section{
   font-size:.82rem;letter-spacing:.04em;color:var(--ink);
 }
 
-/* ============== SECTION 1.5 — STANDALONE BRIDGE VISUAL ============== */
+/* ============== SECTION 1.5 — FOUNDER BUBBLES ============== */
 .bridge-visual{
   background:var(--bg-2);
   padding:0 28px 72px;
 }
-.bridge-visual .vfx{max-width:1180px;margin:0 auto}
+.founders-row{
+  display:flex;justify-content:center;align-items:flex-start;
+  gap:72px;
+}
+.founder-bubble{
+  display:flex;flex-direction:column;align-items:center;gap:18px;
+}
+.founder-bubble .bubble{
+  width:240px;height:240px;border-radius:50%;
+  overflow:hidden;
+  background:var(--bg-3);
+  box-shadow:0 16px 40px -16px rgba(10,18,38,.22), 0 0 0 1px rgba(10,18,38,.05);
+}
+.founder-bubble .bubble img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center 25%;
+  display:block;
+}
+.founder-bubble .bubble img.austin-img{
+  filter:brightness(1.06) contrast(1.04) saturate(1.12);
+}
+.founder-bubble figcaption{text-align:center}
+.founder-bubble .b-name{
+  font-family:'Inter Tight',sans-serif;font-weight:800;
+  font-size:1.15rem;letter-spacing:-.01em;color:var(--ink);
+}
+.founder-bubble .b-role{
+  font-family:'Inter Tight',sans-serif;font-weight:700;
+  font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--inkblue);margin-top:6px;
+}
 
 /* ============== SECTION 2 — WHAT WE BUILD ============== */
 .build{background:var(--bg)}
@@ -439,6 +469,11 @@ footer a:hover{border-color:var(--inkblue);color:var(--inkblue)}
   .intro p{font-size:.9rem;line-height:1.55;margin-bottom:8px}
   .intro .signoff{font-size:.72rem;margin-top:12px;padding-top:10px}
   .bridge-visual{padding:0 18px 36px}
+  .founders-row{gap:24px}
+  .founder-bubble{gap:12px}
+  .founder-bubble .bubble{width:140px;height:140px}
+  .founder-bubble .b-name{font-size:.96rem}
+  .founder-bubble .b-role{font-size:.58rem;letter-spacing:.18em;margin-top:4px}
 
   .build .vfx{margin-bottom:20px}
 
@@ -541,20 +576,33 @@ footer a:hover{border-color:var(--inkblue);color:var(--inkblue)}
 </section>
 
 <!-- ============================================================
-     SECTION 1.5. STANDALONE VISUAL (was inside Austin & Juan).
-     Pulled out into its own full-width breath between the founder
-     note and the "What we'd build" section.
+     SECTION 1.5. THE FOUNDERS (two photo bubbles).
+     Replaces the abstract card visual with the actual people
+     behind the note above. Sits between the founder note and
+     "What we'd build" so the reader sees who's offering.
 ============================================================ -->
 <section class="bridge-visual">
-  <div class="wrap">
-    <figure class="vfx fade" data-aspect="21-9" data-slot="02-card-on-counter"
-            data-prompt="Quiet still life: a single matte navy business card resting on a worn wooden counter in a small owner-operated business at end of day. Could read as a restaurant pass, a hotel front desk, a salon station, or a small office reception. Warm wood, a hint of brass hardware, soft evening light from camera-left. The card has a small embossed brass-tone wordmark and a QR code printed in deep ink-blue. Beside the card: a fountain pen, a folded receipt or note, a coffee cup slightly out of focus. Color palette: ink-blue (#1d3a8a), warm cream, aged brass, walnut. 50mm prime lens, shallow depth of field, slight film grain. No faces, no people, no logos, no readable text other than the QR pattern. Premium, considered, intimate. The card has just been set down. Wide composition: 21:9 cinematic, the counter extending across the frame.">
-      <div class="vfx-empty">
-        <span class="slot">02 · The card</span>
-        <div class="title">Matte navy card with QR on a worn wooden counter at end of day</div>
-        <p class="prompt">Wide 21:9 now (standalone full-width). Vertical-neutral. Reads as restaurant pass, hotel desk, salon, or office.</p>
-      </div>
-    </figure>
+  <div class="wrap-narrow">
+    <div class="founders-row fade">
+      <figure class="founder-bubble">
+        <div class="bubble">
+          <img src="/assets/austin-white.png" alt="Austin White" loading="lazy" class="austin-img"/>
+        </div>
+        <figcaption>
+          <div class="b-name">Austin White</div>
+          <div class="b-role">Co-founder</div>
+        </figcaption>
+      </figure>
+      <figure class="founder-bubble">
+        <div class="bubble">
+          <img src="/assets/juan-perez.jpg" alt="Juan Perez" loading="lazy"/>
+        </div>
+        <figcaption>
+          <div class="b-name">Juan Perez</div>
+          <div class="b-role">Co-founder</div>
+        </figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
