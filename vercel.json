@@ -106,6 +106,22 @@
     {
       "source": "/dentist-demo/:path*",
       "destination": "/api/demo?u=https://dentist-demo-production.up.railway.app&path=:path*"
+    },
+    {
+      "source": "/cpa-demo",
+      "destination": "https://portal.rabbithole.consulting/cpa-demo/client"
+    },
+    {
+      "source": "/cpa-demo/:path*",
+      "destination": "https://portal.rabbithole.consulting/cpa-demo/:path*"
+    },
+    {
+      "source": "/_next/:path*",
+      "destination": "https://portal.rabbithole.consulting/_next/:path*"
+    },
+    {
+      "source": "/brand/:path*",
+      "destination": "https://portal.rabbithole.consulting/brand/:path*"
     }
   ],
   "headers": [
@@ -422,6 +438,24 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/cpa-demo",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/cpa-demo/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
         }
       ]
     }
