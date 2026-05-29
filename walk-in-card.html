@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>Rabbithole - Walk-in Card</title>
+
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ---- Print page setup ---- */
+@page {
+  size: letter;
+  margin: 0.6in;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: #fff;
+  color: #000;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.sheet {
+  width: 100%;
+  max-width: 7.3in;       /* letter width 8.5in - 2*0.6in margins */
+  margin: 0 auto;
+  padding: 0.6in 0;       /* on-screen preview gets these margins; print uses @page */
+  display: flex;
+  flex-direction: column;
+  gap: 0.35in;
+  min-height: 9.8in;
+}
+
+/* On screen, show a paper-like preview frame */
+@media screen {
+  body { padding: 32px; background: #f1f1f3; }
+  .sheet {
+    background: #fff;
+    padding: 0.7in 0.6in;
+    box-shadow: 0 12px 40px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.04);
+    border-radius: 4px;
+    min-height: 11in;
+    max-width: 8.5in;
+  }
+}
+
+/* Hide the on-screen frame when printing */
+@media print {
+  body { background: #fff !important; padding: 0; }
+  .sheet { box-shadow: none !important; padding: 0; max-width: none; min-height: 0; }
+}
+
+/* ---- Brand lockup (spiral mark + wordmark) ---- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.18in;
+  margin-bottom: 0.25in;
+}
+.brand .mark {
+  flex-shrink: 0;
+  width: 0.6in;
+  height: 0.6in;
+  background-image: url('/assets/logo-black-512.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Make sure the mark prints crisply, not auto-suppressed by some browsers' "save ink" print options */
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.brand .wm-stack {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.brand .name {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 28pt;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.brand .tag {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 8pt;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  margin-top: 7px;
+  color: #000;
+}
+
+/* ---- Letter body ---- */
+.letter {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14pt;
+  line-height: 1.5;
+  color: #000;
+  max-width: 6.2in;
+}
+.letter .greeting {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 500;
+  font-size: 16pt;
+  margin-bottom: 0.18in;
+}
+.letter p {
+  margin-bottom: 0.18in;
+}
+.letter p:last-of-type {
+  margin-bottom: 0;
+}
+.signature {
+  margin-top: 0.28in;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 13.5pt;
+  letter-spacing: 0.01em;
+}
+
+/* ---- QR block ---- */
+.qr-block {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.12in;
+  padding-top: 0.22in;
+  border-top: 1px solid #000;
+}
+.qr {
+  width: 2.1in;
+  height: 2.1in;
+  display: block;
+}
+.qr svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.qr-caption {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 10pt;
+  letter-spacing: 0.04em;
+}
+.qr-sub {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 9pt;
+  color: #000;
+  letter-spacing: 0.02em;
+}
+
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <header class="brand">
+    <span class="mark" aria-hidden="true"></span>
+    <div class="wm-stack">
+      <div class="name" translate="no">Rabbithole</div>
+      <div class="tag">Consulting</div>
+    </div>
+  </header>
+
+  <section class="letter">
+    <div class="greeting">Hey,</div>
+    <p>We came by today looking to talk to your owner or manager. They weren't here, so we decided to leave you this. It's just a short introduction about us.</p>
+    <p>If you have 15 minutes, we'd truly appreciate the chance to talk more about your business, learn from your expertise in the industry, and figure out how we can better serve businesses like yours.</p>
+    <p>Below is a QR code that will show you a little bit more about us and what we do at <span translate="no">Rabbithole</span>.</p>
+    <p>Look forward to speaking soon. Thanks for your time.</p>
+    <div class="signature">Austin &amp; Juan</div>
+  </section>
+
+  <section class="qr-block">
+    <div class="qr" aria-label="QR code linking to rabbithole.consulting/scan">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 580 580" preserveAspectRatio="xMidYMid meet">
+	
+	<title>QR Code</title>
+	<desc>https://rabbithole.consulting/scan</desc>
+	<rect style="fill:rgb(255, 255, 255);fill-opacity:1" x="0" y="0" width="580" height="580" />
+	<g id="elements">
+		<path style="fill:rgb(0, 0, 0)" d="M 0,0 l 20,0 0,20 -20,0 z M 20,0 l 20,0 0,20 -20,0 z M 40,0 l 20,0 0,20 -20,0 z M 60,0 l 20,0 0,20 -20,0 z M 80,0 l 20,0 0,20 -20,0 z M 100,0 l 20,0 0,20 -20,0 z M 120,0 l 20,0 0,20 -20,0 z M 240,0 l 20,0 0,20 -20,0 z M 260,0 l 20,0 0,20 -20,0 z M 280,0 l 20,0 0,20 -20,0 z M 300,0 l 20,0 0,20 -20,0 z M 380,0 l 20,0 0,20 -20,0 z M 400,0 l 20,0 0,20 -20,0 z M 440,0 l 20,0 0,20 -20,0 z M 460,0 l 20,0 0,20 -20,0 z M 480,0 l 20,0 0,20 -20,0 z M 500,0 l 20,0 0,20 -20,0 z M 520,0 l 20,0 0,20 -20,0 z M 540,0 l 20,0 0,20 -20,0 z M 560,0 l 20,0 0,20 -20,0 z M 0,20 l 20,0 0,20 -20,0 z M 120,20 l 20,0 0,20 -20,0 z M 180,20 l 20,0 0,20 -20,0 z M 220,20 l 20,0 0,20 -20,0 z M 260,20 l 20,0 0,20 -20,0 z M 280,20 l 20,0 0,20 -20,0 z M 300,20 l 20,0 0,20 -20,0 z M 320,20 l 20,0 0,20 -20,0 z M 340,20 l 20,0 0,20 -20,0 z M 360,20 l 20,0 0,20 -20,0 z M 440,20 l 20,0 0,20 -20,0 z M 560,20 l 20,0 0,20 -20,0 z M 0,40 l 20,0 0,20 -20,0 z M 40,40 l 20,0 0,20 -20,0 z M 60,40 l 20,0 0,20 -20,0 z M 80,40 l 20,0 0,20 -20,0 z M 120,40 l 20,0 0,20 -20,0 z M 160,40 l 20,0 0,20 -20,0 z M 180,40 l 20,0 0,20 -20,0 z M 200,40 l 20,0 0,20 -20,0 z M 260,40 l 20,0 0,20 -20,0 z M 300,40 l 20,0 0,20 -20,0 z M 380,40 l 20,0 0,20 -20,0 z M 400,40 l 20,0 0,20 -20,0 z M 440,40 l 20,0 0,20 -20,0 z M 480,40 l 20,0 0,20 -20,0 z M 500,40 l 20,0 0,20 -20,0 z M 520,40 l 20,0 0,20 -20,0 z M 560,40 l 20,0 0,20 -20,0 z M 0,60 l 20,0 0,20 -20,0 z M 40,60 l 20,0 0,20 -20,0 z M 60,60 l 20,0 0,20 -20,0 z M 80,60 l 20,0 0,20 -20,0 z M 120,60 l 20,0 0,20 -20,0 z M 160,60 l 20,0 0,20 -20,0 z M 280,60 l 20,0 0,20 -20,0 z M 300,60 l 20,0 0,20 -20,0 z M 340,60 l 20,0 0,20 -20,0 z M 380,60 l 20,0 0,20 -20,0 z M 440,60 l 20,0 0,20 -20,0 z M 480,60 l 20,0 0,20 -20,0 z M 500,60 l 20,0 0,20 -20,0 z M 520,60 l 20,0 0,20 -20,0 z M 560,60 l 20,0 0,20 -20,0 z M 0,80 l 20,0 0,20 -20,0 z M 40,80 l 20,0 0,20 -20,0 z M 60,80 l 20,0 0,20 -20,0 z M 80,80 l 20,0 0,20 -20,0 z M 120,80 l 20,0 0,20 -20,0 z M 160,80 l 20,0 0,20 -20,0 z M 180,80 l 20,0 0,20 -20,0 z M 300,80 l 20,0 0,20 -20,0 z M 320,80 l 20,0 0,20 -20,0 z M 380,80 l 20,0 0,20 -20,0 z M 400,80 l 20,0 0,20 -20,0 z M 440,80 l 20,0 0,20 -20,0 z M 480,80 l 20,0 0,20 -20,0 z M 500,80 l 20,0 0,20 -20,0 z M 520,80 l 20,0 0,20 -20,0 z M 560,80 l 20,0 0,20 -20,0 z M 0,100 l 20,0 0,20 -20,0 z M 120,100 l 20,0 0,20 -20,0 z M 160,100 l 20,0 0,20 -20,0 z M 180,100 l 20,0 0,20 -20,0 z M 200,100 l 20,0 0,20 -20,0 z M 240,100 l 20,0 0,20 -20,0 z M 400,100 l 20,0 0,20 -20,0 z M 440,100 l 20,0 0,20 -20,0 z M 560,100 l 20,0 0,20 -20,0 z M 0,120 l 20,0 0,20 -20,0 z M 20,120 l 20,0 0,20 -20,0 z M 40,120 l 20,0 0,20 -20,0 z M 60,120 l 20,0 0,20 -20,0 z M 80,120 l 20,0 0,20 -20,0 z M 100,120 l 20,0 0,20 -20,0 z M 120,120 l 20,0 0,20 -20,0 z M 160,120 l 20,0 0,20 -20,0 z M 200,120 l 20,0 0,20 -20,0 z M 240,120 l 20,0 0,20 -20,0 z M 280,120 l 20,0 0,20 -20,0 z M 320,120 l 20,0 0,20 -20,0 z M 360,120 l 20,0 0,20 -20,0 z M 400,120 l 20,0 0,20 -20,0 z M 440,120 l 20,0 0,20 -20,0 z M 460,120 l 20,0 0,20 -20,0 z M 480,120 l 20,0 0,20 -20,0 z M 500,120 l 20,0 0,20 -20,0 z M 520,120 l 20,0 0,20 -20,0 z M 540,120 l 20,0 0,20 -20,0 z M 560,120 l 20,0 0,20 -20,0 z M 160,140 l 20,0 0,20 -20,0 z M 200,140 l 20,0 0,20 -20,0 z M 220,140 l 20,0 0,20 -20,0 z M 240,140 l 20,0 0,20 -20,0 z M 280,140 l 20,0 0,20 -20,0 z M 320,140 l 20,0 0,20 -20,0 z M 380,140 l 20,0 0,20 -20,0 z M 400,140 l 20,0 0,20 -20,0 z M 0,160 l 20,0 0,20 -20,0 z M 40,160 l 20,0 0,20 -20,0 z M 60,160 l 20,0 0,20 -20,0 z M 80,160 l 20,0 0,20 -20,0 z M 100,160 l 20,0 0,20 -20,0 z M 120,160 l 20,0 0,20 -20,0 z M 180,160 l 20,0 0,20 -20,0 z M 340,160 l 20,0 0,20 -20,0 z M 380,160 l 20,0 0,20 -20,0 z M 440,160 l 20,0 0,20 -20,0 z M 460,160 l 20,0 0,20 -20,0 z M 480,160 l 20,0 0,20 -20,0 z M 500,160 l 20,0 0,20 -20,0 z M 520,160 l 20,0 0,20 -20,0 z M 60,180 l 20,0 0,20 -20,0 z M 100,180 l 20,0 0,20 -20,0 z M 140,180 l 20,0 0,20 -20,0 z M 200,180 l 20,0 0,20 -20,0 z M 220,180 l 20,0 0,20 -20,0 z M 260,180 l 20,0 0,20 -20,0 z M 280,180 l 20,0 0,20 -20,0 z M 300,180 l 20,0 0,20 -20,0 z M 340,180 l 20,0 0,20 -20,0 z M 360,180 l 20,0 0,20 -20,0 z M 380,180 l 20,0 0,20 -20,0 z M 400,180 l 20,0 0,20 -20,0 z M 420,180 l 20,0 0,20 -20,0 z M 440,180 l 20,0 0,20 -20,0 z M 460,180 l 20,0 0,20 -20,0 z M 480,180 l 20,0 0,20 -20,0 z M 560,180 l 20,0 0,20 -20,0 z M 20,200 l 20,0 0,20 -20,0 z M 60,200 l 20,0 0,20 -20,0 z M 80,200 l 20,0 0,20 -20,0 z M 100,200 l 20,0 0,20 -20,0 z M 120,200 l 20,0 0,20 -20,0 z M 160,200 l 20,0 0,20 -20,0 z M 180,200 l 20,0 0,20 -20,0 z M 240,200 l 20,0 0,20 -20,0 z M 260,200 l 20,0 0,20 -20,0 z M 280,200 l 20,0 0,20 -20,0 z M 300,200 l 20,0 0,20 -20,0 z M 400,200 l 20,0 0,20 -20,0 z M 420,200 l 20,0 0,20 -20,0 z M 440,200 l 20,0 0,20 -20,0 z M 0,220 l 20,0 0,20 -20,0 z M 20,220 l 20,0 0,20 -20,0 z M 100,220 l 20,0 0,20 -20,0 z M 140,220 l 20,0 0,20 -20,0 z M 160,220 l 20,0 0,20 -20,0 z M 260,220 l 20,0 0,20 -20,0 z M 320,220 l 20,0 0,20 -20,0 z M 360,220 l 20,0 0,20 -20,0 z M 380,220 l 20,0 0,20 -20,0 z M 480,220 l 20,0 0,20 -20,0 z M 500,220 l 20,0 0,20 -20,0 z M 540,220 l 20,0 0,20 -20,0 z M 20,240 l 20,0 0,20 -20,0 z M 80,240 l 20,0 0,20 -20,0 z M 120,240 l 20,0 0,20 -20,0 z M 160,240 l 20,0 0,20 -20,0 z M 180,240 l 20,0 0,20 -20,0 z M 220,240 l 20,0 0,20 -20,0 z M 280,240 l 20,0 0,20 -20,0 z M 340,240 l 20,0 0,20 -20,0 z M 500,240 l 20,0 0,20 -20,0 z M 520,240 l 20,0 0,20 -20,0 z M 40,260 l 20,0 0,20 -20,0 z M 60,260 l 20,0 0,20 -20,0 z M 160,260 l 20,0 0,20 -20,0 z M 180,260 l 20,0 0,20 -20,0 z M 200,260 l 20,0 0,20 -20,0 z M 220,260 l 20,0 0,20 -20,0 z M 320,260 l 20,0 0,20 -20,0 z M 380,260 l 20,0 0,20 -20,0 z M 400,260 l 20,0 0,20 -20,0 z M 440,260 l 20,0 0,20 -20,0 z M 460,260 l 20,0 0,20 -20,0 z M 480,260 l 20,0 0,20 -20,0 z M 560,260 l 20,0 0,20 -20,0 z M 0,280 l 20,0 0,20 -20,0 z M 20,280 l 20,0 0,20 -20,0 z M 40,280 l 20,0 0,20 -20,0 z M 120,280 l 20,0 0,20 -20,0 z M 200,280 l 20,0 0,20 -20,0 z M 300,280 l 20,0 0,20 -20,0 z M 320,280 l 20,0 0,20 -20,0 z M 500,280 l 20,0 0,20 -20,0 z M 520,280 l 20,0 0,20 -20,0 z M 20,300 l 20,0 0,20 -20,0 z M 200,300 l 20,0 0,20 -20,0 z M 220,300 l 20,0 0,20 -20,0 z M 240,300 l 20,0 0,20 -20,0 z M 280,300 l 20,0 0,20 -20,0 z M 300,300 l 20,0 0,20 -20,0 z M 360,300 l 20,0 0,20 -20,0 z M 380,300 l 20,0 0,20 -20,0 z M 400,300 l 20,0 0,20 -20,0 z M 420,300 l 20,0 0,20 -20,0 z M 480,300 l 20,0 0,20 -20,0 z M 540,300 l 20,0 0,20 -20,0 z M 20,320 l 20,0 0,20 -20,0 z M 60,320 l 20,0 0,20 -20,0 z M 80,320 l 20,0 0,20 -20,0 z M 120,320 l 20,0 0,20 -20,0 z M 180,320 l 20,0 0,20 -20,0 z M 200,320 l 20,0 0,20 -20,0 z M 240,320 l 20,0 0,20 -20,0 z M 300,320 l 20,0 0,20 -20,0 z M 340,320 l 20,0 0,20 -20,0 z M 380,320 l 20,0 0,20 -20,0 z M 500,320 l 20,0 0,20 -20,0 z M 520,320 l 20,0 0,20 -20,0 z M 0,340 l 20,0 0,20 -20,0 z M 40,340 l 20,0 0,20 -20,0 z M 60,340 l 20,0 0,20 -20,0 z M 100,340 l 20,0 0,20 -20,0 z M 140,340 l 20,0 0,20 -20,0 z M 160,340 l 20,0 0,20 -20,0 z M 180,340 l 20,0 0,20 -20,0 z M 200,340 l 20,0 0,20 -20,0 z M 240,340 l 20,0 0,20 -20,0 z M 260,340 l 20,0 0,20 -20,0 z M 280,340 l 20,0 0,20 -20,0 z M 320,340 l 20,0 0,20 -20,0 z M 340,340 l 20,0 0,20 -20,0 z M 360,340 l 20,0 0,20 -20,0 z M 380,340 l 20,0 0,20 -20,0 z M 420,340 l 20,0 0,20 -20,0 z M 440,340 l 20,0 0,20 -20,0 z M 460,340 l 20,0 0,20 -20,0 z M 480,340 l 20,0 0,20 -20,0 z M 520,340 l 20,0 0,20 -20,0 z M 560,340 l 20,0 0,20 -20,0 z M 0,360 l 20,0 0,20 -20,0 z M 40,360 l 20,0 0,20 -20,0 z M 60,360 l 20,0 0,20 -20,0 z M 120,360 l 20,0 0,20 -20,0 z M 160,360 l 20,0 0,20 -20,0 z M 180,360 l 20,0 0,20 -20,0 z M 260,360 l 20,0 0,20 -20,0 z M 280,360 l 20,0 0,20 -20,0 z M 300,360 l 20,0 0,20 -20,0 z M 320,360 l 20,0 0,20 -20,0 z M 360,360 l 20,0 0,20 -20,0 z M 400,360 l 20,0 0,20 -20,0 z M 420,360 l 20,0 0,20 -20,0 z M 440,360 l 20,0 0,20 -20,0 z M 460,360 l 20,0 0,20 -20,0 z M 480,360 l 20,0 0,20 -20,0 z M 520,360 l 20,0 0,20 -20,0 z M 0,380 l 20,0 0,20 -20,0 z M 40,380 l 20,0 0,20 -20,0 z M 60,380 l 20,0 0,20 -20,0 z M 80,380 l 20,0 0,20 -20,0 z M 200,380 l 20,0 0,20 -20,0 z M 220,380 l 20,0 0,20 -20,0 z M 240,380 l 20,0 0,20 -20,0 z M 260,380 l 20,0 0,20 -20,0 z M 400,380 l 20,0 0,20 -20,0 z M 420,380 l 20,0 0,20 -20,0 z M 480,380 l 20,0 0,20 -20,0 z M 540,380 l 20,0 0,20 -20,0 z M 0,400 l 20,0 0,20 -20,0 z M 100,400 l 20,0 0,20 -20,0 z M 120,400 l 20,0 0,20 -20,0 z M 140,400 l 20,0 0,20 -20,0 z M 180,400 l 20,0 0,20 -20,0 z M 280,400 l 20,0 0,20 -20,0 z M 300,400 l 20,0 0,20 -20,0 z M 340,400 l 20,0 0,20 -20,0 z M 400,400 l 20,0 0,20 -20,0 z M 420,400 l 20,0 0,20 -20,0 z M 440,400 l 20,0 0,20 -20,0 z M 460,400 l 20,0 0,20 -20,0 z M 480,400 l 20,0 0,20 -20,0 z M 520,400 l 20,0 0,20 -20,0 z M 540,400 l 20,0 0,20 -20,0 z M 560,400 l 20,0 0,20 -20,0 z M 160,420 l 20,0 0,20 -20,0 z M 220,420 l 20,0 0,20 -20,0 z M 320,420 l 20,0 0,20 -20,0 z M 340,420 l 20,0 0,20 -20,0 z M 360,420 l 20,0 0,20 -20,0 z M 400,420 l 20,0 0,20 -20,0 z M 480,420 l 20,0 0,20 -20,0 z M 500,420 l 20,0 0,20 -20,0 z M 520,420 l 20,0 0,20 -20,0 z M 540,420 l 20,0 0,20 -20,0 z M 560,420 l 20,0 0,20 -20,0 z M 0,440 l 20,0 0,20 -20,0 z M 20,440 l 20,0 0,20 -20,0 z M 40,440 l 20,0 0,20 -20,0 z M 60,440 l 20,0 0,20 -20,0 z M 80,440 l 20,0 0,20 -20,0 z M 100,440 l 20,0 0,20 -20,0 z M 120,440 l 20,0 0,20 -20,0 z M 300,440 l 20,0 0,20 -20,0 z M 320,440 l 20,0 0,20 -20,0 z M 340,440 l 20,0 0,20 -20,0 z M 380,440 l 20,0 0,20 -20,0 z M 400,440 l 20,0 0,20 -20,0 z M 440,440 l 20,0 0,20 -20,0 z M 480,440 l 20,0 0,20 -20,0 z M 500,440 l 20,0 0,20 -20,0 z M 520,440 l 20,0 0,20 -20,0 z M 0,460 l 20,0 0,20 -20,0 z M 120,460 l 20,0 0,20 -20,0 z M 160,460 l 20,0 0,20 -20,0 z M 180,460 l 20,0 0,20 -20,0 z M 280,460 l 20,0 0,20 -20,0 z M 360,460 l 20,0 0,20 -20,0 z M 380,460 l 20,0 0,20 -20,0 z M 400,460 l 20,0 0,20 -20,0 z M 480,460 l 20,0 0,20 -20,0 z M 540,460 l 20,0 0,20 -20,0 z M 560,460 l 20,0 0,20 -20,0 z M 0,480 l 20,0 0,20 -20,0 z M 40,480 l 20,0 0,20 -20,0 z M 60,480 l 20,0 0,20 -20,0 z M 80,480 l 20,0 0,20 -20,0 z M 120,480 l 20,0 0,20 -20,0 z M 160,480 l 20,0 0,20 -20,0 z M 180,480 l 20,0 0,20 -20,0 z M 200,480 l 20,0 0,20 -20,0 z M 300,480 l 20,0 0,20 -20,0 z M 320,480 l 20,0 0,20 -20,0 z M 340,480 l 20,0 0,20 -20,0 z M 400,480 l 20,0 0,20 -20,0 z M 420,480 l 20,0 0,20 -20,0 z M 440,480 l 20,0 0,20 -20,0 z M 460,480 l 20,0 0,20 -20,0 z M 480,480 l 20,0 0,20 -20,0 z M 520,480 l 20,0 0,20 -20,0 z M 540,480 l 20,0 0,20 -20,0 z M 0,500 l 20,0 0,20 -20,0 z M 40,500 l 20,0 0,20 -20,0 z M 60,500 l 20,0 0,20 -20,0 z M 80,500 l 20,0 0,20 -20,0 z M 120,500 l 20,0 0,20 -20,0 z M 160,500 l 20,0 0,20 -20,0 z M 180,500 l 20,0 0,20 -20,0 z M 260,500 l 20,0 0,20 -20,0 z M 280,500 l 20,0 0,20 -20,0 z M 320,500 l 20,0 0,20 -20,0 z M 360,500 l 20,0 0,20 -20,0 z M 500,500 l 20,0 0,20 -20,0 z M 520,500 l 20,0 0,20 -20,0 z M 540,500 l 20,0 0,20 -20,0 z M 560,500 l 20,0 0,20 -20,0 z M 0,520 l 20,0 0,20 -20,0 z M 40,520 l 20,0 0,20 -20,0 z M 60,520 l 20,0 0,20 -20,0 z M 80,520 l 20,0 0,20 -20,0 z M 120,520 l 20,0 0,20 -20,0 z M 160,520 l 20,0 0,20 -20,0 z M 180,520 l 20,0 0,20 -20,0 z M 200,520 l 20,0 0,20 -20,0 z M 220,520 l 20,0 0,20 -20,0 z M 240,520 l 20,0 0,20 -20,0 z M 260,520 l 20,0 0,20 -20,0 z M 280,520 l 20,0 0,20 -20,0 z M 300,520 l 20,0 0,20 -20,0 z M 320,520 l 20,0 0,20 -20,0 z M 340,520 l 20,0 0,20 -20,0 z M 380,520 l 20,0 0,20 -20,0 z M 400,520 l 20,0 0,20 -20,0 z M 420,520 l 20,0 0,20 -20,0 z M 440,520 l 20,0 0,20 -20,0 z M 460,520 l 20,0 0,20 -20,0 z M 480,520 l 20,0 0,20 -20,0 z M 500,520 l 20,0 0,20 -20,0 z M 520,520 l 20,0 0,20 -20,0 z M 540,520 l 20,0 0,20 -20,0 z M 0,540 l 20,0 0,20 -20,0 z M 120,540 l 20,0 0,20 -20,0 z M 200,540 l 20,0 0,20 -20,0 z M 240,540 l 20,0 0,20 -20,0 z M 260,540 l 20,0 0,20 -20,0 z M 320,540 l 20,0 0,20 -20,0 z M 400,540 l 20,0 0,20 -20,0 z M 440,540 l 20,0 0,20 -20,0 z M 500,540 l 20,0 0,20 -20,0 z M 540,540 l 20,0 0,20 -20,0 z M 0,560 l 20,0 0,20 -20,0 z M 20,560 l 20,0 0,20 -20,0 z M 40,560 l 20,0 0,20 -20,0 z M 60,560 l 20,0 0,20 -20,0 z M 80,560 l 20,0 0,20 -20,0 z M 100,560 l 20,0 0,20 -20,0 z M 120,560 l 20,0 0,20 -20,0 z M 160,560 l 20,0 0,20 -20,0 z M 180,560 l 20,0 0,20 -20,0 z M 200,560 l 20,0 0,20 -20,0 z M 240,560 l 20,0 0,20 -20,0 z M 260,560 l 20,0 0,20 -20,0 z M 340,560 l 20,0 0,20 -20,0 z M 360,560 l 20,0 0,20 -20,0 z M 380,560 l 20,0 0,20 -20,0 z M 440,560 l 20,0 0,20 -20,0 z M 480,560 l 20,0 0,20 -20,0 z M 500,560 l 20,0 0,20 -20,0 z M 520,560 l 20,0 0,20 -20,0 z " />
+	</g>
+</svg>
+    </div>
+    <div class="qr-caption">Scan to learn more about us</div>
+    <div class="qr-sub">rabbithole.consulting/scan</div>
+  </section>
+
+
+</div>
+
+</body>
+</html>
