@@ -905,7 +905,28 @@ footer .legal-links a:hover{color:var(--ink)}
   .final p{font-size:.82rem}
   .cta-primary{padding:10px 16px;font-size:.74rem}
 }
+
+/* ============== DEMO VIDEO (Wistia) ============== */
+.demo{background:var(--bg)}
+.demo-player{
+  max-width:760px;margin:0 auto;
+  border-radius:16px;overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:0 16px 40px rgba(20,20,20,.10);
+}
+.demo-player wistia-player{display:block;width:100%}
+.demo-cta{text-align:center;margin-top:34px}
+@media(max-width:768px){
+  .demo{padding:34px 16px}
+  .demo-player{border-radius:12px}
+  .demo-cta{margin-top:20px}
+}
 </style>
+
+<!-- Wistia player (Spanish product demo, ungated) -->
+<script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://fast.wistia.com/embed/1hfkczc8jm.js" async type="module"></script>
+<style>wistia-player[media-id='1hfkczc8jm']:not(:defined){background:center / contain no-repeat url('https://fast.wistia.com/embed/medias/1hfkczc8jm/swatch');display:block;filter:blur(5px);padding-top:56.25%;}</style>
 </head>
 <body>
 
@@ -962,6 +983,27 @@ footer .legal-links a:hover{color:var(--ink)}
     </div>
   </div>
 </header>
+
+<section class="demo" id="demo">
+  <div class="wrap-narrow">
+    <div class="section-head centered fade">
+      <span class="section-eyebrow">Demo en Video</span>
+      <h2 class="section-h">Vea la infraestructura en acción.</h2>
+      <p class="section-lead">Un recorrido corto de lo que diseñamos, construimos y operamos para una firma de CPA en Puerto&nbsp;Rico.</p>
+    </div>
+
+    <div class="demo-player fade">
+      <wistia-player media-id="1hfkczc8jm" aspect="1.7777777777777777"></wistia-player>
+    </div>
+
+    <div class="demo-cta fade">
+      <a href="https://app.iclosed.io/e/rabbithole-consulting/30-min-strategy-call" class="cta-primary" target="_blank" rel="noopener">
+        Agende su llamada de 30 minutos
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
 
 <section class="problem" id="problema">
   <div class="wrap">
