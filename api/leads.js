@@ -401,5 +401,3 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ ok: false, error: "Could not save your application. Please try again." });
   }
 };
-
-module.exports.renderLeadEmail = renderLeadEmail;
