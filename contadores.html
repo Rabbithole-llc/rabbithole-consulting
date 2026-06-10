@@ -552,86 +552,6 @@ section{
   .manifesto-card{position:static;padding:36px 28px}
 }
 
-/* ============== OFFER ============== */
-.offer{background:var(--bg-2)}
-.offer-card{
-  max-width:1000px;margin:0 auto;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:24px;
-  padding:48px 48px;
-  position:relative;overflow:hidden;
-  box-shadow:0 16px 40px rgba(20,20,20,.06);
-}
-.offer-card::before{
-  content:"";position:absolute;top:0;left:0;right:0;height:5px;
-  background:var(--inkblue);
-}
-.offer-h{
-  font-family:'Inter Tight',sans-serif;font-weight:800;
-  font-size:clamp(2rem, 3.6vw, 2.8rem);
-  line-height:1.08;letter-spacing:-.02em;
-  margin-top:14px;color:var(--ink);
-}
-.offer-sub{
-  font-family:'Inter',sans-serif;font-size:1.05rem;
-  color:var(--muted);margin-top:18px;max-width:680px;line-height:1.6;
-}
-.offer-sub b{color:var(--ink);font-weight:700}
-.offer-list{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:14px 32px;margin:36px 0;
-}
-.offer-item{
-  display:grid;grid-template-columns:24px 1fr;gap:14px;
-  align-items:start;padding:6px 0;
-}
-.offer-item .check{
-  width:24px;height:24px;border-radius:6px;
-  background:var(--inkblue);color:#fff;
-  display:grid;place-items:center;margin-top:2px;
-}
-.offer-item .check svg{width:13px;height:13px;stroke:currentColor;stroke-width:3.5;fill:none}
-.offer-item .l1{
-  font-family:'Inter Tight',sans-serif;font-weight:700;
-  font-size:.97rem;color:var(--ink);line-height:1.3;
-}
-.offer-item .l2{
-  font-family:'Inter',sans-serif;font-size:.86rem;
-  color:var(--muted);margin-top:3px;line-height:1.4;
-}
-
-/* Launch offer callout — prominent dark banner inside the offer card */
-.launch{
-  display:flex;gap:22px;align-items:center;
-  padding:26px 30px;margin-bottom:34px;
-  background:var(--dark);color:#fff;border-radius:16px;
-}
-.launch .l-badge{
-  flex-shrink:0;font-family:'Inter Tight',sans-serif;font-weight:800;
-  font-size:1.9rem;letter-spacing:-.02em;line-height:1;
-  background:var(--inkblue);color:#fff;
-  padding:16px 18px;border-radius:12px;text-align:center;
-}
-.launch .l-copy .l-1{
-  font-family:'Inter Tight',sans-serif;font-weight:800;
-  font-size:1.2rem;letter-spacing:-.01em;color:#fff;line-height:1.2;
-}
-.launch .l-copy .l-2{
-  font-family:'Inter',sans-serif;font-size:.92rem;
-  color:rgba(255,255,255,.7);margin-top:5px;
-}
-@media(max-width:600px){
-  .launch{flex-direction:column;align-items:flex-start;gap:12px;padding:18px}
-  .launch .l-badge{font-size:1.5rem;padding:11px 14px}
-  .launch .l-copy .l-1{font-size:1.05rem}
-}
-
-@media(max-width:760px){
-  .offer-card{padding:40px 28px;border-radius:18px}
-  .offer-list{grid-template-columns:1fr;gap:14px}
-}
-
 /* ============== FAQ ============== */
 .faq{background:var(--bg)}
 .faq-list{
@@ -702,6 +622,11 @@ details[open] .faq-q .plus{
   min-height:420px;
 }
 .iclosed-frame iframe{display:block;width:100%;border:0}
+.iclosed-fallback{
+  margin:4px auto 0;font-family:'Inter',sans-serif;font-size:.82rem;
+  color:rgba(255,255,255,.7);text-align:center;
+}
+.iclosed-fallback a{color:#fff;text-decoration:underline;font-weight:600}
 
 /* ============== FOOTER ============== */
 footer{
@@ -847,17 +772,6 @@ footer .legal-links a:hover{color:var(--ink)}
   .manifesto-card .m-text{font-size:1.08rem;line-height:1.22;letter-spacing:-.01em}
   .manifesto-card .m-foot{font-size:.78rem;margin-top:14px;padding-top:12px;line-height:1.45}
 
-  .offer{padding:34px 16px}
-  .offer-card{padding:22px 18px;border-radius:14px}
-  .offer-h{font-size:1.2rem;line-height:1.18;margin-top:6px}
-  .offer-sub{font-size:.84rem;margin-top:10px;line-height:1.5}
-  .offer-list{grid-template-columns:1fr;gap:8px;margin:16px 0}
-  .offer-item{grid-template-columns:18px 1fr;gap:10px;padding:3px 0}
-  .offer-item .check{width:18px;height:18px;border-radius:4px}
-  .offer-item .check svg{width:10px;height:10px}
-  .offer-item .l1{font-size:.86rem;line-height:1.25}
-  .offer-item .l2{font-size:.74rem;margin-top:1px;line-height:1.35}
-
   .faq{padding:34px 16px}
   .faq-list{margin-top:14px}
   .faq-item{padding:13px 2px}
@@ -898,14 +812,33 @@ footer .legal-links a:hover{color:var(--ink)}
   .step h3,.build-card h3{font-size:1rem}
   .manifesto-card{padding:18px 14px}
   .manifesto-card .m-text{font-size:1rem}
-  .offer-card{padding:18px 14px}
-  .offer-h{font-size:1.1rem}
   .faq-q h3{font-size:.88rem}
   .final h2{font-size:1.3rem}
   .final p{font-size:.82rem}
   .cta-primary{padding:10px 16px;font-size:.74rem}
 }
+
+/* ============== DEMO VIDEO (Wistia) ============== */
+.demo{background:var(--bg)}
+.demo-player{
+  max-width:760px;margin:0 auto;
+  border-radius:16px;overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:0 16px 40px rgba(20,20,20,.10);
+}
+.demo-player wistia-player{display:block;width:100%}
+.demo-cta{text-align:center;margin-top:34px}
+@media(max-width:768px){
+  .demo{padding:34px 16px}
+  .demo-player{border-radius:12px}
+  .demo-cta{margin-top:20px}
+}
 </style>
+
+<!-- Wistia player (Spanish product demo, ungated) -->
+<script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://fast.wistia.com/embed/1hfkczc8jm.js" async type="module"></script>
+<style>wistia-player[media-id='1hfkczc8jm']:not(:defined){background:center / contain no-repeat url('https://fast.wistia.com/embed/medias/1hfkczc8jm/swatch');display:block;filter:blur(5px);padding-top:56.25%;}</style>
 </head>
 <body>
 
@@ -962,6 +895,27 @@ footer .legal-links a:hover{color:var(--ink)}
     </div>
   </div>
 </header>
+
+<section class="demo" id="demo">
+  <div class="wrap-narrow">
+    <div class="section-head centered fade">
+      <span class="section-eyebrow">Demo en Video</span>
+      <h2 class="section-h">Vea la infraestructura en acción.</h2>
+      <p class="section-lead">Un recorrido corto de lo que diseñamos, construimos y operamos para una firma de CPA en Puerto&nbsp;Rico.</p>
+    </div>
+
+    <div class="demo-player fade">
+      <wistia-player media-id="1hfkczc8jm" aspect="1.7777777777777777"></wistia-player>
+    </div>
+
+    <div class="demo-cta fade">
+      <a href="https://app.iclosed.io/e/rabbithole-consulting/30-min-strategy-call" class="cta-primary" target="_blank" rel="noopener">
+        Agende su llamada de 30 minutos
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
 
 <section class="problem" id="problema">
   <div class="wrap">
@@ -1181,39 +1135,6 @@ footer .legal-links a:hover{color:var(--ink)}
   </div>
 </section>
 
-<section class="offer" id="oferta">
-  <div class="wrap">
-    <div class="offer-card fade">
-
-      <div class="launch">
-        <div class="l-badge">50%</div>
-        <div class="l-copy">
-          <div class="l-1">50% de descuento para nuestros primeros 3 clientes.</div>
-          <div class="l-2">Por tiempo limitado. Una vez ocupados los tres cupos, vuelve el precio regular.</div>
-        </div>
-      </div>
-
-      <span class="section-eyebrow">Oferta de Lanzamiento</span>
-      <h2 class="offer-h">Esto es lo que recibe su firma.</h2>
-      <p class="offer-sub"><b>Un costo único de montaje más una mensualidad, a la medida del tamaño de su firma.</b> Claro desde el primer día. Sin sorpresas.</p>
-
-      <div class="offer-list">
-        <div class="offer-item"><div class="check"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div><div><div class="l1">Auditoría completa de operaciones</div></div></div>
-        <div class="offer-item"><div class="check"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div><div><div class="l1">Sitio web bilingüe + correo propio</div></div></div>
-        <div class="offer-item"><div class="check"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div><div><div class="l1">Google optimizado + campaña de reseñas</div></div></div>
-        <div class="offer-item"><div class="check"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div><div><div class="l1">Correos y documentos organizados solos</div></div></div>
-        <div class="offer-item"><div class="check"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div><div><div class="l1">Seguimiento de planillas y citas</div></div></div>
-        <div class="offer-item"><div class="check"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div><div><div class="l1">Operación y monitoreo 24/7</div></div></div>
-      </div>
-
-      <a href="#agendar" class="cta-primary">
-        Reclamar mi cupo
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
-
 <section class="faq" id="faq">
   <div class="wrap-narrow">
     <div class="section-head centered fade">
@@ -1236,7 +1157,7 @@ footer .legal-links a:hover{color:var(--ink)}
           <h3>¿Cuánto cuesta?</h3>
           <span class="plus">+</span>
         </summary>
-        <p class="faq-a">Depende del tamaño de su firma. Es <b>un costo único de montaje más una mensualidad, a la medida de su práctica</b>, claro y por escrito antes de empezar. Por tiempo limitado, nuestros primeros tres clientes reciben un 50% de descuento.</p>
+        <p class="faq-a">Depende del tamaño de su firma. Es <b>un costo único de montaje más una mensualidad, a la medida de su práctica</b>, claro y por escrito antes de empezar. Sin sorpresas ni facturas inesperadas.</p>
       </details>
 
       <details class="faq-item fade">
@@ -1272,10 +1193,22 @@ footer .legal-links a:hover{color:var(--ink)}
     <h2 class="fade">El trabajo no va a desaparecer. Usted no tiene que seguir haciéndolo.</h2>
     <p class="fade">Treinta minutos con los fundadores para diagnosticar el mayor cuello de botella de su firma y ver <b>qué construiríamos</b> para resolverlo. Sin presión.</p>
 
-    <a href="https://app.iclosed.io/e/rabbithole-consulting/30-min-strategy-call" class="cta-primary fade" target="_blank" rel="noopener">
-      Agendar mi llamada
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
-    </a>
+    <!-- ============================================================
+         iClosed inline embed (official inline-embed snippet).
+         Same markup proven in index.html #book. Books directly on
+         the page — no redirect. See WIRING-ICLOSED.md.
+         ============================================================ -->
+    <div class="iclosed-frame fade">
+      <!-- ICLOSED:EMBED:START -->
+      <!-- iClosed inline widget begin -->
+      <div class="iclosed-widget" data-url="https://app.iclosed.io/e/rabbithole-consulting/30-min-strategy-call" title="30-min Strategy Call" style="width: 100%; height: 620px"></div>
+      <script type="text/javascript" src="https://app.iclosed.io/assets/widget.js" async></script>
+      <!-- iClosed inline widget end -->
+      <!-- ICLOSED:EMBED:END -->
+    </div>
+
+    <!-- Plain-link fallback if the widget script is blocked / fails to load -->
+    <p class="iclosed-fallback fade">¿El calendario no carga? <a href="https://app.iclosed.io/e/rabbithole-consulting/30-min-strategy-call" target="_blank" rel="noopener">Agende su llamada de 30&nbsp;minutos aquí&nbsp;→</a></p>
 
     <div class="meta-row fade">
       <span>Llamada de 30 min con los fundadores</span>
